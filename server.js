@@ -43,6 +43,7 @@ app.get('/api/admin/users',requireAdmin,async(req,res)=>{
 app.patch('/api/admin/users/:id',requireAdmin,async(req,res)=>{
  const id=String(req.params.id);if(!/^\d{1,20}$/.test(id))return res.status(400).json({ok:false,error:'Invalid Telegram ID'});
  const banned=typeof req.body.banned==='boolean'?req.body.banned:null,note=typeof req.body.note==='string'?req.body.note.slice(0,500):null;
+ if(String(req.tg.id)===id&&banned===true)return res.status(400).json({ok:false,error:'Cannot suspend the admin account'});
  if(banned===null&&note===null)return res.status(400).json({ok:false,error:'No changes supplied'});
  const q=await pool.query('UPDATE users SET is_banned=COALESCE($2,is_banned),admin_note=COALESCE($3,admin_note) WHERE telegram_id=$1 RETURNING telegram_id::text id,is_banned,admin_note',[id,banned,note]);
  if(!q.rowCount)return res.status(404).json({ok:false,error:'User not found'});
