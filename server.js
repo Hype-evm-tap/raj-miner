@@ -1,180 +1,33 @@
 import express from "express";
-import { fileURLToPath } from "url";
-import path from "path";
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const app = express();
-app.use(express.json());
-
-const users = new Map();
-const BOT_USERNAME = process.env.BOT_USERNAME || "YourRajMinerBot";
-const BASE_REWARD = 5;
-const REFERRAL_BONUS = 100;
-const TASK_REWARD = 25;
-const CLAIM_INTERVAL_MS = 3 * 60 * 60 * 1000;
-const BOOST_COST = 250;
-const LEVEL_COST = 500;
-
-function getUser(telegramId, username, firstName, referrerId) {
-  if (!users.has(telegramId)) {
-    users.set(telegramId, {
-      telegramId, username: username || "", firstName: firstName || "",
-      balance: 0, level: 1, miningPower: 1, boosts: 0, lastClaimAt: 0,
-      referrerId: referrerId || null, referrals: 0, completedTasks: []
-    });
-    if (referrerId && users.has(referrerId)) {
-      const referrer = users.get(referrerId);
-      referrer.balance += REFERRAL_BONUS;
-      referrer.referrals += 1;
-    }
-  }
-  return users.get(telegramId);
-}
-
-app.get("/api/me", (req, res) => {
-  const telegramId = Number(req.query.telegram_id);
-  const referrerId = Number(req.query.ref) || null;
-  if (!telegramId) return res.status(400).json({ error: "telegram_id required" });
-  const user = getUser(telegramId, req.query.username, req.query.first_name, referrerId);
-  const nextClaimAt = user.lastClaimAt ? user.lastClaimAt + CLAIM_INTERVAL_MS : 0;
-  res.json({
-    ...user, nextClaimAt,
-    referralLink: `https://t.me/${BOT_USERNAME}/app?startapp=ref_${user.telegramId}`,
-    tasks: [
-      { id: "join_channel", title: "Join Raj Miner Channel", reward: TASK_REWARD },
-      { id: "share_app", title: "Share Raj Miner", reward: TASK_REWARD },
-      { id: "daily_login", title: "Daily Check-in", reward: TASK_REWARD }
-    ]
-  });
-});
-
-app.post("/api/claim", (req, res) => {
-  const telegramId = Number(req.body.telegram_id);
-  if (!telegramId || !users.has(telegramId)) return res.status(400).json({ error: "User not found" });
-  const user = users.get(telegramId);
-  const now = Date.now();
-  if (user.lastClaimAt && now - user.lastClaimAt < CLAIM_INTERVAL_MS)
-    return res.status(429).json({ error: "Mining is not ready", nextClaimAt: user.lastClaimAt + CLAIM_INTERVAL_MS });
-  const reward = BASE_REWARD * user.miningPower * (1 + user.boosts * 0.25);
-  user.balance += reward;
-  user.lastClaimAt = now;
-  res.json({ claimed: reward, balance: user.balance, nextClaimAt: now + CLAIM_INTERVAL_MS });
-});
-
-app.post("/api/task", (req, res) => {
-  const telegramId = Number(req.body.telegram_id);
-  const taskId = req.body.task_id;
-  if (!telegramId || !users.has(telegramId)) return res.status(400).json({ error: "User not found" });
-  const user = users.get(telegramId);
-  if (user.completedTasks.includes(taskId)) return res.status(400).json({ error: "Task already completed" });
-  user.completedTasks.push(taskId);
-  user.balance += TASK_REWARD;
-  res.json({ balance: user.balance, completedTasks: user.completedTasks });
-});
-
-app.post("/api/boost", (req, res) => {
-  const telegramId = Number(req.body.telegram_id);
-  if (!telegramId || !users.has(telegramId)) return res.status(400).json({ error: "User not found" });
-  const user = users.get(telegramId);
-  if (user.balance < BOOST_COST) return res.status(400).json({ error: "Not enough RMC" });
-  user.balance -= BOOST_COST; user.boosts += 1; user.miningPower += 0.25;
-  res.json({ balance: user.balance, miningPower: user.miningPower, boosts: user.boosts });
-});
-
-app.post("/api/level-up", (req, res) => {
-  const telegramId = Number(req.body.telegram_id);
-  if (!telegramId || !users.has(telegramId)) return res.status(400).json({ error: "User not found" });
-  const user = users.get(telegramId);
-  if (user.balance < LEVEL_COST) return res.status(400).json({ error: "Not enough RMC" });
-  user.balance -= LEVEL_COST; user.level += 1; user.miningPower += 0.5;
-  res.json({ balance: user.balance, level: user.level, miningPower: user.miningPower });
-});
-
-app.get("/", (req, res) => {
-  res.send(`<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Raj Miner</title><script src="https://telegram.org/js/telegram-web-app.js"></script>
-<style>
-*{box-sizing:border-box;margin:0;padding:0}body{font-family:system-ui,sans-serif;background:#070b16;color:#fff;min-height:100vh}
-.app{max-width:430px;margin:0 auto;padding:16px 16px 90px}
-.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
-.brand{display:flex;align-items:center;gap:10px}.logo{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-weight:900;background:linear-gradient(135deg,#22d3ee,#6366f1)}
-.brand h1{font-size:17px}.brand p{font-size:11px;color:#8b95ad}
-.level{background:#131a2c;border:1px solid #26304d;padding:8px 12px;border-radius:999px;font-size:12px;font-weight:700}
-.hero{text-align:center;background:radial-gradient(circle at 50% 25%,#1d2a4d,#0b1120);border:1px solid #26304d;border-radius:26px;padding:26px 18px;margin-bottom:16px}
-.coin{width:132px;height:132px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;font-size:54px;background:radial-gradient(circle at 30% 25%,#7dd3fc,#2563eb);box-shadow:0 0 42px rgba(56,189,248,.35)}
-.balance{font-size:38px;font-weight:800}.unit{color:#8b95ad;font-size:13px}.power{margin-top:10px;color:#8b95ad;font-size:12px}
-.tap{width:100%;border:0;border-radius:18px;padding:18px;font-size:17px;font-weight:800;color:#04121f;background:linear-gradient(135deg,#22d3ee,#3b82f6);cursor:pointer}
-.status{margin-top:10px;color:#8b95ad;font-size:12px;text-align:center}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
-.tile{background:#111827;border:1px solid #26304d;border-radius:18px;padding:16px;text-align:center}
-.tile b{display:block;font-size:20px;margin-bottom:4px}.tile span{color:#8b95ad;font-size:11px}
-.section{background:#111827;border:1px solid #26304d;border-radius:20px;padding:16px;margin-bottom:14px}
-.section h2{font-size:15px;margin-bottom:12px}
-.task{display:flex;justify-content:space-between;align-items:center;background:#0d1424;border:1px solid #22304f;border-radius:14px;padding:12px;margin-bottom:10px}
-.task small{color:#8b95ad;display:block}.task button{border:0;background:#22d3ee;color:#04121f;font-weight:800;padding:9px 12px;border-radius:10px;cursor:pointer}
-.nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:center;gap:8px;padding:12px;background:rgba(7,11,22,.94);border-top:1px solid #1e2740}
-.nav button{flex:1;max-width:96px;border:0;background:#141c2f;color:#c7d2fe;padding:11px;border-radius:14px;font-weight:700;font-size:13px;cursor:pointer}
-.nav button.active{background:#22d3ee;color:#04121f}button:disabled{opacity:.5;cursor:not-allowed}
-
-/* Raj Miner premium dashboard refresh */
-:root{color-scheme:dark}
-body{background:radial-gradient(ellipse at 50% -15%,#174c3a 0,#091510 38%,#060b0a 100%);color:#f4fff8}
-.app{max-width:460px;padding:18px 16px 104px}
-.topbar{padding:7px 2px 18px;margin-bottom:12px}
-.logo{width:46px;height:46px;border-radius:15px;background:linear-gradient(145deg,#d7ff91,#3dbb77);color:#082315;box-shadow:0 7px 24px #39d17a44;font-size:22px}
-.brand h1{font-size:18px;letter-spacing:.2px}.brand p{color:#9db9a8}
-.level{background:#13271d;border:1px solid #345c42;color:#d7ff91;padding:9px 14px}
-.hero{position:relative;overflow:hidden;text-align:center;background:linear-gradient(155deg,rgba(28,72,49,.94),rgba(10,25,19,.98));border:1px solid #315c42;border-radius:30px;padding:27px 18px 22px;margin-bottom:14px;box-shadow:0 18px 48px #0007,inset 0 1px #ffffff12}
-.hero:before{content:"";position:absolute;width:250px;height:250px;border-radius:50%;background:#72e69b12;filter:blur(28px);top:-155px;left:calc(50% - 125px)}
-.coin{position:relative;width:142px;height:142px;margin:0 auto 18px;border:7px solid #caff9b;background:radial-gradient(circle at 30% 25%,#efffc2,#83d75d 38%,#218c55 75%,#0c4a31);box-shadow:0 0 0 7px #9be87b18,0 0 48px #66dc8b55,inset 0 5px 16px #fff8;color:#0a3a25;font-size:58px}
-.balance{font-size:clamp(34px,10vw,44px);font-weight:900;letter-spacing:-1.5px;color:#f2ffe9}
-.unit{color:#b8d9bd;font-size:13px;font-weight:700}
-.power{margin:10px 0 18px;color:#b5d2bc;font-size:12px}
-.tap{border-radius:17px;padding:17px;font-size:16px;color:#092516;background:linear-gradient(100deg,#d8ff91,#8ce58b 55%,#4fc982);box-shadow:0 8px 25px #53d88735;transition:transform .15s}
-.tap:active{transform:scale(.98)}
-.status{margin-top:12px;color:#b7d8bf;font-weight:600}
-.grid{gap:11px;margin-bottom:14px}
-.tile{background:linear-gradient(145deg,#152a20,#0d1a14);border:1px solid #294b36;border-radius:19px;padding:17px 12px;box-shadow:inset 0 1px #ffffff08}
-.tile b{font-size:23px;color:#e7ffdf}.tile span{color:#a7c5ad;font-size:11px;letter-spacing:.3px}
-.section{background:linear-gradient(145deg,#14271d,#0c1711);border:1px solid #294b36;border-radius:22px;padding:16px;margin-bottom:13px;box-shadow:0 10px 26px #0003}
-.section h2{font-size:15px;letter-spacing:.2px;color:#eaffdf;margin-bottom:13px}
-.task{background:#0d1b13;border:1px solid #284733;border-radius:15px;padding:13px;margin-bottom:9px}
-.task b{color:#edffea;font-size:13px}.task small{color:#9bb8a2;font-size:11px}
-.task button{background:linear-gradient(100deg,#d8ff91,#75d98c);color:#092516;border-radius:11px;padding:10px 13px}
-.nav{background:rgba(5,15,10,.96);border-top:1px solid #294b36;backdrop-filter:blur(18px);padding:11px 10px calc(11px + env(safe-area-inset-bottom))}
-.nav button{background:#14271d;color:#b9d8c0;border:1px solid #294b36;border-radius:13px}
-.nav button.active{background:linear-gradient(100deg,#d8ff91,#75d98c);color:#092516;border-color:transparent}
-button:disabled{opacity:.45}
-@media(max-width:360px){.coin{width:120px;height:120px}.balance{font-size:32px}.app{padding-left:12px;padding-right:12px}}
-</style></head><body>
-<main class="app">
-<div class="topbar"><div class="brand"><div class="logo">R</div><div><h1>Raj Miner</h1><p>Mine • Upgrade • Invite</p></div></div><div class="level" id="level">Level 1</div></div>
-<div class="hero"><div class="coin">⛏️</div><div class="balance"><span id="balance">0</span> <span class="unit">RMC</span></div><div class="power">Mining power: <span id="power">1</span>x • Boosts: <span id="boosts">0</span></div><button class="tap" id="mineButton">Start Mining</button><div class="status" id="status">Loading…</div></div>
-<div class="grid"><div class="tile"><b id="referrals">0</b><span>Referrals</span></div><div class="tile"><b id="nextReward">5</b><span>RMC per claim</span></div></div>
-<div class="section"><h2>Boost</h2><div class="task"><div><b>Increase mining power</b><small>Cost: 250 RMC • +25% mining power</small></div><button id="boostButton">Boost</button></div><div class="task"><div><b>Level up</b><small>Cost: 500 RMC • +0.5x mining power</small></div><button id="levelButton">Level Up</button></div></div>
-<div class="section"><h2>Tasks</h2><div id="tasks"></div></div>
-<div class="section"><h2>Invite & Earn</h2><p style="font-size:12px;color:#8b95ad;margin-bottom:10px">Invite friends and receive 100 RMC for every new user.</p><button class="tap" id="inviteButton">Copy Invite Link</button></div>
-</main>
-<div class="nav"><button class="active">Mine</button><button>Tasks</button><button>Friends</button><button>Wallet</button></div>
+import crypto from "node:crypto";
+import fs from "node:fs/promises";
+import path from "node:path";
+const app=express();app.use(express.json({limit:"32kb"}));
+const PORT=process.env.PORT||3000,TOKEN=process.env.BOT_TOKEN||"",BOT=(process.env.BOT_USERNAME||"Raj_company_bot").replace(/^@/,""),DIR=process.env.DATA_DIR||"/tmp/raj-miner-data",FILE=path.join(DIR,"users.json");
+const CLAIM=10800000,BASE=5;let users={};let queue=Promise.resolve();
+async function load(){await fs.mkdir(DIR,{recursive:true});try{users=JSON.parse(await fs.readFile(FILE,"utf8"));}catch(e){if(e.code!=="ENOENT")console.error(e);users={};}}
+function save(){queue=queue.then(async()=>{await fs.mkdir(DIR,{recursive:true});let tmp=FILE+".tmp";await fs.writeFile(tmp,JSON.stringify(users));await fs.rename(tmp,FILE);}).catch(console.error);return queue;}
+function verify(raw){if(!TOKEN||!raw)return null;let p=new URLSearchParams(raw),hash=p.get("hash");if(!hash)return null;p.delete("hash");let check=[...p.entries()].sort(([a],[b])=>a.localeCompare(b)).map(([k,v])=>k+"="+v).join("\n");let secret=crypto.createHmac("sha256","WebAppData").update(TOKEN).digest(),expected=crypto.createHmac("sha256",secret).update(check).digest("hex");let a=Buffer.from(hash,"hex"),b=Buffer.from(expected,"hex");if(a.length!==b.length||!crypto.timingSafeEqual(a,b))return null;if(Date.now()/1000-Number(p.get("auth_date")||0)>86400)return null;try{return JSON.parse(p.get("user")||"null");}catch{return null;}}
+function auth(req,res,next){let u=verify(req.get("x-telegram-init-data")||"");if(!u?.id)return res.status(401).json({error:"Open this mini app inside Telegram to sign in."});req.tg=u;next();}
+function getUser(t){let id=String(t.id);if(!users[id]){let m=/^ref_(\d+)$/.exec(t.start_param||""),ref=m?.[1]&&m[1]!==id&&users[m[1]]?m[1]:null;users[id]={id,username:t.username||"",name:t.first_name||"Miner",balance:0,level:1,power:1,boosts:0,last:0,refs:0,referrer:ref,daily:0,wallet:""};if(ref){users[ref].balance+=100;users[ref].refs++;}}else{users[id].username=t.username||users[id].username;users[id].name=t.first_name||users[id].name;}return users[id];}
+function view(u){return {...u,next:u.last?u.last+CLAIM:0,dailyReady:!u.daily||Date.now()-u.daily>=86400000,referralLink:"https://t.me/"+BOT+"/app?startapp=ref_"+u.id};}
+app.get("/health",(q,s)=>s.json({ok:true}));
+app.get("/api/me",auth,async(q,s)=>{let u=getUser(q.tg);await save();s.set("Cache-Control","no-store").json(view(u));});
+app.post("/api/claim",auth,async(q,s)=>{let u=getUser(q.tg),now=Date.now();if(u.last&&now-u.last<CLAIM)return s.status(429).json({error:"Mining session is still running.",next:u.last+CLAIM});let reward=Number((BASE*u.power*(1+u.boosts*.25)).toFixed(2));u.balance+=reward;u.last=now;await save();s.json({reward,user:view(u)});});
+app.post("/api/daily",auth,async(q,s)=>{let u=getUser(q.tg),now=Date.now();if(u.daily&&now-u.daily<86400000)return s.status(429).json({error:"Daily reward already claimed."});u.daily=now;u.balance+=25;await save();s.json({user:view(u)});});
+app.post("/api/upgrade",auth,async(q,s)=>{let u=getUser(q.tg),type=q.body?.type;if(type==="boost"){if(u.balance<250)return s.status(400).json({error:"Need 250 RMC."});u.balance-=250;u.boosts++;u.power=+(u.power+.25).toFixed(2);}else if(type==="level"){if(u.balance<500)return s.status(400).json({error:"Need 500 RMC."});u.balance-=500;u.level++;u.power=+(u.power+.5).toFixed(2);}else return s.status(400).json({error:"Invalid upgrade."});await save();s.json({user:view(u)});});
+app.post("/api/wallet",auth,async(q,s)=>{let u=getUser(q.tg),address=String(q.body?.address||"").trim();if(address.length>120)return s.status(400).json({error:"Address too long."});u.wallet=address;await save();s.json({user:view(u)});});
+app.get("/",(q,s)=>s.set({"Cache-Control":"no-store","Content-Type":"text/html; charset=utf-8"}).send(html));
+const html=String.raw`<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><meta name="theme-color" content="#080e1c"><title>Raj Miner</title><script src="https://telegram.org/js/telegram-web-app.js"></script><style>
+:root{color-scheme:dark;--bg:#080e1c;--panel:#14223a;--line:#2b4264;--muted:#91a8ca;--blue:#4e9eff;--cyan:#5bd8ed}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% -10%,#234875,transparent 48%),var(--bg);color:#f4f7ff;font:14px system-ui,sans-serif}.app{max-width:470px;margin:auto;padding:15px 14px 100px}.top{display:flex;align-items:center;justify-content:space-between;margin:4px 2px 17px}.brand{display:flex;align-items:center;gap:10px}.logo{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(145deg,#83e3ff,#347ce7);color:#08172b;font-weight:1000;font-size:21px}.brand b{font-size:17px}.brand small{display:block;color:var(--muted);font-size:11px;margin-top:3px}.level{border:1px solid #39577e;background:#182d4a;border-radius:20px;padding:8px 12px;color:#c6e2ff;font-size:11px;font-weight:900}.screen{display:none}.screen.active{display:block}.card{background:linear-gradient(145deg,#192b48,#101a2d);border:1px solid var(--line);border-radius:21px;padding:16px;margin-bottom:13px;box-shadow:0 12px 30px #0003}.hero{text-align:center;padding:23px 17px;background:radial-gradient(circle at 50% 0,#315b8b,#172944 62%,#111c30)}.coin{width:125px;height:125px;border-radius:50%;margin:0 auto 15px;display:grid;place-items:center;background:radial-gradient(circle at 30% 25%,#fff1b7,#eab64e 48%,#9a5b18);border:6px solid #ffe3a0;box-shadow:0 0 0 7px #f4c76a20,0 0 38px #e6ad4b55,inset 0 5px 13px #fff9;color:#56330a;font-size:52px}.eyebrow{color:#abc3e3;font-size:10px;letter-spacing:1.5px;font-weight:900}.balance{font-size:39px;font-weight:1000;letter-spacing:-1px;margin:6px 0 1px}.unit{font-size:12px;color:#a9bedb;font-weight:800}.sub{font-size:12px;color:#a9bedb;margin:12px 0 16px}.primary{width:100%;border:0;border-radius:14px;padding:15px;background:linear-gradient(100deg,#58d9eb,#4b98ff);color:#07172b;font-weight:1000;font-size:14px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:13px}.stat{background:#152641;border:1px solid var(--line);border-radius:16px;padding:14px}.stat b{display:block;font-size:21px}.stat small{color:var(--muted);font-size:11px}.heading{font-size:16px;font-weight:950;margin:3px 2px 12px}.row{display:flex;justify-content:space-between;align-items:center;gap:10px}.muted{color:var(--muted)}.item{padding:13px;border:1px solid #2a405f;border-radius:14px;background:#0d192b;margin-top:10px}.item small{display:block;color:var(--muted);font-size:11px;margin-top:5px}.action{border:0;border-radius:11px;padding:10px 12px;background:#244b78;color:#e2f2ff;font-weight:900;font-size:12px}.gold{background:linear-gradient(100deg,#ffdf94,#eab44e);color:#3a2608}.notice{background:#172943;border:1px solid #344f73;border-radius:13px;padding:12px;color:#c2d5ee;font-size:12px;line-height:1.5}.field{width:100%;border:1px solid #365071;border-radius:12px;padding:14px;background:#0b1628;color:white;margin:12px 0}.invite{word-break:break-all;background:#0b1628;border-radius:12px;padding:12px;margin:12px 0;color:#c5dcfa;font-size:12px}.nav{position:fixed;z-index:5;bottom:0;left:0;right:0;display:flex;justify-content:center;gap:4px;padding:8px 6px calc(8px + env(safe-area-inset-bottom));background:#080f1def;border-top:1px solid #293f60;backdrop-filter:blur(18px)}.nav button{flex:1;max-width:95px;border:0;background:transparent;color:#879bb9;border-radius:12px;padding:8px 2px;font-size:10px;font-weight:900}.nav button span{display:block;font-size:19px;margin-bottom:3px}.nav button.active{background:#1c385b;color:#6bdcf2}.toast{display:none;position:fixed;z-index:8;bottom:90px;left:50%;transform:translateX(-50%);background:#eff7ff;color:#102039;padding:11px 15px;border-radius:12px;font-weight:900;font-size:12px;max-width:90%}button:disabled{opacity:.45}@media(max-width:360px){.balance{font-size:33px}.coin{width:112px;height:112px}}
+</style></head><body><main class="app"><header class="top"><div class="brand"><div class="logo">R</div><div><b>RAJ MINER</b><small id="welcome">Welcome, Miner</small></div></div><div class="level" id="level">LEVEL 1</div></header>
+<section class="screen active" id="mine"><div class="card hero"><div class="coin">⛏</div><div class="eyebrow">TOTAL BALANCE</div><div class="balance" id="balance">0</div><div class="unit">RAJ MINER COINS</div><div class="sub">⚡ Power <b id="power">1x</b> · Boosts <b id="boosts">0</b></div><button class="primary" id="mineBtn">START MINING</button><div class="sub" id="mineStatus">Loading…</div></div><div class="stats"><div class="stat"><b id="refs">0</b><small>👥 Friends invited</small></div><div class="stat"><b id="reward">5</b><small>⚡ Coins per claim</small></div></div><div class="heading">Miner upgrades</div><div class="card"><div class="row"><div><b>⚡ Power boost</b><small class="muted" style="display:block;margin-top:5px">+25% mining power</small></div><button class="action gold" id="boostBtn">250 · BOOST</button></div><div class="row" style="margin-top:17px"><div><b>🏆 Level up</b><small class="muted" style="display:block;margin-top:5px">+0.5 mining power</small></div><button class="action" id="levelBtn">500 · UPGRADE</button></div></div></section>
+<section class="screen" id="tasks"><div class="heading">Tasks & rewards</div><div class="notice">Collect daily bonus rewards and visit the official bot. Reward claims are linked to your Telegram account.</div><div class="card"><div class="row"><div><b>🎁 Daily check-in</b><small class="muted" style="display:block;margin-top:5px">Once every 24 hours</small></div><button class="action gold" id="dailyBtn">CLAIM +25</button></div></div><div class="card"><div class="row"><div><b>📣 Official bot</b><small class="muted" style="display:block;margin-top:5px">Open Raj Miner Telegram bot</small></div><button class="action" id="botBtn">OPEN</button></div></div><div class="notice">External social tasks are not auto-rewarded until membership verification is connected.</div></section>
+<section class="screen" id="friends"><div class="heading">Invite friends</div><div class="card hero"><div class="coin" style="width:88px;height:88px;font-size:36px">👥</div><div class="eyebrow">FRIENDS JOINED</div><div class="balance" id="friendCount">0</div><div class="sub">Earn <b>100 RMC</b> for every new referred miner.</div><button class="primary" id="shareBtn">INVITE FRIENDS</button></div><div class="card"><b>Your invite link</b><div class="invite" id="invite">Loading…</div><button class="action" id="copyBtn" style="width:100%">COPY LINK</button></div></section>
+<section class="screen" id="wallet"><div class="heading">Wallet</div><div class="card"><div class="eyebrow">IN-APP BALANCE</div><div class="balance" id="walletBalance">0</div><div class="unit">RMC</div><p class="muted">RMC is currently an in-app reward balance, not a withdrawable on-chain token.</p></div><div class="card"><b>TON wallet address</b><p class="muted">Save an address for future wallet support.</p><input class="field" id="address" placeholder="Paste TON wallet address"><button class="primary" id="saveWallet">SAVE ADDRESS</button></div><div class="notice">Withdrawals are not enabled. No cryptocurrency will be sent from this app yet.</div></section>
+<section class="screen" id="profile"><div class="heading">Miner profile</div><div class="card row"><div><div class="eyebrow">YOUR ACCOUNT</div><div class="balance" style="font-size:25px" id="name">Miner</div><small class="muted" id="username"></small></div><div class="logo">R</div></div><div class="stats"><div class="stat"><b id="pLevel">1</b><small>Level</small></div><div class="stat"><b id="pPower">1x</b><small>Mining power</small></div></div><div class="card row"><span class="muted">Total referrals</span><b id="pRefs">0</b></div></section></main>
+<nav class="nav"><button class="active" data-tab="mine"><span>⛏️</span>Mine</button><button data-tab="tasks"><span>🎯</span>Tasks</button><button data-tab="friends"><span>👥</span>Friends</button><button data-tab="wallet"><span>👛</span>Wallet</button><button data-tab="profile"><span>👤</span>Profile</button></nav><div class="toast" id="toast"></div>
 <script>
-const tg=window.Telegram?.WebApp;tg?.ready();tg?.expand();
-const params=new URLSearchParams(location.search);
-const telegramId=tg?.initDataUnsafe?.user?.id||params.get("telegram_id")||123456789;
-const username=tg?.initDataUnsafe?.user?.username||"";
-const firstName=tg?.initDataUnsafe?.user?.first_name||"";
-const referral=params.get("ref")||"";
-const $=id=>document.getElementById(id);
-async function load(){const r=await fetch(\`/api/me?telegram_id=\${telegramId}&username=\${username}&first_name=\${encodeURIComponent(firstName)}&ref=\${referral}\`);const u=await r.json();
-$("balance").textContent=Math.floor(u.balance).toLocaleString();$("level").textContent="Level "+u.level;$("power").textContent=u.miningPower;$("boosts").textContent=u.boosts;$("referrals").textContent=u.referrals;$("nextReward").textContent=Math.floor(5*u.miningPower*(1+u.boosts*.25));renderTasks(u);updateStatus(u.nextClaimAt);
-$("inviteButton").onclick=()=>{navigator.clipboard.writeText(u.referralLink);alert("Invite link copied!")};$("boostButton").onclick=()=>upgrade("/api/boost");$("levelButton").onclick=()=>upgrade("/api/level-up");}
-function renderTasks(u){$("tasks").innerHTML="";u.tasks.forEach(t=>{const done=u.completedTasks.includes(t.id);const div=document.createElement("div");div.className="task";div.innerHTML=\`<div><b>\${t.title}</b><small>Reward: \${t.reward} RMC</small></div>\`;const b=document.createElement("button");b.textContent=done?"Done":"Start";b.disabled=done;b.onclick=async()=>{const r=await fetch("/api/task",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({telegram_id:telegramId,task_id:t.id})});const d=await r.json();if(r.ok){$("balance").textContent=Math.floor(d.balance).toLocaleString();load()}else alert(d.error)};div.appendChild(b);$("tasks").appendChild(div);});}
-function updateStatus(next){if(!next){$("status").textContent="Mining is ready";$("mineButton").disabled=false;return}const left=next-Date.now();if(left<=0){$("status").textContent="Mining is ready";$("mineButton").disabled=false;return}$("mineButton").disabled=true;const h=Math.floor(left/3600000),m=Math.floor(left%3600000/60000);$("status").textContent=\`Next claim in \${h}h \${m}m\`;setTimeout(()=>updateStatus(next),30000);}
-$("mineButton").onclick=async()=>{$("mineButton").disabled=true;$("status").textContent="Mining…";const r=await fetch("/api/claim",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({telegram_id:telegramId})});const d=await r.json();if(!r.ok){$("status").textContent=d.error;if(d.nextClaimAt)updateStatus(d.nextClaimAt);return}$("balance").textContent=Math.floor(d.balance).toLocaleString();$("status").textContent=\`+\${Math.floor(d.claimed)} RMC claimed!\`;updateStatus(d.nextClaimAt);};
-async function upgrade(endpoint){const r=await fetch(endpoint,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({telegram_id:telegramId})});const d=await r.json();if(!r.ok)return alert(d.error);$("balance").textContent=Math.floor(d.balance).toLocaleString();load();}
-load();
-</script></body></html>`);
-});
-
-const port=process.env.PORT||3000;
-app.listen(port,()=>console.log(`Raj Miner running on port ${port}`));
+(()=>{const tg=window.Telegram?.WebApp;if(tg){tg.ready();tg.expand();tg.setHeaderColor("#080e1c");tg.setBackgroundColor("#080e1c");}const init=tg?.initData||"", $=id=>document.getElementById(id);let data=null,tick=null;const say=m=>{let e=$("toast");e.textContent=m;e.style.display="block";setTimeout(()=>e.style.display="none",2400);};async function api(url,body){let r=await fetch(url,{method:body?"POST":"GET",headers:{"Content-Type":"application/json","X-Telegram-Init-Data":init},body:body?JSON.stringify(body):undefined});let d=await r.json();if(!r.ok)throw Error(d.error||"Request failed");return d;}function fmt(ms){let h=Math.floor(ms/3600000),m=Math.floor(ms%3600000/60000),s=Math.floor(ms%60000/1000);return h+"h "+m+"m "+s+"s";}function paint(u){data=u;$("balance").textContent=Math.floor(u.balance).toLocaleString();$("walletBalance").textContent=Math.floor(u.balance).toLocaleString();$("level").textContent="LEVEL "+u.level;$("power").textContent=u.power.toFixed(2)+"x";$("boosts").textContent=u.boosts;$("refs").textContent=u.refs;$("friendCount").textContent=u.refs;$("reward").textContent=(5*u.power*(1+u.boosts*.25)).toFixed(2);$("invite").textContent=u.referralLink;$("address").value=u.wallet||"";$("name").textContent=u.name;$("username").textContent=u.username?"@"+u.username:"Telegram miner";$("welcome").textContent="Welcome, "+u.name;$("pLevel").textContent=u.level;$("pPower").textContent=u.power+"x";$("pRefs").textContent=u.refs;$("dailyBtn").disabled=!u.dailyReady;$("dailyBtn").textContent=u.dailyReady?"CLAIM +25":"CLAIMED ✓";if(tick)clearInterval(tick);function timer(){let left=u.next-Date.now();if(left<=0){$("mineBtn").disabled=false;$("mineBtn").textContent="START MINING";$("mineStatus").textContent="Your miner is ready.";return;}$("mineBtn").disabled=true;$("mineBtn").textContent="MINING IN PROGRESS";$("mineStatus").textContent="Next reward in "+fmt(left);}timer();tick=setInterval(timer,1000);}async function refresh(){try{paint(await api("/api/me"));}catch(e){say(e.message);$("mineStatus").textContent=e.message;}}document.querySelectorAll("[data-tab]").forEach(b=>b.onclick=()=>{document.querySelectorAll(".screen").forEach(x=>x.classList.toggle("active",x.id===b.dataset.tab));document.querySelectorAll("[data-tab]").forEach(x=>x.classList.toggle("active",x===b));});$("mineBtn").onclick=async()=>{try{let d=await api("/api/claim",{});paint(d.user);say("+"+d.reward+" RMC collected");}catch(e){say(e.message);refresh();}};$("dailyBtn").onclick=async()=>{try{let d=await api("/api/daily",{});paint(d.user);say("Daily bonus +25 RMC");}catch(e){say(e.message);}};$("boostBtn").onclick=async()=>{try{paint((await api("/api/upgrade",{type:"boost"})).user);say("Boost upgraded");}catch(e){say(e.message);}};$("levelBtn").onclick=async()=>{try{paint((await api("/api/upgrade",{type:"level"})).user);say("Level upgraded");}catch(e){say(e.message);}};$("botBtn").onclick=()=>tg?.openTelegramLink("https://t.me/"+"Raj_company_bot");$("copyBtn").onclick=async()=>{try{await navigator.clipboard.writeText(data.referralLink);say("Invite link copied");}catch(e){say("Clipboard unavailable");}};$("shareBtn").onclick=()=>{let u="https://t.me/share/url?url="+encodeURIComponent(data.referralLink);if(tg)tg.openTelegramLink(u);else say("Use Copy Link");};$("saveWallet").onclick=async()=>{try{paint((await api("/api/wallet",{address:$("address").value})).user);say("Wallet address saved");}catch(e){say(e.message);}};if(!init){$("mineStatus").textContent="Open Raj Miner from Telegram to sign in.";document.querySelectorAll("button").forEach(b=>b.disabled=true);}else refresh();})();
+</script></body></html>`;
+await load();app.listen(PORT,"0.0.0.0",()=>console.log("Raj Miner listening on "+PORT));
