@@ -1278,7 +1278,7 @@ function fmt(ms){var q=Math.max(0,ms/1000|0),h=q/3600|0,m=(q%3600)/60|0;return h
 window.nrTick=function(){var a=$('nr');if(a)a.textContent=fmt(NR-Date.now());var b=$('spt');if(b)b.textContent=fmt(SPT-Date.now())};
 var TK=[{c:'partners',ic:'spons',col:'pink',t:'Sponsored task',r:5,tag:'EVERY 12H',timer:1},{c:'social',ic:'tg',col:'blue',t:'Join Raj Channel',r:5},{c:'social',ic:'x',col:'dark',t:'Follow Raj on X',r:5},{c:'social',ic:'heart',col:'pink',t:'React to latest post',r:3},{c:'onchain',ic:'gem',col:'blue',t:'Connect TON wallet',r:20},{c:'onchain',ic:'coin',col:'gold',t:'Hold 100 $RAJ',r:15},{c:'company',ic:'house',col:'orange',t:'Invite 3 friends',r:30},{c:'company',ic:'mine',col:'green',t:'Reach Level 25',r:25}];
 window.spark=function(){var sh=window.__sh;if(!sh||!sh.isConnected)return;var f=document.createElement('div');f.className='float';f.textContent='+'+RATE.toFixed(2);f.style.left=(50+Math.random()*8-2)+'%';f.style.top=(window.__my+10)+'px';sh.appendChild(f);setTimeout(function(){f.remove()},1200);for(var i=0;i<5;i++){var q=document.createElement('i');q.className='sp';q.style.left='calc(50% + '+(Math.random()*60-10)+'px)';q.style.top=(window.__my+70)+'px';q.style.setProperty('--dx',(Math.random()*80-40)+'px');q.style.setProperty('--dy',(-30-Math.random()*60)+'px');sh.appendChild(q);(function(z){setTimeout(function(){z.remove()},700)})(q)}};
-function tasks2(){
+function tasks2Legacy(){
  var days=[5,6,7,8,9,10,11],h='';
  days.forEach(function(v,i){h+='<div class="dt'+(i<S.streak?' done':'')+(i===6?' day7':'')+'"><b>DAY '+(i+1)+'</b>'+ICON(i===6?'gem':'coin',28)+(i<S.streak?'<em class="ok">✓</em>':'')+'<span>+'+v+'</span>'+(i===6?'<small class="day7-label">WEEKLY BONUS</small>':'')+'</div>'});
  var chips=[['all','All','stack'],['onchain','On-chain','gem'],['company','Company','house'],['social','Social','heart'],['partners','Partners','hand']];
@@ -1465,4 +1465,47 @@ html,body,#app,#view{background:#0b1016!important;color:#eef3f7!important}
 .tap-coin img{display:block!important;object-fit:contain!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;filter:none!important}
 .tap-coin:active,.tap-coin.tap-pop{transform:scale(.97)!important}
 .sol-wallet-float{pointer-events:auto!important;z-index:30!important;touch-action:manipulation!important}
+</style>
+
+<style id="raj-gold-ui-task-repair">
+/* Unified premium gold UI; keep the mining coin itself completely unlit. */
+:root{
+ --raj-neon-red:#c49a50!important;--raj-neon-violet:#c49a50!important;
+ --raj-neon-edge:#9d7938!important;--raj-violet:#c49a50!important;
+ --raj-panel:#171512!important;--raj-panel2:#211d17!important;
+}
+html,body,#app,#view{background:#0d0d0c!important;color:#f2e7ce!important}
+#top,#nav,.card,.ck,.tk,.vault,.ban,.mine-world,.tap-session,.sol-wallet-float,#sol-wallet-btn,.dt,.chips2 span,.pill2,.streak,.nx,.toast,.crew,.lk,.dk{
+ border-color:#b18a454d!important;
+}
+#view .card,#view .ck,#view .tk,#view .vault,#view .ban,#view .nx,#view .crew{
+ background:linear-gradient(145deg,#242019,#15130f)!important;border-color:#b18a455c!important;
+}
+#nav{background:#12110e!important;border-top:1px solid #b18a454d!important}
+#nav button.on,#nav button.on span,#nav button.on svg{color:#e0b85f!important;border-color:#b18a45!important}
+#nav button.on span{background:#302719!important;box-shadow:none!important}
+#view .chips2 span{background:#211d16!important;border-color:#8c6c35!important;color:#d7c49d!important}
+#view .chips2 span.on{background:linear-gradient(145deg,#5b4522,#302313)!important;border:1px solid #d4ad5c!important;color:#ffe5a6!important;box-shadow:none!important}
+#view .ban{background:linear-gradient(120deg,#211b11,#302516 55%,#17140e)!important;border-bottom:1px solid #b18a4577!important}
+#view .bico,#view .jt,#view .pill2,#view .pill2.g{color:#e8c879!important;text-shadow:none!important;filter:none!important}
+#view .pill2{background:#2a2115!important;border:1px solid #a98543!important}
+#view .pill2.g{background:#332818!important;border-color:#d0a957!important}
+#view .tk{grid-template-columns:52px minmax(0,1fr) auto!important}
+#view .tk .tic{background:linear-gradient(145deg,#47371e,#211a10)!important;border:1px solid #b18a45!important;color:#e6c477!important;box-shadow:none!important}
+#view .tk .tic svg{color:#e6c477!important;filter:none!important}
+#view .tk .tic.red{background:#351719!important;border-color:#b65a50!important}
+#view .tk .tic.blue{background:#172a32!important;border-color:#4b91a0!important}
+#view .tk .tic.dark{background:#191919!important;border-color:#aaa!important}
+#view .dt,#view .tic{background:linear-gradient(145deg,#44351f,#211a11)!important;border-color:#b18a45!important}
+#view .dt b,#view .dt span,#view .tt,#view .tr b{color:#f0dfb8!important}
+#view .dt.day7{background:linear-gradient(145deg,#59431f,#21190f)!important;border-color:#d5ae5b!important}
+#view .cal{background:linear-gradient(145deg,#e9d39d,#a98543)!important;color:#241b0d!important}
+#view .streak{background:#302516!important;border-color:#b18a45!important;color:#e8c879!important}
+#view button.btn,#view button.mini,#view .cyan{background:linear-gradient(135deg,#e1c17a,#a77b32)!important;color:#211707!important;border:1px solid #f0d99f!important;box-shadow:0 3px 0 #65491e!important}
+#view button:disabled{filter:grayscale(.5)!important;opacity:.7!important}
+#view .done{color:#d8b35e!important}
+#toast{background:#211b12!important;border:1px solid #b18a45!important;color:#f2e3bd!important}
+/* No gold halo or decorative layer around the original mining coin. */
+.tap-stage:before,.tap-stage:after,.tap-coin:before,.tap-coin:after,.tap-orbit,.tap-orbit-one,.tap-orbit-two,.tap-hint,.sol-float,.raj-spark-coin{display:none!important;content:none!important;box-shadow:none!important;filter:none!important}
+.tap-stage,.tap-coin,.tap-coin img{background:transparent!important;border:0!important;outline:0!important;box-shadow:none!important;filter:none!important}
 </style>
