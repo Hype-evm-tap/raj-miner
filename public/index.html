@@ -1089,7 +1089,7 @@ function f4(n){return n.toFixed(4)}
 // ICON is scoped to this app script. The later legacy script has its own ICON/ICONS,
 // so keep this renderer local to prevent startup ReferenceError.
 function ICON(k,z){
- var p={tasks:'<path d="M4 6h16M4 12h16M4 18h16"/><path d="M8 4v4M16 10v4M8 16v4"/>',miners:'<path d="M4 20l8-16 8 16M7 14h10M12 4v16"/>',mine:'<path d="M4 20l7-7m-2-7 8 8m-4-12 7 7-4 4-7-7z"/>',wallet:'<rect x="3" y="6" width="18" height="14" rx="3"/><path d="M3 9h18M16 14h.01"/>',profile:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',coin:'<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5c-.7-.8-1.8-1.2-3.3-1.2-1.7 0-2.8.8-2.8 2s1 1.8 2.8 2.2 2.8.8 2.8 2.1-1.2 2.2-3 2.2c-1.4 0-2.6-.5-3.4-1.4M12 5.5v13"/>',cal:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4m10-4v4M3 10h18M8 14h3m2 0h3m-8 3h3"/>',stack:'<path d="m12 3 9 5-9 5-9-5 9-5zM3 12l9 5 9-5M3 16l9 5 9-5"/>',gem:'<path d="m6 3 12 0 4 7-10 11L2 10 6 3zM2 10h20M6 3l6 18 6-18"/>',house:'<path d="m3 11 9-8 9 8v10H3zM9 21v-7h6v7"/>',heart:'<path d="M20.8 8.8c0 5-8.8 11-8.8 11s-8.8-6-8.8-11a4.7 4.7 0 0 1 8.8-2.2 4.7 4.7 0 0 1 8.8 2.2z"/>',spons:'<path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3z"/>',tg:'<path d="m22 3-7 18-4-7-7-4 18-7zM11 14l11-11"/>',x:'<path d="m5 4 14 16M19 4 5 20"/>',hand:'<path d="M8 11V5a1.5 1.5 0 0 1 3 0v5-7a1.5 1.5 0 0 1 3 0v7-5a1.5 1.5 0 0 1 3 0v7-3a1.5 1.5 0 0 1 3 0v7c0 4-2 6-6 6h-2c-2 0-3-1-4-2l-4-5a1.6 1.6 0 0 1 2-2l2 2"/>',grid:'<rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/>',link:'<path d="M10 13a5 5 0 0 0 7.1 0l3-3A5 5 0 0 0 13 2.9l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.1 0l-3 3A5 5 0 0 0 11 21.1l1.7-1.7"/>',briefcase:'<rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18M10 12v2h4v-2"/>',users:'<path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M10 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM20 8v6m3-3h-6"/>',share:'<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.7 10.7 6.6-4.4m-6.6 8 6.6 4.4"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',calendar2:'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M16 3v4M8 3v4M3 10h18M8 14h3m-3 3h7"/>',check2:'<circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16.5 9"/>'};
+ var p={tasks:'<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4.5h6M8.5 10h7M8.5 14h7M8.5 18h4"/>',miners:'<path d="M3 20 13 4l2 1-3 5 6 3-1 2-7-3-5 8Z"/><path d="m13 4 3-2 3 2"/>',mine:'<path d="M3 20 12 5l9 15M7 14h10M12 5v-3"/><path d="m5 20 2-4m10 4-2-4"/>',wallet:'<rect x="3" y="6" width="18" height="14" rx="2.5"/><path d="M3 9h18M15 14h3M7 6V4h11"/>',profile:'<path d="M4 20a8 8 0 0 1 16 0"/><circle cx="12" cy="8" r="4"/><path d="m8 3 4-2 4 2"/>',coin:'<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5c-.7-.8-1.8-1.2-3.3-1.2-1.7 0-2.8.8-2.8 2s1 1.8 2.8 2.2 2.8.8 2.8 2.1-1.2 2.2-3 2.2c-1.4 0-2.6-.5-3.4-1.4M12 5.5v13"/>',cal:'<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4m10-4v4M3 10h18M8 14h3m2 0h3m-8 3h3"/>',stack:'<path d="m12 3 9 5-9 5-9-5 9-5zM3 12l9 5 9-5M3 16l9 5 9-5"/>',gem:'<path d="m6 3 12 0 4 7-10 11L2 10 6 3zM2 10h20M6 3l6 18 6-18"/>',house:'<path d="m3 11 9-8 9 8v10H3zM9 21v-7h6v7"/>',heart:'<path d="M20.8 8.8c0 5-8.8 11-8.8 11s-8.8-6-8.8-11a4.7 4.7 0 0 1 8.8-2.2 4.7 4.7 0 0 1 8.8 2.2z"/>',spons:'<path d="m12 3 2.7 5.5 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1-4.4-4.3 6.1-.9L12 3z"/>',tg:'<path d="m22 3-7 18-4-7-7-4 18-7zM11 14l11-11"/>',x:'<path d="m5 4 14 16M19 4 5 20"/>',hand:'<path d="M8 11V5a1.5 1.5 0 0 1 3 0v5-7a1.5 1.5 0 0 1 3 0v7-5a1.5 1.5 0 0 1 3 0v7-3a1.5 1.5 0 0 1 3 0v7c0 4-2 6-6 6h-2c-2 0-3-1-4-2l-4-5a1.6 1.6 0 0 1 2-2l2 2"/>',grid:'<rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/>',link:'<path d="M10 13a5 5 0 0 0 7.1 0l3-3A5 5 0 0 0 13 2.9l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.1 0l-3 3A5 5 0 0 0 11 21.1l1.7-1.7"/>',briefcase:'<rect x="3" y="7" width="18" height="14" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M3 12h18M10 12v2h4v-2"/>',users:'<path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M10 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM20 8v6m3-3h-6"/>',share:'<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.7 10.7 6.6-4.4m-6.6 8 6.6 4.4"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',calendar2:'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M16 3v4M8 3v4M3 10h18M8 14h3m-3 3h7"/>',check2:'<circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16.5 9"/>'};
  var size=z||28,body=p[k]||'<circle cx="12" cy="12" r="8"/>';
  return '<svg aria-hidden="true" viewBox="0 0 24 24" width="'+size+'" height="'+size+'" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+body+'</svg>';
 }
@@ -1534,94 +1534,78 @@ html,body,#app,#view{background:#0d0d0c!important;color:#f2e7ce!important}
 
 
 <style id="raj-victor-visual-refresh">
-/* Victor-inspired visual treatment ONLY: no feature, data, wallet or mining logic changes. */
+/* Victor's Company-inspired mine UI skin for Raj Miner. Visuals only. */
 :root{
- --bg:#0b1117!important;--card:#151f28!important;--card2:#1b2933!important;
- --ink:#edf4f7!important;--mut:#91a5b2!important;
- --gold:#69d6c4!important;--gold2:#329e9d!important;
- --grn:#72d7a8!important;
+ --bg:#111914!important;--card:#1b251e!important;--card2:#263329!important;
+ --ink:#f3f2e8!important;--mut:#a7b19e!important;
+ --gold:#e5ad4b!important;--gold2:#b8792e!important;--grn:#80bd69!important;
  color-scheme:dark;
 }
-html,body,#app,#view{background:#0b1117!important;color:#edf4f7!important}
-#app{max-width:480px!important;background:#0b1117!important}
-#top{background:linear-gradient(180deg,#17232d,#101820)!important;border:0!important;border-bottom:1px solid #ffffff12!important;border-radius:0 0 18px 18px!important;box-shadow:0 8px 24px #0005!important}
-#nav{background:#101820!important;border-top:1px solid #ffffff16!important;border-radius:18px 18px 0 0!important;box-shadow:0 -8px 24px #0005!important}
-#nav button{color:#8195a2!important;font-size:10px!important;letter-spacing:.02em!important;gap:5px!important}
-#nav button span,#nav button.on span{width:38px!important;height:38px!important;border-radius:13px!important;background:#1a2933!important;border:1px solid #ffffff13!important;box-shadow:none!important;padding:7px!important;transform:none!important}
-#nav button span svg{width:21px!important;height:21px!important;stroke-width:1.9!important}
-#nav button.on{color:#74dfcf!important}
-#nav button.on span{background:#183b3a!important;border-color:#4bb9a9!important}
-#view{scrollbar-width:none!important}
-#view .pad{padding:16px!important}
-#view h2{font:800 24px/1.15 system-ui,-apple-system,sans-serif!important;letter-spacing:-.035em!important;color:#f2f7fa!important;text-shadow:none!important;margin:4px 0 16px!important}
-#view h3{font:750 16px/1.25 system-ui,-apple-system,sans-serif!important;color:#dce8ee!important;letter-spacing:-.015em!important}
-#view .lbl,#view small{color:#91a5b2!important}
-#view .card,#view .ck,#view .tk,#view .vault,#view .nx,#view .crew{
- background:linear-gradient(145deg,#1a2731,#121b23)!important;
- border:1px solid #ffffff14!important;border-radius:18px!important;
- box-shadow:0 8px 22px #0003!important;
+html,body,#app,#view{background:#111914!important;color:#f3f2e8!important}
+#app{max-width:480px!important;background:#111914!important}
+#top{background:linear-gradient(180deg,#26352a,#18231b)!important;border:0!important;border-bottom:1px solid #d5b46a33!important;border-radius:0 0 17px 17px!important;box-shadow:0 7px 22px #0006!important}
+#nav{background:#17221a!important;border-top:1px solid #d5b46a33!important;border-radius:18px 18px 0 0!important;box-shadow:0 -7px 22px #0006!important}
+#nav button{color:#9eaa98!important;font-size:10px!important;font-weight:750!important;letter-spacing:.02em!important;gap:4px!important}
+#nav button svg{width:22px!important;height:22px!important;stroke-width:1.9!important}
+#nav button.on{color:#f1c36b!important}
+#nav button.on span{background:#39452b!important;border:1px solid #c69b4f!important;box-shadow:0 3px 12px #0005!important}
+#view .card,#view .ck,#view .tk,#view .vault,#view .ban,#view .nx,#view .crew,#view .pst,#view .lk,#view .dk,#view .invite,#view .streak,#view .nft,#view #nft{
+ background:linear-gradient(145deg,#29372b,#1a251d)!important;
+ border:1px solid #b7a06a42!important;border-radius:17px!important;
+ box-shadow:0 7px 18px #0004!important;color:#f3f2e8!important
 }
-#view .card{padding:15px!important}
-#view .tk{padding:12px!important;border-radius:16px!important;gap:12px!important}
-#view .tt{font:700 15px/1.25 system-ui,sans-serif!important;color:#edf4f7!important}
-#view .tm,#view .tr b{font:700 14px system-ui,sans-serif!important;color:#79d9ca!important}
-#view .tr span{font:700 10px system-ui,sans-serif!important;color:#a9bac4!important;background:#ffffff0d!important}
-#view .tk .tic{width:46px!important;height:46px!important;min-width:46px!important;border-radius:13px!important;background:#20333d!important;border:1px solid #ffffff16!important;box-shadow:none!important}
-#view .tk .tic svg{width:24px!important;height:24px!important}
-#view .chips2{gap:8px!important}
-#view .chips2 span{font:650 12px system-ui,sans-serif!important;padding:9px 13px!important;border-radius:12px!important;background:#17232c!important;border:1px solid #ffffff14!important;color:#a9bbc5!important}
-#view .chips2 span.on{background:#183b3a!important;border-color:#4bb9a9!important;color:#a8f1e5!important}
-#view button.btn,#view button.mini,#view .cyan{
- background:linear-gradient(135deg,#78e1cf,#3aaea7)!important;color:#082a2a!important;
- border:0!important;border-radius:13px!important;box-shadow:0 3px 0 #236f6c!important;
- font:750 13px system-ui,sans-serif!important;letter-spacing:0!important
+#view h1,#view h2,#view h3,#view .tt{color:#f5f1e5!important;letter-spacing:-.02em!important}
+#view .lbl,#view small,#view .muted{color:#aeb9a7!important}
+#view .big,#view .pn{color:#f4d28b!important}
+#view button.btn,#view button.mini,#view .cyan,#view .cp{
+ background:linear-gradient(180deg,#efc36c,#b77a32)!important;color:#241b0d!important;
+ border:1px solid #f4d28b!important;border-radius:12px!important;
+ box-shadow:0 3px 0 #805324!important;font-weight:850!important
 }
 #view button.mini{padding:9px 13px!important}
-#view .vault{background:linear-gradient(135deg,#183e3a,#142c30)!important}
-#view .vault .big{font:800 30px system-ui,sans-serif!important;color:#f4fbfa!important}
-#view .pill{background:#ffffff12!important;color:#b7c9d1!important}
-#view .hist{border-bottom:1px solid #ffffff12!important}
-#view .hist em{color:#75d9ca!important}
-#view .avatar{background:linear-gradient(135deg,#294b55,#182d39)!important;border:2px solid #65cdbd!important}
-#view .pban{background:linear-gradient(160deg,#152a35,#101b25 65%,#0d151d)!important}
-#view .pban:after{background:linear-gradient(#0000,#0b1117)!important}
-#view .ring{background:linear-gradient(135deg,#78e1cf,#397c83)!important}
-#view .ring img,#view .ring span{background:#14212a!important}
-#view .lvb{background:#214a48!important;color:#baf4e8!important;border:1px solid #65cdbd!important}
-#view .pn{font:800 25px system-ui,sans-serif!important;text-shadow:none!important}
-#view .pr,#view .pu{color:#7dd9cd!important}
-#view .pst{background:#17232c!important;border:1px solid #ffffff16!important;border-radius:16px!important;color:#9fb1bc!important}
-#view .pst b{font:800 21px system-ui,sans-serif!important;color:#f1f6f8!important}
-#view .crew{background:linear-gradient(145deg,#1c3438,#14252d)!important;color:#eaf5f5!important}
-#view .cw2{font:800 23px system-ui,sans-serif!important;color:#eaf5f5!important;-webkit-text-stroke:0!important;text-shadow:none!important}
-#view .dk{background:#21333b!important;border:1px solid #ffffff16!important;box-shadow:none!important}
-#view .lk{background:#111b23!important;border:1px solid #ffffff14!important;border-radius:13px!important}
-#view .cp{background:#285a57!important;color:#d8fff7!important;box-shadow:none!important;border:1px solid #63cbbb!important}
-#view .invite{background:linear-gradient(135deg,#1b4544,#18313a)!important;border:1px solid #4b9f98!important;border-radius:18px!important;color:#edfafa!important}
-#view .invite .lnk{background:#091318!important}
-#view .dt,#view .tic{background:#1d3038!important;border:1px solid #ffffff16!important;border-radius:13px!important}
-#view .dt b,#view .dt span{color:#dce9ee!important}
-#view .dt.day7{background:#21413e!important;border-color:#60bdae!important}
-#view .cal{background:#244b49!important;color:#c8fff3!important;box-shadow:none!important}
-#view .streak{background:#213b3a!important;border:1px solid #4a9f94!important;color:#aaf0e4!important}
-#view .ban{background:linear-gradient(135deg,#1c3038,#14232c)!important}
-#view .bico,#view .jt{color:#7edbce!important;-webkit-text-stroke:0!important;text-shadow:none!important}
-#view .pill2,#view .pill2.g{background:#1b3538!important;border:1px solid #4b9d95!important;color:#a8e9df!important}
-#toast{background:#17252d!important;border:1px solid #4a9f94!important;color:#e9f8f7!important}
-#mine,#mine.static-mine,.mine-world{background:#111b23!important}
-#mine:before,#mine:after,#mwrap:after{background:radial-gradient(ellipse at 50% 45%,#0000 42%,#0009 100%)!important}
-#ladder{border-left-color:#536d70!important;border-right-color:#536d70!important}
-#ladder i{background:linear-gradient(#607f80,#344e52)!important}
-#lvl{background:#1b3038!important;border:1px solid #ffffff20!important}
-#feed{background:#122d31ee!important;border:1px solid #4bb9a9!important}
-#feed b{color:#80e4d3!important}
-#nft{background:linear-gradient(145deg,#254d50,#182e3b)!important;border:1px solid #65cdbd!important}
-#nft small{background:#2b6560!important;color:#e3fffa!important}
-#vch{background:#1c343d!important;border:1px solid #65cdbd!important}
-#find{filter:saturate(.65)!important}
-@media(max-width:380px){
- #view .pad{padding:13px!important}
- #view h2{font-size:22px!important}
- #nav button span{width:34px!important;height:34px!important}
+#view .chips2 span,#view .pill,#view .pill2,#view .dt,#view .tic{
+ background:#202d22!important;border:1px solid #a58b5544!important;color:#d8ddca!important;border-radius:12px!important
 }
+#view .chips2 span.on,#view .dt.day7,#view .cal,#view .lvb{
+ background:#465637!important;border-color:#c69b4f!important;color:#f6d78e!important
+}
+#view .vault{background:linear-gradient(145deg,#3c482e,#202c20)!important}
+#view .vault .big{color:#f7d68e!important}
+#view .avatar{background:linear-gradient(145deg,#657a49,#273a29)!important;border:2px solid #d9b36a!important}
+#view .pban{background:linear-gradient(160deg,#394b32,#1b281d 70%,#111914)!important}
+#view .pban:after{background:linear-gradient(#0000,#111914)!important}
+#view .ring{background:linear-gradient(135deg,#e9bd65,#70834d)!important}
+#view .ring img,#view .ring span{background:#202b20!important}
+#view .pst b,#view .cw2{color:#f5d58f!important;text-shadow:none!important;-webkit-text-stroke:0!important}
+#view .crew{background:linear-gradient(145deg,#35452d,#1d2a20)!important}
+#view .invite{background:linear-gradient(145deg,#35452b,#202d20)!important}
+#view .invite .lnk{background:#111914!important}
+#view .ban{background:linear-gradient(145deg,#35452b,#1e2b20)!important}
+#view .bico,#view .jt,#view .pr,#view .pu{color:#e6bc6c!important;text-shadow:none!important;-webkit-text-stroke:0!important}
+#view .hist{border-bottom:1px solid #ffffff16!important}
+#view .hist em{color:#eac577!important}
+#view .tk .tic{width:46px!important;height:46px!important;min-width:46px!important;border-radius:13px!important;background:#34432e!important;border:1px solid #c69b4f55!important}
+#view .tk .tic svg{width:24px!important;height:24px!important}
+#view .tap-brandline{color:#f4f0e3!important}
+#view .tap-brandline small{color:#b8c3a8!important}
+#view .tap-live{background:#263a25!important;color:#a8d58d!important;border:1px solid #71945a!important}
+#view .tap-balance strong{color:#f3d18c!important}
+#view .tap-session{background:linear-gradient(145deg,#28382a,#1b281e)!important;border:1px solid #c69b4f55!important}
+#view .tap-stage{background:radial-gradient(ellipse at 50% 48%,#35452c 0%,#1a271d 48%,#111914 78%)!important;border:1px solid #b99b5a33!important;border-radius:22px!important}
+#view .tap-coin{background:transparent!important;border:0!important;box-shadow:none!important}
+#view .tap-coin img{background:transparent!important;border:0!important;box-shadow:none!important;filter:none!important}
+#view .raj-spark-coin{display:block!important;visibility:visible!important;opacity:1!important}
+#view .sol-wallet-float,#view #sol-wallet-btn{background:#29382b!important;color:#e9c779!important;border:1px solid #c69b4f88!important;box-shadow:0 4px 12px #0006!important}
+#toast{background:#26352a!important;border:1px solid #c69b4f!important;color:#f6f0df!important}
+#mine,#mine.static-mine,.mine-world{background:#17231a!important}
+#mine:before,#mine:after,#mwrap:after{background:radial-gradient(ellipse at 50% 45%,#0000 42%,#0009 100%)!important}
+#ladder{border-left-color:#788b60!important;border-right-color:#788b60!important}
+#ladder i{background:linear-gradient(#a0b27a,#536d48)!important}
+#lvl{background:#28382a!important;border:1px solid #c69b4f66!important}
+#feed{background:#293a2b!important;border:1px solid #c69b4f!important}
+#feed b{color:#f0cb7b!important}
+#nft{background:linear-gradient(145deg,#465537,#253324)!important;border:1px solid #c69b4f!important}
+#nft small{background:#596b3d!important;color:#fff0c7!important}
+#vch{background:#29382a!important;border:1px solid #c69b4f!important}
+@media(max-width:380px){#view .pad{padding:13px!important}#view h2{font-size:22px!important}#nav button span{width:34px!important;height:34px!important}}
 </style>
