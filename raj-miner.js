@@ -33,7 +33,11 @@ const CAP_H = 8;
 const getUser = (id, name = '') => db.users[id] ||= { id, name, bal: 0, since: Date.now(), last: Date.now(), refs: 0, tasks: {}, ton: '', banned: false };
 
 function verify(init) {
-  const p = new URLSearchParams(init); const hash = p.get('hash'); p.delete('hash');
+  // Reject missing/invalid Telegram WebApp data safely; never pass undefined to HMAC.
+  if (!BOT || typeof init !== 'string' || !init.trim()) return null;
+  const p = new URLSearchParams(init); const hash = p.get('hash');
+  if (!hash || !p.get('auth_date') || !p.get('user')) return null;
+  p.delete('hash');
   const str = [...p.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([k, v]) => `${k}=${v}`).join('\n');
   const key = crypto.createHmac('sha256', 'WebAppData').update(BOT).digest();
   if (crypto.createHmac('sha256', key).update(str).digest('hex') !== hash) return null;
@@ -333,6 +337,6 @@ function runGame(sid){
   const res=document.createElement('div');res.className='res';res.innerHTML=`<div><h2 class="t" style="font-size:44px;color:var(--g)">Time's up!</h2><div class="card"><div style="font-size:24px">Score</div><b style="font-size:60px">${score}</b><div style="font-size:30px;color:var(--gr)">${r.reward?'+'+r.reward+' RAJ':'No reward'}</div><div class="sm">Plays left: ${me.gl}/5</div></div><button class="btn o" id="again" ${me.gl?'':'disabled'}>Play again</button> <button class="btn" id="cls">Close</button></div>`;o.append(res);
   res.querySelector('#cls').onclick=()=>{o.remove();draw()};res.querySelector('#again').onclick=()=>{o.remove();playGame()}}
  raf=requestAnimationFrame(tick)}
-api('me').then(r=>{set(r);draw()});
+api('me').then(r=>{if(r?.error==='auth'){app.innerHTML='<div class="card" style="text-align:center;margin-top:25vh"><h1 class="t">Open in Telegram</h1><p class="sm" style="margin:12px 0">Please open Raj Miner from @Raj_company_bot using the Open Raj Miner button. Direct browser access cannot authenticate your Telegram account.</p><button class="btn" onclick="location.href=\'https://t.me/Raj_company_bot\'">Open Telegram Bot</button></div>';return}if(!r||r.error){app.innerHTML='<div class="card" style="text-align:center;margin-top:25vh"><h1>Connection error</h1><p class="sm">Please close and reopen the Mini App.</p><button class="btn" onclick="location.reload()">Retry</button></div>';return}set(r);draw()}).catch(()=>{app.innerHTML='<div class="card" style="text-align:center;margin-top:25vh"><h1>Network error</h1><p class="sm">Please check your connection and retry.</p><button class="btn" onclick="location.reload()">Retry</button></div>'});
 </script></body></html>
 */}).toString().match(/\/\*([\s\S]*)\*\//)[1];
