@@ -1455,3 +1455,14 @@ html,body,#app,#view{background:#0b1016!important;color:#eef3f7!important}
 #view .tk .tic.red svg{filter:drop-shadow(0 1px 2px #ff003355)!important}
 #view .tk .tic.dark svg{filter:none!important}
 </style>
+<style id="raj-coin-clean-wallet-fix">
+/* Mining stage: show the original coin only, without gold aura or side decorations. */
+.tap-stage:before,.tap-stage:after,.tap-coin:before,.tap-coin:after,
+.tap-orbit,.tap-orbit-one,.tap-orbit-two,.tap-hint,.sol-float,
+.raj-spark-coin{display:none!important;content:none!important;opacity:0!important;visibility:hidden!important}
+.tap-stage{background:transparent!important;box-shadow:none!important;filter:none!important;isolation:auto!important}
+.tap-coin{background:transparent!important;border:0!important;outline:0!important;box-shadow:none!important;filter:none!important}
+.tap-coin img{display:block!important;object-fit:contain!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;filter:none!important}
+.tap-coin:active,.tap-coin.tap-pop{transform:scale(.97)!important}
+.sol-wallet-float{pointer-events:auto!important;z-index:30!important;touch-action:manipulation!important}
+</style>
