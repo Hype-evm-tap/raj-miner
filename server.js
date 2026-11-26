@@ -1,5 +1,5 @@
 const express=require('express'),crypto=require('crypto'),path=require('path'),{Pool}=require('pg');
-const app=express();app.set('trust proxy',1);app.use(express.json({limit:'32kb'}));
+const app=express();app.disable('etag');app.set('trust proxy',1);app.use(express.json({limit:'32kb'}));
 // Prevent stale HTML and API responses from trapping Telegram Mini App on an old loading screen.
 app.use((req,res,next)=>{if(req.path==='/'||req.path.endsWith('.html')||req.path.startsWith('/api/'))res.set('Cache-Control','no-store, no-cache, must-revalidate, proxy-revalidate');next()});
 const BOT_TOKEN=process.env.BOT_TOKEN||'',ADMIN_ID=Number(process.env.ADMIN_ID||8990854464);
