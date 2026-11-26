@@ -561,6 +561,64 @@ h3{font:750 19px system-ui,sans-serif!important;color:#f3f8ff}
 .tap-coin{position:relative;z-index:1;width:min(48vw,190px);height:min(48vw,190px);padding:0;border:0;border-radius:50%;background:transparent;cursor:pointer;filter:drop-shadow(0 14px 28px #0009);transition:transform .14s}
 .tap-coin img{width:100%;height:100%;object-fit:contain;display:block;border-radius:50%}
 .tap-coin:active,.tap-coin.tap-pop{transform:scale(.93)}
+.tap-stage:before{content:"";position:absolute;width:min(76vw,290px);height:min(76vw,290px);border-radius:50%;background:radial-gradient(circle,rgba(245,198,105,.24) 0%,rgba(91,174,221,.12) 38%,rgba(91,174,221,0) 72%);filter:blur(18px);pointer-events:none;z-index:0;animation:rajCoinAura 3.8s ease-in-out infinite}
+.tap-coin{filter:drop-shadow(0 12px 22px #000b) drop-shadow(0 0 12px #f0c87588) drop-shadow(0 0 34px #e8b95a55)!important}
+.tap-coin img{filter:drop-shadow(0 0 8px #ffe2a455)}
+@keyframes rajCoinAura{0%,100%{opacity:.68;transform:scale(.94)}50%{opacity:1;transform:scale(1.06)}}
+.top-miner-row{display:flex;align-items:center;gap:11px;padding:11px 2px;border-bottom:1px solid #ffffff12}
+.top-miner-avatar{width:43px;height:43px;flex:none;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#f5d58c,#a96d2e);border:1px solid #ffe3a477;box-shadow:0 0 0 3px #e8b95a16}
+.top-miner-avatar img{width:100%;height:100%;object-fit:cover;display:block}
+.top-miner-avatar span{font-weight:900;color:#20170d;font-size:17px}
+.top-miner-info{min-width:0;flex:1}
+.top-miner-info b{display:flex;align-items:center;gap:7px;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.top-miner-info b i{font-style:normal;color:#e8c477;font-size:10px}
+.top-miner-info small{display:block;color:#91a6bf;font-size:10px;margin-top:3px}
+.top-miner-row>em{font-style:normal;font-weight:850;color:#f0d28a;font-size:13px;white-space:nowrap}
+.top-miner-row>em small{font-size:9px;color:#9bb0c8}
+.miners-page{padding-top:13px}
+.miners-heading{display:flex;align-items:center;justify-content:space-between;margin:4px 0 14px}
+.miners-heading>div>small{font-size:9px;letter-spacing:.17em;color:#83a8c6;font-weight:800}
+.miners-heading h2{margin:3px 0 0!important}
+.miners-level-chip{padding:7px 11px;border-radius:11px;background:linear-gradient(135deg,#ffe3a0,#c68a3d);color:#21180d;font-size:11px;font-weight:950}
+.level-overview{padding:16px;border-radius:20px;background:radial-gradient(circle at 100% 0%,#d4a54b22,transparent 42%),linear-gradient(145deg,#18344d,#0d1b2c);border:1px solid #d6b46b55;box-shadow:0 12px 28px #0004}
+.level-overview-top{display:flex;justify-content:space-between;align-items:center}
+.level-overview-top small,.level-overview-stats small,.level-stats small{display:block;color:#91a8c1;font-size:9px;font-weight:850;letter-spacing:.1em}
+.level-overview-top b{display:block;margin-top:4px;color:#f5d58c;font-size:21px}
+.level-overview-top span{display:block;color:#9cb0c8;font-size:10px;margin-top:2px}
+.level-overview-icon{width:58px;height:58px;border-radius:17px;display:flex;align-items:center;justify-content:center;color:#f5d58c;background:#f1c56c18;border:1px solid #f1c56c55;filter:drop-shadow(0 0 12px #f1c56c22)}
+.level-holding{display:flex;justify-content:space-between;align-items:center;margin:17px 0 8px;color:#a5b8ce;font-size:10px}
+.level-holding b{font-size:17px;color:#fff}
+.level-holding i,.level-stats i{font-style:normal;color:#e9c77c;font-size:9px}
+.level-progress-track{height:9px;border-radius:20px;background:#07111d;overflow:hidden;border:1px solid #ffffff12}
+.level-progress-track i{display:block;height:100%;border-radius:20px;background:linear-gradient(90deg,#b77b35,#f5d58c,#6ad7bb);box-shadow:0 0 12px #f5d58c66}
+.level-progress-label{display:flex;justify-content:space-between;margin-top:7px;color:#9db1c8;font-size:9px}
+.level-progress-label b{color:#f4d38e}
+.level-overview-stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:15px}
+.level-overview-stats>div{padding:10px;border-radius:12px;background:#ffffff0b;border:1px solid #ffffff10}
+.level-overview-stats b{display:block;margin-top:4px;color:#f4f7fc;font-size:14px}
+.level-overview p{margin:13px 0 0;color:#91a6bf;font-size:10px;line-height:1.5}
+.levels-list-heading{display:flex;justify-content:space-between;align-items:center;margin:19px 2px 8px}
+.levels-list-heading b{display:block;font-size:16px}
+.levels-list-heading small{display:block;color:#8ea4bd;font-size:9px;margin-top:3px}
+.level-card{padding:13px;margin:9px 0;border-radius:17px;background:linear-gradient(145deg,#12263a,#0c1928);border:1px solid #ffffff16;box-shadow:0 7px 18px #0003}
+.level-card.active{border-color:#e9c47788;background:radial-gradient(circle at 100% 0%,#d8ad5720,transparent 50%),linear-gradient(145deg,#1c3850,#102236)}
+.level-card.next{border-color:#69d7b855}
+.level-card-top{display:flex;align-items:center;gap:10px}
+.level-emblem{width:42px;height:42px;flex:none;border-radius:13px;display:flex;align-items:center;justify-content:center;color:#e8c77e;background:#e8c77e14;border:1px solid #e8c77e35}
+.level-card.locked .level-emblem{color:#7f91a6;background:#ffffff08;border-color:#ffffff12}
+.level-title{min-width:0;flex:1}
+.level-title small{display:block;color:#8fa7c1;font-size:8px;font-weight:900;letter-spacing:.15em}
+.level-title b{display:block;margin-top:2px;font-size:14px;color:#f4f7fc}
+.level-title span{display:block;color:#8fa5bd;font-size:9px;margin-top:2px}
+.level-status{padding:5px 7px;border-radius:8px;background:#ffffff0d;color:#9eb1c7;font-size:8px;font-weight:900;letter-spacing:.06em}
+.level-card.active .level-status{background:#eac77b20;color:#f2d48e}
+.level-card.next .level-status{background:#63d9b51b;color:#7ce3c3}
+.level-stats{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:13px;padding-top:11px;border-top:1px solid #ffffff12}
+.level-stats b{display:block;margin-top:4px;font-size:11px;color:#eaf1f8}
+.level-card-note{margin-top:10px;padding:8px 9px;border-radius:9px;background:#ffffff08;color:#a9c0d5;font-size:9px}
+.level-card.next .level-card-note{color:#83e2c3;background:#67d9b510}
+@media(max-width:360px){.level-status{font-size:7px;padding:4px 5px}.level-stats b{font-size:10px}.top-miner-row>em{font-size:11px}}
+
 .tap-hint{position:absolute;bottom:5px;color:#8da6c9;font-size:10px;letter-spacing:.2em;font-weight:800}
 .tap-session{width:100%;max-width:460px;padding:17px;border-radius:20px;background:linear-gradient(145deg,#172b48,#101d33);border:1px solid #8cb5e52b;box-shadow:0 12px 28px #0005}
 .tap-session-head,.tap-session-foot{display:flex;align-items:center;justify-content:space-between;gap:8px}
@@ -790,7 +848,7 @@ function profile2(){var u=tgUser(),name=u?((u.first_name||'')+' '+(u.last_name||
  V.innerHTML='<div class="pban"><div class="stars"></div><div class="mt m1"></div><div class="mt m2"></div><div class="hut"></div><div class="rail"></div><div class="pcont"><div class="ring">'+(photo?'<img src="'+esc(photo)+'" alt="" onerror="this.remove()">':'<span>'+esc((name||'R').charAt(0).toUpperCase())+'</span>')+'<em class="lvb">Lv '+L+'</em></div><div class="pn">'+esc(name)+(verified?TICK:'')+'</div><div class="pu">'+esc(un)+'</div><div class="pr">Rookie Digger '+Math.ceil(L/10)+' · Trainee</div><div class="pst"><div><b>'+Math.floor(S.mined||0)+'</b> MINED</div><div><b>Lv '+L+'</b> PEAK</div><div><b>3</b> RECRUITS</div><div><b>'+days+'</b> DAYS</div></div></div></div>'+
  '<div class="pad"><h3 style="font-size:26px;margin:0 0 10px">Hire Friends</h3><div class="crew"><div class="row"><div class="dk">'+ICON('profile',32)+'</div><div class="cw2">Build your crew!</div><div class="dk r">'+ICON('wallet',26)+'</div></div><div class="ir"><div class="dk s">'+ICON('coin',24)+'</div><div>'+APPSET.referral_reward+' <span class="coin" style="width:22px;height:22px;font-size:12px">R</span> for each Qualified referral</div></div><div class="ir"><div class="dk s">％</div><div>'+APPSET.referral_commission+'% of everything your Qualified referrals mine, for life</div></div><div class="lk"><span></span><div class="lt">'+esc(link)+'</div><button class="cp" id="cp">'+ICON('tasks',24)+'</button></div><button class="cyan" id="inv" style="margin-top:12px">Invite friends</button></div>'+
  '<div class="two"><div class="card"><b>Hiring bonus</b><div class="lbl" id="refCount">Loading referrals…</div><div class="big" style="font-size:22px" id="refEarned">0</div></div><div class="card"><b>Crew commission</b><div class="lbl" id="crewCount">Mining commission</div><div class="big" style="font-size:22px" id="crewEarned">0</div></div></div>'+
- '<div class="card"><div class="row"><b class="inline-icon-title">'+ICON('miners',26)+' Top Miners</b><span class="pill">LIVE RANKING</span></div><div id="leaderBoard"><div class="lbl">Loading top users…</div></div></div>';fetch('/api/leaderboard').then(function(r){return r.json()}).then(function(j){var el=$('leaderBoard');if(!el)return;el.innerHTML=(j.users||[]).length?j.users.map(function(x,i){var nm=esc(x.first_name||(x.username?'@'+x.username:'Miner'));return '<div class="hist"><div><b>#'+(i+1)+' '+nm+'</b><small>'+(x.username?'@'+esc(x.username):'Raj Miner')+'</small></div><em>'+Number(x.balance||0).toFixed(2)+' $RAJ</em></div>'}).join(''):'<div class="lbl">Leaderboard will appear as miners sync their balances.</div>'}).catch(function(){});
+ '<div class="card"><div class="row"><b class="inline-icon-title">'+ICON('miners',26)+' Top Miners</b><span class="pill">LIVE RANKING</span></div><div id="leaderBoard"><div class="lbl">Loading top users…</div></div></div>';fetch('/api/leaderboard').then(function(r){return r.json()}).then(function(j){var el=$('leaderBoard');if(!el)return;el.innerHTML=(j.users||[]).length?j.users.map(function(x,i){var nm=esc(x.first_name||(x.username?'@'+x.username:'Miner'));var initials=esc((x.first_name||x.username||'M').trim().slice(0,1).toUpperCase());var pic=x.photo_url?'<img src="'+esc(x.photo_url)+'" alt="" referrerpolicy="no-referrer" onerror="this.style.display=\'none\';this.nextElementSibling.style.display=\'flex\'">':'';return '<div class="top-miner-row"><div class="top-miner-avatar">'+pic+'<span style="'+(x.photo_url?'display:none':'')+'">'+initials+'</span></div><div class="top-miner-info"><b><i>#'+(i+1)+'</i>'+nm+'</b><small>'+(x.username?'@'+esc(x.username):'Raj Miner')+'</small></div><em>'+Number(x.balance||0).toFixed(2)+' <small>$RAJ</small></em></div>'}).join(''):'<div class="lbl">Leaderboard will appear as miners sync their balances.</div>'}).catch(function(){});
  fetch('/api/referrals/me',{headers:{'x-init-data':tg&&tg.initData||''}}).then(function(r){return r.json()}).then(function(j){if(!j.ok)return;var a=$('refCount'),b=$('refEarned'),d=$('crewCount'),e=$('crewEarned');if(a)a.textContent=j.count+' qualified';if(b)b.textContent=Number(j.bonus||0).toFixed(2)+' $RAJ';if(d)d.textContent='Referral mining commission';if(e)e.textContent=Number(j.commission||0).toFixed(2)+' $RAJ'}).catch(function(){});function cpy(){try{navigator.clipboard.writeText(link)}catch(e){}toast('Invite link copied')}
  $('cp').onclick=cpy;$('inv').onclick=function(){cpy();if(tg&&tg.openTelegramLink){tg.openTelegramLink('https://t.me/share/url?url='+encodeURIComponent(link))}}}
 function tasks(){var days=[5,6,7,8,9,10],h='';
@@ -807,17 +865,15 @@ function miners(){
   var q=rankInfo(),r=q.rank;
   function fmt(n){if(n>=1000000000)return (n/1000000000).toFixed(2).replace(/0+$/,"").replace(/\\.$/,"")+"B";if(n>=1000000)return (n/1000000).toFixed(2).replace(/0+$/,"").replace(/\\.$/,"")+"M";if(n>=1000)return (n/1000).toFixed(n>=100000?0:2).replace(/\\.?0+$/,"")+"K";return String(Math.round(n))}
   function rng(a){return fmt(a[0])+" – "+fmt(a[1])}
-  var pct=q.index<0?0:Math.min(100,Math.max(0,(q.holding-r.min)/(r.max-r.min)*100));
+  var next=q.next, target=next?next.min:(r.max||0), progress=next?Math.max(0,Math.min(100,q.holding/Math.max(1,target)*100)):100;
   var rankIcons=['miners','mine','miners','wallet','gem','gem','coin','gem','arcade','profile'];
+  var currentName=q.index>=0?r.name:'Starter';
   var cards=RANKS.map(function(x,i){
-   var unlocked=i<=q.index,active=i===q.index;
-   return '<div class="card" style="margin:9px 0;padding:13px;border:1px solid '+(active?'#ffd45a':'#ffffff18')+';background:'+(active?'linear-gradient(135deg,#49317f,#24194b)':'#ffffff0c')+'">'+
-    '<div class="row" style="align-items:center"><div style="width:42px;display:flex;justify-content:center">'+ICON(rankIcons[i],34)+'</div><div style="flex:1"><b style="font-size:17px;color:'+(active?'var(--gold)':'#fff')+'">'+x.name+'</b><div class="lbl">'+x.place+'</div></div><span class="pill">'+(active?'YOUR RANK':unlocked?'✓ UNLOCKED':' LOCKED')+'</span></div>'+
-    '<div class="two" style="margin-top:10px"><div><small class="lbl">Holding needed</small><b>'+rng([x.min,x.max])+' $RAJ</b></div><div><small class="lbl">Mining speed</small><b>'+rng(x.speed)+' TH/s</b></div><div><small class="lbl">Daily output</small><b>'+rng(x.daily)+' $RAJ</b></div><div><small class="lbl">Tool · Crew</small><b>'+x.tool+' · '+x.crew+'</b></div></div>'+
-    (active?'<div class="bar" style="margin-top:10px"><i style="width:'+pct+'%;background:var(--gold)"></i></div><small class="lbl">'+fmt(q.holding)+' / '+fmt(x.max)+' $RAJ held · next rank '+(q.next?fmt(q.next.min)+' $RAJ':'MAX RANK')+'</small>':'')+
-    '</div>';
-  }).join("");
-  V.innerHTML='<div class="pad"><h2 class="section-heading">'+ICON('miners',34)+'Miners</h2><div class="card"><small class="lbl">YOUR PERMANENT HIGHEST RANK</small><div class="row" style="align-items:center;margin-top:6px"><div style="font-size:48px">'+(q.index>=0?ICON(rankIcons[q.index],48):ICON('miners',48))+'</div><div style="flex:1"><b style="font-size:23px;color:var(--gold)">'+(q.index>=0?r.name:'Unranked Miner')+'</b><div class="lbl">'+r.place+' · '+fmt(q.holding)+' $RAJ combined holding</div></div></div><div class="two" style="margin-top:12px"><div><small class="lbl">Current mining speed</small><b>'+q.speed.toFixed(2)+' TH/s</b></div><div><small class="lbl">Estimated daily output</small><b>'+fmt(q.daily)+' $RAJ</b></div></div>'+(q.next?'<div class="lbl" style="margin-top:9px">Next unlock: '+q.next.name+' at '+fmt(q.next.min)+' $RAJ</div>':'<div class="lbl" style="margin-top:9px">All ranks unlocked. Raj Legend!</div>')+'</div><h3 style="margin:14px 0 6px">All Mining Ranks</h3><div class="lbl">Your highest unlocked rank stays saved even if your holding changes.</div>'+cards+'</div>';
+   var unlocked=i<=q.index,active=i===q.index,upNext=i===q.index+1;
+   var need=Math.max(0,x.min-q.holding),cardTone=active?'active':upNext?'next':'locked';
+   return '<article class="level-card '+cardTone+'"><div class="level-card-top"><div class="level-emblem">'+ICON(rankIcons[i],29)+'</div><div class="level-title"><small>LEVEL '+String(i+1).padStart(2,'0')+'</small><b>'+x.name+'</b><span>'+x.place+'</span></div><span class="level-status">'+(active?'CURRENT':unlocked?'UNLOCKED':upNext?'NEXT UP':'LOCKED')+'</span></div><div class="level-stats"><div><small>HOLDING RANGE</small><b>'+rng([x.min,x.max])+' <i>$RAJ</i></b></div><div><small>MINING SPEED</small><b>'+rng(x.speed)+' <i>TH/s</i></b></div><div><small>DAILY ESTIMATE</small><b>'+rng(x.daily)+' <i>$RAJ</i></b></div><div><small>CREW CAPACITY</small><b>'+x.crew+' <i>miners</i></b></div></div>'+(active?'<div class="level-card-note">Your active level</div>':upNext?'<div class="level-card-note">You need '+fmt(need)+' more $RAJ to unlock this level.</div>':'')+'</article>';
+  }).join('');
+  V.innerHTML='<div class="pad miners-page"><header class="miners-heading"><div><small>RAJ MINER PROGRESSION</small><h2>Mining Levels</h2></div><span class="miners-level-chip">'+(q.index>=0?'LVL '+(q.index+1):'LVL 00')+'</span></header><section class="level-overview"><div class="level-overview-top"><div><small>YOUR CURRENT LEVEL</small><b>'+(q.index>=0?r.name:'Starter Miner')+'</b><span>'+r.place+'</span></div><div class="level-overview-icon">'+ICON(rankIcons[Math.max(0,q.index)],40)+'</div></div><div class="level-holding"><span>Combined $RAJ holding</span><b>'+fmt(q.holding)+' <i>$RAJ</i></b></div><div class="level-progress-track"><i style="width:'+progress.toFixed(1)+'%"></i></div><div class="level-progress-label"><span>'+(next?'Progress to '+next.name:'All levels completed')+'</span><b>'+progress.toFixed(1)+'%</b></div><div class="level-overview-stats"><div><small>MINING SPEED</small><b>'+q.speed.toFixed(2)+' TH/s</b></div><div><small>DAILY ESTIMATE</small><b>'+fmt(q.daily)+' $RAJ</b></div></div><p>Hold $RAJ in your app balance or connected on-chain wallet to unlock higher levels. Your level is based on both balances combined.</p></section><div class="levels-list-heading"><div><b>All mining levels</b><small>10 progression tiers · higher levels unlock better mining stats</small></div></div>'+cards+'</div>';
   var speed=$("ths");if(speed)speed.textContent=q.speed.toFixed(2);
  }
 function wallet(){V.innerHTML='<div class="pad"><h2 class="section-heading">'+ICON('wallet',34)+'Vault</h2><div class="vault"><div class="lbl" style="color:#d6ffe9">COMBINED HOLDING · DECIDES YOUR LEVEL</div><div class="big"><span class="coin">R</span>'+(S.bal|0)+'</div><span class="pill">≈ $'+(S.bal*PRICE).toFixed(3)+'</span> <span class="pill">Pre-listing</span>'+
