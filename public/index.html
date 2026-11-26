@@ -239,6 +239,20 @@ h2{font-size:34px;color:#ffc928}
 @media(max-width:380px){.rock-cluster{left:calc(50% + 34px);transform:scale(.88);transform-origin:left top}#pickaxe{left:calc(50% + 14px)}}
 
 #miner .miner-fallback{display:block}
+
+/* Real mountain environment: replace the cartoon miner/cave backdrop */
+#shaft{
+ background-image:
+  linear-gradient(180deg,rgba(10,16,28,.18),rgba(9,12,20,.48)),
+  url("https://images.unsplash.com/photo-1668482687763-c7ab028b4b3e?auto=format&fit=crop&fm=jpg&q=85&w=1800");
+ background-size:100% 100%,100% 100vh;
+ background-position:center,center top;
+ background-repeat:no-repeat,repeat-y;
+}
+#ladder,#miner,#pickaxe,#nft,.torch{display:none!important}
+#rockCluster{filter:drop-shadow(0 12px 18px #000b)}
+#mwrap:after{background:linear-gradient(180deg,rgba(5,10,20,.04),rgba(5,10,20,.24)),radial-gradient(ellipse at 50% 45%,#0000 34%,#0008 100%)}
+
 </style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap"><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://cdn.jsdelivr.net/npm/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"></script></head><body>
 <div id="app">
  <div id="top">
