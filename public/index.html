@@ -576,6 +576,74 @@ h3{font:750 19px system-ui,sans-serif!important;color:#f3f8ff}
 .tap-collect:disabled{opacity:.4}
 @keyframes rajOrbit{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.tap-orbit,.tap-coin,#splash .splash-logo{animation:none!important}}
+
+/* Unified premium Raj coin design system */
+:root{--bg:#080d18;--card:#111c2e;--card2:#17263c;--ink:#f5f7fc;--mut:#93a5bf;--gold:#f2c56b;--gold2:#b98232;--grn:#62dfbd}
+html,body{background:#080d18!important;color:var(--ink)}
+#app{height:100dvh;min-height:100%;background:#080d18;overflow:hidden}
+#top{background:linear-gradient(135deg,#101b2e,#172a43 58%,#101827)!important;border-bottom:1px solid #d6b46b26!important;border-radius:0 0 18px 18px!important;box-shadow:0 8px 24px #0005}
+.top-brand img{border-radius:50%!important;background:#111b2c!important;border:1px solid #d8b56a66;box-shadow:0 0 0 3px #d8b56a12,0 4px 14px #0008}
+.top-brand b{letter-spacing:.14em!important}.top-brand small{color:#bda878!important}
+#top .btn,.btn,.mini{background:linear-gradient(135deg,#f5d58c,#c58b3d)!important;color:#211608!important;border:1px solid #ffe6ac66!important;box-shadow:0 3px 0 #81551f!important;border-radius:12px!important}
+#top .bar i,.bar i{background:linear-gradient(90deg,#d6a34f,#f5d88d,#7de0c4)!important}
+#view{flex:1 1 auto;min-height:0;min-width:0;width:100%;overflow-y:auto!important;overflow-x:hidden!important;background:radial-gradient(ellipse at 50% 0%,#17263b 0%,#0b1422 54%,#080d18 100%)}
+#view .pad,#view .pad0{padding:15px!important}
+#view h2,#view h3,.section-heading{color:#f5e5c2!important;text-shadow:none!important;letter-spacing:-.02em}
+#view .card,#view .ck,#view .crew,#view .invite,#view .vault,#view .task,#view .hist,#view .vcard{
+ background:linear-gradient(145deg,#17263b,#101a2b)!important;border:1px solid #d5b36b24!important;border-radius:17px!important;box-shadow:0 8px 22px #0003!important;color:#f4f6fb
+}
+#view .card{padding:15px!important}
+#view .lbl,#view small{color:#9aabc3}
+#view b{color:#f5f5f2}
+#view .pill,#view .pill2{background:#d9b66b18!important;border:1px solid #d9b66b38;color:#e8cc91!important;border-radius:20px}
+#view .task{gap:12px;padding:12px!important}
+#view .task .ic,.inline-icon-title{color:#e6bf75}
+#view .mini{padding:9px 13px!important;font-size:12px!important}
+#view .cyan,#view button.cyan{background:linear-gradient(135deg,#e8c477,#b9873e)!important;color:#20170c!important;border:0!important;border-radius:13px!important;box-shadow:0 3px 0 #76501e!important}
+#view input,#view select,#view textarea{background:#0b1422!important;color:#f7f4ec!important;border:1px solid #c9a45d55!important;border-radius:12px!important;padding:11px!important}
+#view input::placeholder,#view textarea::placeholder{color:#788aa4}
+#nav{position:relative;flex:0 0 auto;display:flex;justify-content:space-around;align-items:center;background:linear-gradient(180deg,#121e30,#0a1220)!important;border-top:1px solid #d8b56b30!important;border-radius:18px 18px 0 0!important;padding:7px 5px calc(7px + env(safe-area-inset-bottom,0px))!important;box-shadow:0 -8px 24px #0005}
+#nav button{color:#8394ad!important;font-size:10px!important;gap:4px!important;padding:5px 8px!important;border-radius:12px!important}
+#nav button span{filter:none!important;background:transparent!important;padding:0!important;transform:none!important}
+#nav button.on{color:#f5d58c!important;background:#e6bd6b12!important}
+#nav button.on span{color:#f5d58c!important;filter:drop-shadow(0 0 7px #e8bd6b55)!important}
+#splash{background:radial-gradient(circle at 50% 45%,#1b2b43 0%,#080d18 70%)!important;z-index:50!important}
+#splash .splash-mark{width:180px!important;height:180px!important;margin:0!important;display:flex!important;align-items:center!important;justify-content:center!important}
+#splash .splash-logo{width:156px!important;height:156px!important;max-width:60vw!important;max-height:60vw!important;object-fit:contain!important;border-radius:50%!important;padding:0!important;background:transparent!important;border:0!important;box-shadow:0 0 36px #e6bc6b35!important}
+#splash .gold-layer,#splash h1,#splash p,#splash small{display:none!important}
+#app.mining #top{display:none!important}
+#app.mining #view{position:relative!important;inset:auto!important;flex:1 1 auto!important;min-height:0!important;padding-top:env(safe-area-inset-top,0px)!important;padding-bottom:6px!important}
+#app.mining #nav{position:relative!important;inset:auto!important}
+.tap-home{min-height:100%;height:auto;justify-content:flex-start;gap:8px;padding:12px 17px 14px!important;background:radial-gradient(ellipse at 50% 22%,#1c304b 0%,#0b1525 52%,#080d18 100%)!important}
+.tap-brandline{width:100%;display:flex;align-items:center;gap:9px;padding:1px 2px 4px}
+.tap-brandline img{width:34px;height:34px;object-fit:contain;border-radius:50%;border:1px solid #d9b66b66;box-shadow:0 0 0 3px #d9b66b12}
+.tap-brandline b{display:block;color:#f5e2b8;font-size:12px;letter-spacing:.16em}
+.tap-brandline small{display:block;color:#7f93ae;font-size:8px;letter-spacing:.13em;margin-top:2px}
+.tap-brandline>span{margin-left:auto;color:#80dfbd;font-size:9px;letter-spacing:.12em;border:1px solid #66d8b33a;background:#66d8b310;border-radius:20px;padding:5px 9px}
+.tap-brandline>span i{display:inline-block;width:6px;height:6px;border-radius:50%;background:#69e1b8;box-shadow:0 0 8px #69e1b8;margin-right:4px}
+.tap-balance{padding:5px 10px 0!important}
+.tap-balance small{color:#9cacc1!important;font-size:9px!important;letter-spacing:.18em!important}
+.tap-balance strong{font-size:clamp(30px,8vw,40px)!important;color:#fff7e8!important;margin:5px 0 2px!important}
+.tap-balance strong em{color:#e7c477!important;font-size:12px!important}
+.tap-balance>span{color:#8fa3bd!important;font-size:10px!important}
+.tap-stage{height:min(43vh,320px)!important;min-height:190px!important;flex:1 1 auto!important;width:100%;position:relative}
+.tap-orbit{border-color:#d7b56c35!important}
+.tap-orbit-one{box-shadow:0 0 65px #d8b56b12,inset 0 0 42px #d8b56b0b!important}
+.tap-orbit-two{border-color:#70d8c044!important}
+.tap-coin{width:min(48vw,190px)!important;height:min(48vw,190px)!important;filter:drop-shadow(0 15px 32px #000b) drop-shadow(0 0 18px #d8b56b24)!important}
+.tap-hint{bottom:2px!important;color:#9eb0c7!important;font-size:8px!important;letter-spacing:.24em!important}
+.tap-session{padding:14px!important;border-radius:18px!important;background:linear-gradient(145deg,#192a40,#101a2a)!important;border:1px solid #d8b56b36!important;box-shadow:0 10px 26px #0005!important}
+.tap-session-head>span{color:#a4b4c8!important;font-size:9px!important;letter-spacing:.14em!important}
+.tap-session-head>b{color:#f4e4c1!important;font-size:18px!important}
+.tap-session-head small{color:#e6c277!important}
+.tap-progress{background:#080f1b!important}
+.tap-progress i{background:linear-gradient(90deg,#bd8b3f,#f0d28a,#66d7b5)!important}
+.tap-session-foot{color:#879bb5!important;font-size:9px!important}
+.tap-collect{background:linear-gradient(110deg,#f0d28a,#c18b43)!important;color:#20170d!important;border:1px solid #ffe7af88!important;box-shadow:0 4px 0 #795222!important;border-radius:13px!important;padding:12px!important}
+.tap-collect:disabled{box-shadow:none!important}
+@media(max-height:700px){.tap-home{padding-top:8px!important;gap:6px!important}.tap-stage{min-height:150px!important}.tap-session{padding:11px!important}}
+@media(max-width:360px){#nav button{font-size:9px!important;padding:4px 5px!important}.tap-stage{min-height:160px!important}}
+
 </style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap"><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://cdn.jsdelivr.net/npm/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"></script><script>
 /* Clear stale origin caches and unregister obsolete service workers. */
 (function(){
@@ -680,8 +748,9 @@ var RM=["I","II","III","IV","V","VI","VII","VIII","IX","X"];
 function mine2(){
  if(window.__mineAutoTimer){clearInterval(window.__mineAutoTimer);window.__mineAutoTimer=null}
  V.innerHTML='<main class="tap-home">'+
+ '<section class="tap-brandline"><img src="/icon.jpg" alt="Raj coin"><div><b>RAJ MINER</b><small>THE RAJ ECOSYSTEM</small></div><span><i></i> LIVE</span></section>'+
  '<section class="tap-balance"><small>YOUR $RAJ BALANCE</small><strong>'+Math.floor(Number(S.bal)||0).toLocaleString('en-IN')+' <em>$RAJ</em></strong><span>≈ $'+((Number(S.bal)||0)*PRICE).toFixed(3)+'</span></section>'+
- '<section class="tap-stage"><div class="tap-orbit tap-orbit-one"></div><div class="tap-orbit tap-orbit-two"></div><button class="tap-coin" id="raj-tap-coin" aria-label="Raj coin"><img src="/icon.jpg" alt="Raj coin"></button><small class="tap-hint">TAP THE COIN</small></section>'+
+ '<section class="tap-stage"><div class="tap-orbit tap-orbit-one"></div><div class="tap-orbit tap-orbit-two"></div><button class="tap-coin" id="raj-tap-coin" aria-label="Raj coin"><img src="/icon.jpg" alt="Raj coin"></button><small class="tap-hint">RAJ COIN</small></section>'+
  '<section class="tap-session"><div class="tap-session-head"><span>MINING REWARDS</span><b><span id="session-earned">'+f4(S.shift)+'</span> <small>$RAJ</small></b></div><div class="tap-progress"><i id="session-fill" style="width:'+(S.shift/CAP*100)+'%"></i></div><div class="tap-session-foot"><span id="session-state">'+(S.shift>=CAP?'Session full':'Session in progress')+'</span><span>'+f4(CAP)+' $RAJ</span></div><button class="tap-collect" id="mine-collect" '+(S.shift<0.01?'disabled':'')+'>Collect $RAJ</button></section></main>';
  var coin=$("raj-tap-coin");if(coin)coin.onclick=function(){coin.classList.remove("tap-pop");void coin.offsetWidth;coin.classList.add("tap-pop")};
  function updateMine(){var e=$("session-earned"),p=$("session-fill"),st=$("session-state"),btn=$("mine-collect");if(e)e.textContent=f4(S.shift);if(p)p.style.width=(S.shift/CAP*100)+'%';if(st)st.textContent=S.shift>=CAP?'Session full':'Session in progress';if(btn)btn.disabled=S.shift<0.01;$("mined").textContent=f4(S.shift);$("usd").textContent='≈ $'+(S.shift*PRICE).toFixed(5);$("fill").style.width=(S.shift/CAP*100)+'%';$("cart").textContent=S.shift>=CAP?'Cart full!':'Mining…';$("unlock").disabled=S.shift<0.01}
@@ -943,21 +1012,3 @@ setInterval(tick,1000);
 setInterval(save,5000);
 })();
 </script></body></html>
-
-
-/* Layout correction: keep splash intact and center the mining screen in Telegram's viewport */
-#splash{display:flex!important;align-items:center!important;justify-content:center!important;min-height:100%;z-index:100!important}
-#splash .splash-mark{width:100%;height:auto;display:flex!important;align-items:center;justify-content:center}
-#splash .splash-logo{display:block!important;width:176px!important;height:176px!important;max-width:54vw!important;max-height:54vw!important}
-#app{height:100dvh;min-height:100%;overflow:hidden}
-#app.mining #top{display:none!important}
-#app.mining #view{position:relative!important;inset:auto!important;flex:1 1 auto!important;min-height:0!important;width:100%;overflow-y:auto!important;overflow-x:hidden!important;padding-top:max(18px,env(safe-area-inset-top,0px));padding-bottom:8px}
-#app.mining #nav{position:relative;flex:0 0 auto}
-.tap-home{min-height:100%;height:auto;justify-content:space-evenly;gap:10px;padding:22px 18px 18px}
-.tap-balance{padding:10px 12px 4px}
-.tap-stage{height:min(43vh,320px);min-height:210px;flex:0 1 auto}
-@media(max-height:700px){
- .tap-home{justify-content:flex-start;gap:8px;padding-top:10px}
- .tap-stage{height:34vh;min-height:170px}
- .tap-session{padding:13px}
-}
