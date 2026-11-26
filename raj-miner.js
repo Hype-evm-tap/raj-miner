@@ -229,7 +229,9 @@ input{width:100%;padding:13px;border-radius:14px;border:2px solid #ffffff30;back
 <div id="promo"><div><div class="hero" style="background:none;border:0"></div></div></div>
 <nav id="nav"></nav>
 <script>
-const tg=Telegram.WebApp;tg.ready();tg.expand();try{tg.disableVerticalSwipes();tg.setHeaderColor('#1c0f4d');tg.setBackgroundColor('#0b0524')}catch(e){}
+const tg=window.Telegram?.WebApp;
+if(!tg){document.getElementById('app').innerHTML='<div class="card" style="text-align:center;margin-top:25vh"><h1 class="t">Open inside Telegram</h1><p class="sm" style="margin:14px 0">Raj Miner needs your Telegram account to load your mining balance. Open the bot and tap its Mini App button.</p><a class="btn" style="display:inline-block;text-decoration:none" href="https://t.me/Raj_company_bot?start=app">Open @Raj_company_bot</a></div>';throw new Error('Telegram WebApp SDK unavailable; open through the bot');}
+tg.ready();tg.expand();try{tg.disableVerticalSwipes();tg.setHeaderColor('#1c0f4d');tg.setBackgroundColor('#0b0524')}catch(e){}
 const ref=new URLSearchParams(location.search).get('r')||'';
 const api=(p,b={})=>fetch('/api/'+p,{method:'POST',headers:{'content-type':'application/json','x-init':tg.initData,'x-ref':ref},body:JSON.stringify(b)}).then(r=>r.json());
 for(let i=0;i<70;i++){const s=document.createElement('i');s.style.cssText=`left:${Math.random()*100}%;top:${Math.random()*100}%;animation-delay:${Math.random()*3}s`;bg.append(s)}
