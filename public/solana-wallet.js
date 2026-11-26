@@ -1,5 +1,5 @@
 import { createAppKit, SolanaAdapter, networks } from 'https://cdn.jsdelivr.net/npm/@reown/appkit-cdn@1.8.24/dist/appkit.js';
-import { ReownAuthentication } from 'https://cdn.jsdelivr.net/npm/@reown/appkit-siwx@1.8.24/+esm';
+import { DefaultSIWX } from 'https://cdn.jsdelivr.net/npm/@reown/appkit-siwx@1.8.24/+esm';
 
 (async function initRajSolanaWallet(){
   const button = () => document.getElementById('sol-wallet-btn');
@@ -21,7 +21,7 @@ import { ReownAuthentication } from 'https://cdn.jsdelivr.net/npm/@reown/appkit-
     const cfg=await fetch('/api/reown-config',{cache:'no-store'}).then(r=>r.json());
     if(!cfg.ok||!cfg.projectId)throw new Error('Reown Project ID is not configured');
     const solanaAdapter=new SolanaAdapter();
-    siwxAuth=new ReownAuthentication({required:true});
+    siwxAuth=new DefaultSIWX({required:true});
     siwxAuth.on('sessionChanged',session=>{authenticated=!!session;paint();console.info('Raj Solana sign-in status:',authenticated?'authenticated':'signed out')});
     modal=createAppKit({
       adapters:[solanaAdapter],
