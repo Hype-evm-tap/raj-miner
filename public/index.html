@@ -863,57 +863,7 @@ initTon();auth();nav();render();setTimeout(function(){var s=$("splash");if(s){s.
 setInterval(tick,1000);
 setInterval(save,5000);
 })();
-</script></body></html>function rockTile(){
- var r=[["M8 40Q10 12 44 8L96 14Q118 30 110 62L96 96Q60 108 20 92Z","#7c7590"],["M120 6L190 10Q232 24 226 64L214 100Q178 112 140 100Q116 80 120 6Z","#6b657f"],["M6 110Q40 104 84 116L100 160Q96 196 56 204Q14 198 6 160Z","#716b86"],["M112 118Q160 112 200 128L222 150Q236 180 214 200Q178 218 150 208Q112 198 108 158Z","#625c78"],["M24 214Q60 208 100 214L112 240H16Z","#6e6883"],["M130 214Q180 210 226 216L236 240H124Z","#5f5975"]];
- var s='<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240"><defs><linearGradient id="wall" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#777087"/><stop offset=".38" stop-color="#373247"/><stop offset="1" stop-color="#100e1b"/></linearGradient><linearGradient id="shade" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".26"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".62"/></linearGradient><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".72" numOctaves="3" seed="8"/><feColorMatrix values=".45 0 0 0 .2 .0 .45 0 0 .18 0 0 .45 0 .22 0 0 0 .2 0"/></filter></defs><rect width="240" height="240" fill="url(#wall)"/><path d="M0 0L45 18 22 58 0 76M240 0L204 26 220 65 240 82M0 142L34 126 52 160 26 205 0 220M240 130L208 145 194 182 220 220 240 230" fill="none" stroke="#aaa0bd" stroke-opacity=".15" stroke-width="10"/><rect width="240" height="240" filter="url(#grain)" opacity=".24"/>';
- r.forEach(function(q,i){s+='<path d="'+q[0]+'" fill="'+q[1]+'" stroke="#171322" stroke-width="4" stroke-linejoin="round"/><path d="'+q[0]+'" fill="url(#shade)"/><path d="'+(i%2?'M22 28l12 10-7 12':'M150 34l-10 12 8 10')+'" stroke="#171322" stroke-width="2" fill="none" opacity=".65"/>'});
- s+='<g fill="none" stroke-linecap="round"><path d="M16 36Q22 16 46 14L92 18M130 14L186 15Q220 24 224 50M122 126Q160 118 200 128M14 112Q40 108 80 118" stroke="#526b39" stroke-width="8" opacity=".9"/><path d="M20 32Q26 20 46 18L86 21M134 11L184 13" stroke="#a4bd6a" stroke-width="2.5" opacity=".8"/><path d="M50 40L60 62L52 80M170 40L162 66M60 140L74 168M170 150L182 176M92 18L82 42 96 58M214 64L198 82 205 102" stroke="#171322" stroke-width="3" opacity=".8"/></g><g fill="#b7adc7" opacity=".5"><circle cx="30" cy="60" r="2.5"/><circle cx="180" cy="170" r="3"/><circle cx="76" cy="180" r="2"/><circle cx="205" cy="38" r="2"/><circle cx="112" cy="95" r="2"/></g><rect width="240" height="240" fill="url(#shade)" opacity=".35"/>';
- return s+'</svg>'}
-var RM=["I","II","III","IV","V","VI","VII","VIII","IX","X"];
-function legacyMine(){
- S.lvl=Math.max(1,Math.floor(S.bal/12.4));var L=S.lvl,totalLevels=Math.max(40,L+20),H=totalLevels*LH+240,g='',rg='',n,y;
- for(y=30;y<H-20;y+=36)rg+='<i style="top:'+y+'px"></i>';
- for(n=1;n<=totalLevels;n++){
-  y=(MAXL-n)*LH+120;var lk=n>L,left=n%2==0;
-  g+='<div class="gem'+(lk?' lk':'')+'" data-gem="'+n+'" style="top:'+y+'px;'+(left?'left:5%':'right:5%')+'">'+gemSvg(PAL[n%4])+'<small>'+(lk?' ':'')+n+'</small></div>';
-  if(n%5==0)g+='<div class="mark" style="top:'+(y-125)+'px">LEVEL '+n+'</div>';
- }
- var my=(totalLevels-L)*LH+50;
- var minerSvg='<svg viewBox="-4 -22 134 182" width="124" aria-label="Raj miner"><use href="#mn3"/></svg>';
- var pickSvg='<svg viewBox="0 0 120 86" width="104" height="76" aria-hidden="true"><defs><linearGradient id="pickWood" x2="0" y2="1"><stop stop-color="#d49a55"/><stop offset="1" stop-color="#6c3917"/></linearGradient><linearGradient id="pickSteel" x2="0" y2="1"><stop stop-color="#f5fbff"/><stop offset=".45" stop-color="#8f9cb2"/><stop offset="1" stop-color="#424c64"/></linearGradient></defs><path d="M24 75L78 13" stroke="#3b210e" stroke-width="13" stroke-linecap="round"/><path d="M24 72L78 10" stroke="url(#pickWood)" stroke-width="8" stroke-linecap="round"/><path d="M57 14Q82 -2 112 14Q91 11 79 25Q65 20 57 14Z" fill="url(#pickSteel)" stroke="#30384c" stroke-width="3" stroke-linejoin="round"/><path d="M64 11Q85 2 102 11" stroke="#fff" stroke-width="3" fill="none" opacity=".8"/></svg>';
- V.innerHTML='<div id="mwrap"><div id="mine"><div id="shaft" style="height:'+H+'px"><div id="ladder">'+rg+'</div>'+g+
- '<div class="rock-cluster" id="rockCluster" style="top:'+(my+38)+'px"><div class="ore-rock rock-a"></div><div class="ore-rock rock-b"></div><div class="ore-rock rock-c"></div><div class="ore-crystal">'+gemSvg(PAL[0])+'</div><div class="rock-cracks"></div></div>'+
- '<div id="miner" style="top:'+my+'px"><span class="miner-fallback">'+minerSvg+'</span></div><div id="pickaxe">'+pickSvg+'</div><div id="hitSpark">✦</div></div></div>'+
- '<div id="lvl"><span class="coin" style="width:36px;height:36px;font-size:16px">'+L+'</span><div>Rookie Digger '+Math.ceil(L/10)+'<br><span style="color:var(--gold)">'+rate()+' $RAJ/day</span><div class="mine-level-progress"><i id="mineProgress"></i></div></div></div>'+
- '<div id="feed" aria-label="Live status"><b>● LIVE</b></div>'+
- '<div id="nft"><svg viewBox="-4 -22 134 182" width="50"><use href="#mn3"/></svg><small>LIMITED · 1,111</small></div>'+
- '<button class="btn" id="find"> Find Victor</button></div>';
- var m=$("mine"),sh=$("shaft"),rock=$("rockCluster"),miner=$("miner"),pick=$("pickaxe"),spark=$("hitSpark"),progress=$("mineProgress");
- pick.style.top=(my+35)+"px";spark.style.top=(my+55)+"px";window.__my=my;window.__sh=sh;
- /* removed broken external cave texture call */
- m.scrollTop=Math.max(0,my-m.clientHeight*0.5);
- var hits=0,climbs=0,broken=false;
- function hitRock(){
-  if(broken)return;
-  hits++;pick.classList.remove("swinging");void pick.offsetWidth;pick.classList.add("swinging");
-  rock.classList.add("rock-hit");spark.classList.remove("spark-on");void spark.offsetWidth;spark.classList.add("spark-on");
-  var f=document.createElement("div");f.className="float";f.textContent="+"+(RATE*5).toFixed(2)+" $RAJ";f.style.left=(44+Math.random()*18)+"%";f.style.top=(my+30)+"px";sh.appendChild(f);setTimeout(function(){f.remove()},1150);
-  
-  if(progress)progress.style.width=((hits%4)/4*100)+"%";
-  if(hits%4===0){
-   broken=true;rock.classList.add("rock-broken");
-   for(var j=0;j<7;j++){var p=document.createElement("i");p.className="debris";p.style.setProperty("--dx",(Math.random()*130-65)+"px");p.style.setProperty("--dy",(Math.random()*-100-10)+"px");rock.appendChild(p);setTimeout(function(x){x.remove()},750,p)}
-   var gem=document.createElement("div");gem.className="float gem-pop";gem.textContent=" CRYSTAL FOUND";gem.style.left="32%";gem.style.top=(my+4)+"px";sh.appendChild(gem);setTimeout(function(){gem.remove()},1250);
-   climbs++;var nextTop=Math.max(80,my-52);my=nextTop;miner.style.transition="top .8s cubic-bezier(.2,.8,.2,1)";miner.style.top=nextTop+"px";pick.style.transition="top .8s";pick.style.top=(nextTop+35)+"px";spark.style.top=(nextTop+55)+"px";
-   m.scrollTo({top:Math.max(0,nextTop-m.clientHeight*.48),behavior:"smooth"});
-   setTimeout(function(){rock.classList.remove("rock-hit","rock-broken");rock.innerHTML='<div class="ore-rock rock-a"></div><div class="ore-rock rock-b"></div><div class="ore-rock rock-c"></div><div class="ore-crystal">'+gemSvg(PAL[(climbs)%4])+'</div><div class="rock-cracks"></div>';rock.style.top=(nextTop+38)+"px";rock.style.opacity="1";broken=false;hits=0;if(progress)progress.style.width="0%"},820);
-   toast("Rock broken! Climbing to next ledge ");
-  }else{setTimeout(function(){rock.classList.remove("rock-hit")},260)}
-  $("mined").textContent=f4(S.shift);$("usd").textContent="≈ $"+(S.shift*PRICE).toFixed(5);$("fill").style.width=(S.shift/CAP*100)+"%";$("cart").textContent=S.shift>=CAP?"Cart full!":"Mining…";$("unlock").disabled=S.shift<0.01;
- }
- window.__mineAutoTimer=setInterval(hitRock,1300);
- $("find").onclick=function(){m.scrollTo({top:Math.max(0,parseFloat(miner.style.top)-m.clientHeight*.5),behavior:"smooth"});var gems=document.querySelectorAll(".gem:not(.lk)");if(gems.length){var x=gems[Math.random()*gems.length|0];x.classList.add("hl");setTimeout(function(){x.classList.remove("hl")},1800)}toast("Crystal vein located ")};
- }
+</script></body></html>var RM=["I","II","III","IV","V","VI","VII","VIII","IX","X"];
 var ICONS={
 tasks:'<rect x="9" y="6" width="28" height="36" rx="5" fill="url(#gP1)" stroke="#8a5a2b" stroke-width="2"/><circle cx="9" cy="8" r="5" fill="#e8c98a" stroke="#8a5a2b" stroke-width="2"/><circle cx="37" cy="40" r="5" fill="#e8c98a" stroke="#8a5a2b" stroke-width="2"/><path d="M16 22l6 7 11-13" stroke="#1f7a46" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 22l6 7 11-13" stroke="#3ee08f" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>',
 arcade:'<path d="M8 20q0-8 8-8h16q8 0 8 8v10q0 8-7 8-4 0-6-4h-10q-2 4-6 4-7 0-7-8z" fill="url(#gPu)" stroke="#2a1873" stroke-width="2.5"/><path d="M15 21v8M11 25h8" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="32" cy="22" r="3" fill="#ff5d9a"/><circle cx="37" cy="27" r="3" fill="#3ee0ff"/><ellipse cx="22" cy="15" rx="9" ry="2" fill="#fff" opacity=".35"/>',
