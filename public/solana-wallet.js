@@ -1,4 +1,5 @@
 import { createAppKit, SolanaAdapter, networks } from 'https://cdn.jsdelivr.net/npm/@reown/appkit-cdn@1.8.24/dist/appkit.js';
+import { ReownAuthentication } from 'https://cdn.jsdelivr.net/npm/@reown/appkit-siwx@1.8.24/+esm';
 
 (async function initRajSolanaWallet(){
   const button = () => document.getElementById('sol-wallet-btn');
@@ -23,6 +24,7 @@ import { createAppKit, SolanaAdapter, networks } from 'https://cdn.jsdelivr.net/
       projectId:cfg.projectId,
       networks:[networks.solana],
       defaultNetwork:networks.solana,
+      siwx:new ReownAuthentication({required:true}),
       metadata:{name:'Raj Miner',description:'Raj Miner Solana wallet connection',url:location.origin,icons:[location.origin+'/icon.jpg']},
       themeMode:'dark',
       features:{analytics:false,email:false,socials:[]},
