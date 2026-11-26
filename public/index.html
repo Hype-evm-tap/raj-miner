@@ -316,7 +316,7 @@ function mine2(){
  '<div id="feed"><b>● LIVE PAYOUT HISTORY</b><div id="fi">'+feedItem()+'</div></div>'+
  '<div id="nft"><svg viewBox="-4 -22 134 182" width="50"><use href="#mn3"/></svg><small>LIMITED · 1,111</small></div>'+
  '<div id="vch">🎟️</div><button class="btn" id="find">🎯 Find Raj</button><div id="mine-hint">TAP THE ROCK TO MINE</div></div>';
- var m=$("mine"),sh=$("shaft");window.__my=my;window.__sh=sh;
+ var m=$("mine"),sh=$("shaft");pick.style.top=(my+35)+"px";spark.style.top=(my+55)+"px";window.__my=my;window.__sh=sh;
  sh.style.backgroundImage='url("data:image/svg+xml,'+encodeURIComponent(rockTile())+'")';
  m.scrollTop=Math.max(0,my-m.clientHeight*0.5);
  var hits=0,climbs=0,broken=false,rock=$("rockCluster"),miner=$("miner"),pick=$("pickaxe"),spark=$("hitSpark"),progress=$("mineProgress");
@@ -331,7 +331,7 @@ function mine2(){
    broken=true;rock.classList.add("rock-broken");
    for(var j=0;j<7;j++){var p=document.createElement("i");p.className="debris";p.style.setProperty("--dx",(Math.random()*130-65)+"px");p.style.setProperty("--dy",(Math.random()*-100-10)+"px");rock.appendChild(p);setTimeout(function(x){x.remove()},750,p)}
    var gem=document.createElement("div");gem.className="float gem-pop";gem.textContent="💎 CRYSTAL FOUND";gem.style.left="32%";gem.style.top=(my+4)+"px";sh.appendChild(gem);setTimeout(function(){gem.remove()},1250);
-   climbs++;var nextTop=Math.max(80,my-52);miner.style.transition="top .8s cubic-bezier(.2,.8,.2,1)";miner.style.top=nextTop+"px";pick.style.transition="top .8s";pick.style.top=(nextTop+40)+"px";
+   climbs++;var nextTop=Math.max(80,my-52);my=nextTop;miner.style.transition="top .8s cubic-bezier(.2,.8,.2,1)";miner.style.top=nextTop+"px";pick.style.transition="top .8s";pick.style.top=(nextTop+35)+"px";spark.style.top=(nextTop+55)+"px";
    m.scrollTo({top:Math.max(0,nextTop-m.clientHeight*.48),behavior:"smooth"});
    setTimeout(function(){rock.classList.remove("rock-hit","rock-broken");rock.innerHTML='<div class="ore-rock rock-a"></div><div class="ore-rock rock-b"></div><div class="ore-rock rock-c"></div><div class="ore-crystal">'+gemSvg(PAL[(climbs)%4])+'</div><div class="rock-cracks"></div>';rock.style.top=(nextTop+38)+"px";rock.style.opacity="1";broken=false;hits=0;if(progress)progress.style.width="0%"},820);
    toast("Rock broken! Climbing to next ledge ⛏️");
