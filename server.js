@@ -1,7 +1,8 @@
 const express=require('express'),crypto=require('crypto'),path=require('path'),{Pool}=require('pg');
 const app=express();app.disable('etag');app.set('trust proxy',1);app.use(express.json({limit:'32kb'}));
 // Prevent stale HTML and API responses from trapping Telegram Mini App on an old loading screen.
-app.use((req,res,next)=>{if(req.path==='/'||req.path.endsWith('.html')||req.path.startsWith('/api/'))res.set('Cache-Control','no-store, no-cache, must-revalidate, proxy-revalidate');next()});
+// Disable browser, Telegram WebView, and intermediary caching for every app response.
+app.use((req,res,next)=>{res.set('Cache-Control','no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0');res.set('Pragma','no-cache');res.set('Expires','0');next()});
 const BOT_TOKEN=process.env.BOT_TOKEN||'',ADMIN_ID=Number(process.env.ADMIN_ID||8990854464);
 const pool=process.env.DATABASE_URL?new Pool({connectionString:process.env.DATABASE_URL,ssl:process.env.PGSSL==='disable'?false:{rejectUnauthorized:false}}):null;
 function verify(initData){
