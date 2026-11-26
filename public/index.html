@@ -384,7 +384,7 @@ var tg=window.Telegram&&window.Telegram.WebApp,uid=tg&&tg.initDataUnsafe&&tg.ini
 var uname=(tg&&tg.initDataUnsafe&&tg.initDataUnsafe.user&&tg.initDataUnsafe.user.first_name)||"Raj Digger";
 if(tg){try{tg.ready();tg.expand()}catch(e){}}
 var isAdmin=false;
-var TABS=[["tasks","📜","Tasks"],["miners","⛑️","Miners"],["mine","⛏️","Mine"],["wallet","👝","Wallet"],["profile","🎖️","Profile"]];
+var TABS=[["tasks","tasks","Tasks"],["miners","miners","Miners"],["mine","mine","Mine"],["wallet","wallet","Wallet"],["profile","profile","Profile"]];
 if(isAdmin)TABS.push(["admin","🛠️","Admin"]);
 var tab="mine",$=function(i){return document.getElementById(i)},V=$("view");
 var RANKS=[
@@ -411,7 +411,7 @@ function rankInfo(){
 }
 function toast(m){var t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove("on")},1800)}
 function f4(n){return n.toFixed(4)}
-function nav(){$("nav").innerHTML=TABS.map(function(t){return '<button data-t="'+t[0]+'" class="'+(t[0]==tab?"on":"")+'"><span>'+ICON(t[0])+'</span>'+t[2]+'</button>'}).join("");
+function nav(){$("nav").innerHTML=TABS.map(function(t){return '<button data-t="'+t[0]+'" class="'+(t[0]==tab?"on":"")+'"><span>'+ICON(t[1])+'</span>'+t[2]+'</button>'}).join("");
  [].forEach.call($("nav").children,function(b){b.onclick=function(){tab=b.dataset.t;nav();render()}})}
 function rate(){return (S.lvl+2)}
 function tick(){var now=Date.now(),dt=(now-S.last)/1000;S.last=now;if(window.nrTick)nrTick();if(tab=="mine"&&Math.random()<.5&&window.spark)spark();if(S.shift<CAP)S.shift=Math.min(CAP,S.shift+dt*RATE);
