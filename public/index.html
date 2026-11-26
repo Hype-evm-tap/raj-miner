@@ -377,6 +377,19 @@ h2{font-size:34px;color:#ffc928}
 #feed,#app.mining #feed{top:12px!important;right:12px!important;left:auto!important;width:auto!important;min-width:0!important;padding:5px 9px!important;border-radius:999px!important;font-size:10px!important;line-height:1!important;box-shadow:0 3px 10px #0008!important;z-index:20!important}
 #feed b{display:block!important;font-size:10px!important;letter-spacing:.08em!important;white-space:nowrap!important}
 #vch,#app.mining #vch{display:none!important}
+
+/* Remove the suspended stone mass; keep the mineable crystal visible */
+.rock-cluster.crystal-node{width:170px;height:142px;background:none!important;filter:drop-shadow(0 12px 18px #000b)!important}
+.rock-cluster.crystal-node .ore-rock{display:none!important}
+.rock-cluster.crystal-node .ore-crystal{left:58px;top:38px;width:66px;height:66px}
+.rock-cluster.crystal-node .ore-crystal svg{width:66px;height:66px}
+/* Keep mine level text clear of the LIVE pill and prevent label collisions */
+#lvl{box-sizing:border-box;max-width:calc(100% - 104px);gap:8px;align-items:center;padding:7px 10px 7px 7px}
+#lvl>div{min-width:0;max-width:100%;line-height:1.28;overflow-wrap:anywhere;word-break:normal}
+#lvl .mine-level-progress{width:min(100px,100%);max-width:100%}
+#feed{white-space:nowrap}
+@media(max-width:380px){#lvl{max-width:calc(100% - 92px);gap:6px;padding-right:8px}#lvl>div{font-size:12px}}
+
 </style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap"><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://cdn.jsdelivr.net/npm/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"></script></head><body>
 <div id="app">
  <div id="top">
@@ -472,7 +485,7 @@ function mine2(){
  }
  var my=(totalLevels-L)*LH+50;
  V.innerHTML='<div id="mwrap"><div id="mine"><div id="shaft" style="height:'+H+'px">'+g+
- '<div class="rock-cluster" id="rockCluster" style="top:'+(my+38)+'px"><div class="ore-rock rock-a"></div><div class="ore-rock rock-b"></div><div class="ore-rock rock-c"></div><div class="ore-crystal">'+gemSvg(PAL[0])+'</div><div class="rock-cracks"></div></div>'+
+ '<div class="rock-cluster crystal-node" id="rockCluster" style="top:'+(my+38)+'px"><div class="ore-crystal">'+gemSvg(PAL[0])+'</div><div class="rock-cracks"></div></div>'+
  '</div></div>'+
  '<div id="lvl"><span class="coin" style="width:36px;height:36px;font-size:16px">'+L+'</span><div>Rookie Digger '+Math.ceil(L/10)+'<br><span style="color:var(--gold)">'+rate()+' $RAJ/day</span><div class="mine-level-progress"><i id="mineProgress"></i></div></div></div>'+
  '<div id="feed" aria-label="Live status"><b>● LIVE</b></div>'+
