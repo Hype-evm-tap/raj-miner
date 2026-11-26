@@ -558,9 +558,6 @@ h3{font:750 19px system-ui,sans-serif!important;color:#f3f8ff}
 .tap-balance strong em{font-size:14px;font-style:normal;color:#73e6c5;letter-spacing:0}
 .tap-balance>span{font-size:12px;color:#849bbd}
 .tap-stage{height:min(47vh,340px);min-height:245px;width:100%;position:relative;display:flex;align-items:center;justify-content:center}
-.tap-orbit{position:absolute;border:1px solid #7ca9e72c;border-radius:50%;width:min(76vw,290px);aspect-ratio:1}
-.tap-orbit-one{box-shadow:0 0 55px #397bca1b,inset 0 0 42px #397bca12;animation:rajOrbit 13s linear infinite}
-.tap-orbit-two{width:min(62vw,238px);border-style:dashed;border-color:#75e8c54a;animation:rajOrbit 19s linear infinite reverse}
 .tap-coin{position:relative;z-index:1;width:min(48vw,190px);height:min(48vw,190px);padding:0;border:0;border-radius:50%;background:transparent;cursor:pointer;filter:drop-shadow(0 14px 28px #0009);transition:transform .14s}
 .tap-coin img{width:100%;height:100%;object-fit:contain;display:block;border-radius:50%}
 .tap-coin:active,.tap-coin.tap-pop{transform:scale(.93)}
@@ -753,7 +750,7 @@ function mine2(){
  V.innerHTML='<main class="tap-home">'+
  '<section class="tap-brandline"><img src="/icon.jpg" alt="Raj coin"><div><b>RAJ MINER</b><small>THE RAJ ECOSYSTEM</small></div><span><i></i> LIVE</span></section>'+
  '<section class="tap-balance"><small>YOUR $RAJ BALANCE</small><strong>'+Math.floor(Number(S.bal)||0).toLocaleString('en-IN')+' <em>$RAJ</em></strong><span>≈ $'+((Number(S.bal)||0)*PRICE).toFixed(3)+'</span></section>'+
- '<section class="tap-stage"><div class="tap-orbit tap-orbit-one"></div><div class="tap-orbit tap-orbit-two"></div><button class="tap-coin" id="raj-tap-coin" aria-label="Raj coin"><img src="/icon.jpg" alt="Raj coin"></button><small class="tap-hint">RAJ COIN</small></section>'+
+ '<section class="tap-stage"><button class="tap-coin" id="raj-tap-coin" aria-label="Raj coin"><img src="/icon.jpg" alt="Raj coin"></button><small class="tap-hint">RAJ COIN</small></section>'+
  '<section class="tap-session"><div class="tap-session-head"><span>MINING REWARDS</span><b><span id="session-earned">'+f4(S.shift)+'</span> <small>$RAJ</small></b></div><div class="tap-progress"><i id="session-fill" style="width:'+(S.shift/CAP*100)+'%"></i></div><div class="tap-session-foot"><span id="session-state">'+(S.shift>=CAP?'Session full':'Session in progress')+'</span><span>'+f4(CAP)+' $RAJ</span></div><button class="tap-collect" id="mine-collect" '+(S.shift<0.01?'disabled':'')+'>Collect $RAJ</button></section></main>';
  var coin=$("raj-tap-coin");if(coin)coin.onclick=function(){coin.classList.remove("tap-pop");void coin.offsetWidth;coin.classList.add("tap-pop")};
  function updateMine(){var e=$("session-earned"),p=$("session-fill"),st=$("session-state"),btn=$("mine-collect");if(e)e.textContent=f4(S.shift);if(p)p.style.width=(S.shift/CAP*100)+'%';if(st)st.textContent=S.shift>=CAP?'Session full':'Session in progress';if(btn)btn.disabled=S.shift<0.01;$("mined").textContent=f4(S.shift);$("usd").textContent='≈ $'+(S.shift*PRICE).toFixed(5);$("fill").style.width=(S.shift/CAP*100)+'%';$("cart").textContent=S.shift>=CAP?'Cart full!':'Mining…';$("unlock").disabled=S.shift<0.01}
