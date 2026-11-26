@@ -316,10 +316,11 @@ function mine2(){
  '<div id="feed"><b>● LIVE PAYOUT HISTORY</b><div id="fi">'+feedItem()+'</div></div>'+
  '<div id="nft"><svg viewBox="-4 -22 134 182" width="50"><use href="#mn3"/></svg><small>LIMITED · 1,111</small></div>'+
  '<div id="vch">🎟️</div><button class="btn" id="find">🎯 Find Raj</button><div id="mine-hint">TAP THE ROCK TO MINE</div></div>';
- var m=$("mine"),sh=$("shaft");pick.style.top=(my+35)+"px";spark.style.top=(my+55)+"px";window.__my=my;window.__sh=sh;
+ var m=$("mine"),sh=$("shaft"),rock=$("rockCluster"),miner=$("miner"),pick=$("pickaxe"),spark=$("hitSpark"),progress=$("mineProgress");
+ pick.style.top=(my+35)+"px";spark.style.top=(my+55)+"px";window.__my=my;window.__sh=sh;
  sh.style.backgroundImage='url("data:image/svg+xml,'+encodeURIComponent(rockTile())+'")';
  m.scrollTop=Math.max(0,my-m.clientHeight*0.5);
- var hits=0,climbs=0,broken=false,rock=$("rockCluster"),miner=$("miner"),pick=$("pickaxe"),spark=$("hitSpark"),progress=$("mineProgress");
+ var hits=0,climbs=0,broken=false;
  function hitRock(){
   if(broken)return;
   hits++;pick.classList.remove("swinging");void pick.offsetWidth;pick.classList.add("swinging");
