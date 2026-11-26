@@ -25,6 +25,8 @@ app.post('/api/auth',async(req,res)=>{
  const v=verify(req.body&&req.body.initData);if(!v||!v.user)return res.status(401).json({ok:false});
  const u=v.user,id=Number(u.id),admin=id===ADMIN_ID;
  try{
+  const existing=await pool.query('SELECT is_banned FROM users WHERE telegram_id=$1',[id]);
+  if(existing.rowCount&&existing.rows[0].is_banned)return res.status(403).json({ok:false,banned:true});
   await pool.query('INSERT INTO users(telegram_id,username,first_name,last_name,is_premium,is_admin,last_seen) VALUES($1,$2,$3,$4,$5,$6,NOW()) ON CONFLICT(telegram_id) DO UPDATE SET username=EXCLUDED.username,first_name=EXCLUDED.first_name,last_name=EXCLUDED.last_name,is_premium=EXCLUDED.is_premium,is_admin=EXCLUDED.is_admin,last_seen=NOW()',[id,u.username||null,u.first_name||'',u.last_name||'',!!u.is_premium,admin]);
   res.json({ok:true,user:{id:u.id},isAdmin:admin});
  }catch(e){console.error('auth db',e);res.status(503).json({ok:false,error:'Database unavailable'})}
