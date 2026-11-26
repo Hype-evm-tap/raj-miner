@@ -326,7 +326,7 @@ function mine2(){
  '<div id="vch">🎟️</div><button class="btn" id="find">🎯 Find Raj</button><div id="mine-hint">TAP THE ROCK TO MINE</div></div>';
  var m=$("mine"),sh=$("shaft"),rock=$("rockCluster"),miner=$("miner"),pick=$("pickaxe"),spark=$("hitSpark"),progress=$("mineProgress");
  pick.style.top=(my+35)+"px";spark.style.top=(my+55)+"px";window.__my=my;window.__sh=sh;
- sh.style.backgroundImage='url("data:image/svg+xml,'+encodeURIComponent(rockTile())+'")';
+ /* Cave texture disabled: rockTile helper was outside the script and caused a runtime ReferenceError. */
  m.scrollTop=Math.max(0,my-m.clientHeight*0.5);
  var hits=0,climbs=0,broken=false;
  function hitRock(){
