@@ -5,7 +5,7 @@ const pool=process.env.DATABASE_URL?new Pool({connectionString:process.env.DATAB
 function verify(initData){
  if(!initData||!BOT_TOKEN)return null;
  const p=new URLSearchParams(initData),hash=p.get('hash');if(!hash)return null;p.delete('hash');
- const str=[...p.entries()].map(([k,v])=>k+'='+v).sort().join('\\n');
+ const str=[...p.entries()].map(([k,v])=>k+'='+v).sort().join('\n');
  const secret=crypto.createHmac('sha256','WebAppData').update(BOT_TOKEN).digest();
  const h=crypto.createHmac('sha256',secret).update(str).digest('hex');
  const a=Buffer.from(h,'hex'),b=Buffer.from(hash,'hex');if(a.length!==b.length||!crypto.timingSafeEqual(a,b))return null;
@@ -39,7 +39,7 @@ app.get('/api/admin/users',requireAdmin,async(req,res)=>{
  res.json({ok:true,users:result.rows});
 });
 app.patch('/api/admin/users/:id',requireAdmin,async(req,res)=>{
- const id=String(req.params.id);if(!/^\\d{1,20}$/.test(id))return res.status(400).json({ok:false,error:'Invalid Telegram ID'});
+ const id=String(req.params.id);if(!/^\d{1,20}$/.test(id))return res.status(400).json({ok:false,error:'Invalid Telegram ID'});
  const banned=typeof req.body.banned==='boolean'?req.body.banned:null,note=typeof req.body.note==='string'?req.body.note.slice(0,500):null;
  if(banned===null&&note===null)return res.status(400).json({ok:false,error:'No changes supplied'});
  const q=await pool.query('UPDATE users SET is_banned=COALESCE($2,is_banned),admin_note=COALESCE($3,admin_note) WHERE telegram_id=$1 RETURNING telegram_id::text id,is_banned,admin_note',[id,banned,note]);
