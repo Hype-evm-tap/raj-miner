@@ -1104,9 +1104,9 @@ $("unlock").onclick=function(){if(!S.wallet&&S.shift>=CAP){}
  var up=Math.floor(S.xp/283);toast("+"+f4(g)+" $RAJ collected");save();render()};
 function render(){if(window.__mineAutoTimer){clearInterval(window.__mineAutoTimer);window.__mineAutoTimer=null}document.getElementById("app").classList.toggle("mining",tab=="mine");tick();
  if(tab=="mine")mine2();else if(tab=="tasks")tasks2();else if(tab=="miners")miners();else if(tab=="wallet")wallet();else if(tab=="profile")profile2();else admin()}
-var MAXL=40,LH=230,PAL=[["#ff5d78","#b3122f","#ffb0bd"],["#ffc04a","#c26a00","#fff0b0"],["#5cc4ff","#1465c9","#c4ecff"],["#5be08a","#12803f","#c3ffd9"]];
+var MAXL=40,LH=230,PAL=[["#e6bd68","#8a6934","#fff0b0"],["#ffc04a","#c26a00","#fff0b0"],["#5cc4ff","#1465c9","#c4ecff"],["#5be08a","#12803f","#c3ffd9"]];
 function gemSvg(c){
- return '<svg viewBox="0 0 60 60" role="img" aria-label="crystal"><defs><linearGradient id="crBody" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="'+c[2]+'"/><stop offset=".28" stop-color="'+c[0]+'"/><stop offset=".72" stop-color="'+c[1]+'"/><stop offset="1" stop-color="#171323"/></linearGradient><linearGradient id="crFace" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".96"/><stop offset=".42" stop-color="'+c[2]+'" stop-opacity=".72"/><stop offset="1" stop-color="'+c[0]+'" stop-opacity=".08"/></linearGradient><linearGradient id="crSide" x1="0" y1="0" x2="0" y2="1"><stop stop-color="'+c[0]+'"/><stop offset="1" stop-color="'+c[1]+'"/></linearGradient><filter id="crGlow"><feGaussianBlur stdDeviation="2.2"/></filter></defs><path d="M30 2L50 15 55 37 38 56 17 53 5 32 10 13Z" fill="'+c[0]+'" opacity=".42" filter="url(#crGlow)"/><path d="M30 4L48 15 53 34 38 53 17 51 7 31 12 14Z" fill="url(#crBody)" stroke="'+c[1]+'" stroke-width="2.2" stroke-linejoin="round"/><path d="M30 4L12 14 27 27 48 15Z" fill="url(#crFace)" stroke="#fff" stroke-opacity=".55" stroke-width="1"/><path d="M30 4L27 27 53 34 48 15Z" fill="'+c[2]+'" opacity=".82"/><path d="M12 14L7 31 27 27Z" fill="#fff" opacity=".34"/><path d="M7 31L17 51 27 27Z" fill="'+c[1]+'" opacity=".88"/><path d="M27 27L17 51 38 53Z" fill="'+c[0]+'" opacity=".72"/><path d="M27 27L38 53 53 34Z" fill="url(#crSide)"/><path d="M30 4L27 27 38 53" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1.1"/><path d="M15 15L25 9" stroke="#fff" stroke-width="2.6" stroke-linecap="round" opacity=".9"/><path d="M11 24L15 18" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".65"/></svg>'
+ return '<svg viewBox="0 0 60 60" role="img" aria-label="crystal"><defs><linearGradient id="crBody" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="'+c[2]+'"/><stop offset=".28" stop-color="'+c[0]+'"/><stop offset=".72" stop-color="'+c[1]+'"/><stop offset="1" stop-color="#17221a"/></linearGradient><linearGradient id="crFace" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".96"/><stop offset=".42" stop-color="'+c[2]+'" stop-opacity=".72"/><stop offset="1" stop-color="'+c[0]+'" stop-opacity=".08"/></linearGradient><linearGradient id="crSide" x1="0" y1="0" x2="0" y2="1"><stop stop-color="'+c[0]+'"/><stop offset="1" stop-color="'+c[1]+'"/></linearGradient><filter id="crGlow"><feGaussianBlur stdDeviation="2.2"/></filter></defs><path d="M30 2L50 15 55 37 38 56 17 53 5 32 10 13Z" fill="'+c[0]+'" opacity=".42" filter="url(#crGlow)"/><path d="M30 4L48 15 53 34 38 53 17 51 7 31 12 14Z" fill="url(#crBody)" stroke="'+c[1]+'" stroke-width="2.2" stroke-linejoin="round"/><path d="M30 4L12 14 27 27 48 15Z" fill="url(#crFace)" stroke="#fff" stroke-opacity=".55" stroke-width="1"/><path d="M30 4L27 27 53 34 48 15Z" fill="'+c[2]+'" opacity=".82"/><path d="M12 14L7 31 27 27Z" fill="#fff" opacity=".34"/><path d="M7 31L17 51 27 27Z" fill="'+c[1]+'" opacity=".88"/><path d="M27 27L17 51 38 53Z" fill="'+c[0]+'" opacity=".72"/><path d="M27 27L38 53 53 34Z" fill="url(#crSide)"/><path d="M30 4L27 27 38 53" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1.1"/><path d="M15 15L25 9" stroke="#fff" stroke-width="2.6" stroke-linecap="round" opacity=".9"/><path d="M11 24L15 18" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".65"/></svg>'
 }
 var RM=["I","II","III","IV","V","VI","VII","VIII","IX","X"];
 function mine2(){
@@ -1363,7 +1363,32 @@ initTon();auth();nav();render();setTimeout(function(){var s=$("splash");if(s){s.
 setInterval(tick,1000);
 setInterval(save,5000);
 })();
-</script></body></html>
+</script><style id="raj-global-no-red-purple-icon-fix">
+:root{--purple:#344a39!important;--violet:#344a39!important;--raj-neon-red:#344a39!important;--raj-neon-violet:#344a39!important;--raj-violet:#344a39!important;--danger:#83bd72!important;--error:#83bd72!important;--accent:#e5bd68!important}
+html,body,#app,#view{background:#111914!important}
+#view .tk .tic.red,#view .tic.red,#view .red,#view [class*="purple"],#view [class*="violet"]{background:linear-gradient(145deg,#29382b,#1b261e)!important;border-color:#b7a06a55!important;box-shadow:none!important}
+#view [style*="purple"],#view [style*="violet"],#view [style*="#8b5cf6"],#view [style*="#a855f7"],#view [style*="#9333ea"],#view [style*="#ff0033"],#view [style*="#ff334f"],#view [style*="rgb(255, 0, 0)"]{background-color:#263629!important;border-color:#b7a06a55!important;color:#e5bd68!important;box-shadow:none!important;text-shadow:none!important}
+#view .tk .tic.red svg,#view [class*="purple"] svg,#view [class*="violet"] svg{filter:none!important}
+#view .level-card,#view .level-overview,#view .level-emblem,#view .level-overview-icon,#view .level-status,#view .level-card-note{background-color:#243228!important;border-color:#b7a06a55!important}
+#view .level-card.active{background:linear-gradient(145deg,#35462f,#1c291f)!important;border-color:#d2ad62!important}
+#view .level-card.next{background:linear-gradient(145deg,#2d3a2b,#1b261e)!important}
+#view .level-status{color:#d9bd7b!important}
+#view .bar i,#view .progress i,#view .progress-bar i{background:linear-gradient(90deg,#91bd72,#d7b45f)!important}
+#view button:focus,#view button:active,#view button:hover,#nav button:focus,#nav button:active,#nav button:hover{outline:none!important;box-shadow:none!important}
+#view svg,#nav svg{display:inline-block!important;flex:0 0 auto!important;vertical-align:middle!important;overflow:visible!important}
+#view button svg,#nav button svg,#view .tic svg,#view .bico svg,#view .level-emblem svg,#view .level-overview-icon svg{width:22px!important;height:22px!important;min-width:22px!important;min-height:22px!important;stroke:currentColor!important;stroke-width:1.9!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+#nav button svg{width:23px!important;height:23px!important}
+#view .tk .tic{width:46px!important;height:46px!important;min-width:46px!important;display:flex!important;align-items:center!important;justify-content:center!important;border-radius:13px!important;background:#30402f!important;border:1px solid #b7a06a55!important;color:#e7c477!important;box-shadow:none!important}
+#view .tk .tic svg{width:24px!important;height:24px!important}
+#view .chips2 svg,#view .pill2 svg,#view .dt svg{width:19px!important;height:19px!important}
+#view .cal svg{width:25px!important;height:25px!important}
+#view .bico svg{width:34px!important;height:34px!important}
+#view .level-emblem svg,#view .level-overview-icon svg{width:27px!important;height:27px!important}
+#view .sol-wallet-float svg,#view #sol-wallet-btn svg{width:23px!important;height:23px!important}
+#view .tap-coin svg{width:100%!important;height:100%!important}
+#view .tap-coin img{filter:none!important}
+</style>
+</body></html>
 <style>
 
 /* FINAL GLOBAL PALETTE LOCK: no purple/violet anywhere in Raj Miner */
