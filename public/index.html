@@ -1459,7 +1459,7 @@ html,body,#app,#view{background:#0b1016!important;color:#eef3f7!important}
 /* Mining stage: show the original coin only, without gold aura or side decorations. */
 .tap-stage:before,.tap-stage:after,.tap-coin:before,.tap-coin:after,
 .tap-orbit,.tap-orbit-one,.tap-orbit-two,.tap-hint,.sol-float,
-.raj-spark-coin{display:none!important;content:none!important;opacity:0!important;visibility:hidden!important}
+.raj-spark-coin{content:none!important}
 .tap-stage{background:transparent!important;box-shadow:none!important;filter:none!important;isolation:auto!important}
 .tap-coin{background:transparent!important;border:0!important;outline:0!important;box-shadow:none!important;filter:none!important}
 .tap-coin img{display:block!important;object-fit:contain!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;filter:none!important}
@@ -1504,6 +1504,28 @@ html,body,#app,#view{background:#0d0d0c!important;color:#f2e7ce!important}
 #view button.btn,#view button.mini,#view .cyan{background:linear-gradient(135deg,#e1c17a,#a77b32)!important;color:#211707!important;border:1px solid #f0d99f!important;box-shadow:0 3px 0 #65491e!important}
 #view button:disabled{filter:grayscale(.5)!important;opacity:.7!important}
 #view .done{color:#d8b35e!important}
+/* Tap coin: restore visible 3-coin split particles; never show red hover/focus states. */
+#view .tap-coin:hover,#view .tap-coin:active,#view .tap-coin:focus,#view .tap-coin:focus-visible{
+ background:transparent!important;border:0!important;outline:0!important;
+ box-shadow:none!important;filter:none!important;
+}
+#view .tap-coin:hover{transform:none!important}
+#view .tap-coin:active{transform:scale(.97)!important}
+#view .tap-coin.tap-pop{animation:rajCoinTapPop .18s ease-out!important}
+@keyframes rajCoinTapPop{0%{transform:scale(1)}55%{transform:scale(.93)}100%{transform:scale(1)}}
+#view .tap-stage .raj-spark-coin{
+ display:block!important;position:absolute!important;z-index:8!important;
+ left:50%!important;top:50%!important;width:30px!important;height:30px!important;
+ margin:-15px 0 0 -15px!important;object-fit:contain!important;
+ pointer-events:none!important;opacity:1!important;visibility:visible!important;
+ filter:none!important;border:0!important;border-radius:50%!important;
+ animation:rajCoinScatter .88s cubic-bezier(.16,.72,.24,1) forwards!important;
+}
+@keyframes rajCoinScatter{
+ 0%{transform:translate(0,0) scale(.48) rotate(0deg);opacity:0}
+ 16%{opacity:1}
+ 100%{transform:translate(var(--dx),var(--dy)) scale(.82) rotate(145deg);opacity:0}
+}
 #toast{background:#211b12!important;border:1px solid #b18a45!important;color:#f2e3bd!important}
 /* No gold halo or decorative layer around the original mining coin. */
 .tap-stage:before,.tap-stage:after,.tap-coin:before,.tap-coin:after,.tap-orbit,.tap-orbit-one,.tap-orbit-two,.tap-hint,.sol-float,.raj-spark-coin{display:none!important;content:none!important;box-shadow:none!important;filter:none!important}
