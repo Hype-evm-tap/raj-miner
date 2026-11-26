@@ -650,6 +650,9 @@ html,body{background:#080d18!important;color:var(--ink)}
 #mine:before,#mwrap:after,#shaft:before,#shaft:after{display:none!important;background:none!important}
 #shaft{background:#17122d!important;background-image:none!important;box-shadow:none!important}
 #mine .rock-cluster,#mine #ladder,#mine #miner,#mine #pickaxe,#mine #hitSpark,#mine .gem,#mine .debris{display:none!important}
+
+/* Raj Miner cleanup: use the coin tap screen, hide the duplicated legacy session header */
+.mining #top{display:none!important}
 </style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap"><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://cdn.jsdelivr.net/npm/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"></script><script>
 /* Clear stale origin caches and unregister obsolete service workers. */
 (function(){
@@ -872,7 +875,7 @@ setInterval(save,5000);
  s+='<g fill="none" stroke-linecap="round"><path d="M16 36Q22 16 46 14L92 18M130 14L186 15Q220 24 224 50M122 126Q160 118 200 128M14 112Q40 108 80 118" stroke="#526b39" stroke-width="8" opacity=".9"/><path d="M20 32Q26 20 46 18L86 21M134 11L184 13" stroke="#a4bd6a" stroke-width="2.5" opacity=".8"/><path d="M50 40L60 62L52 80M170 40L162 66M60 140L74 168M170 150L182 176M92 18L82 42 96 58M214 64L198 82 205 102" stroke="#171322" stroke-width="3" opacity=".8"/></g><g fill="#b7adc7" opacity=".5"><circle cx="30" cy="60" r="2.5"/><circle cx="180" cy="170" r="3"/><circle cx="76" cy="180" r="2"/><circle cx="205" cy="38" r="2"/><circle cx="112" cy="95" r="2"/></g><rect width="240" height="240" fill="url(#shade)" opacity=".35"/>';
  return s+'</svg>'}
 var RM=["I","II","III","IV","V","VI","VII","VIII","IX","X"];
-function mine2(){
+function legacyMine(){
  S.lvl=Math.max(1,Math.floor(S.bal/12.4));var L=S.lvl,totalLevels=Math.max(40,L+20),H=totalLevels*LH+240,g='',rg='',n,y;
  for(y=30;y<H-20;y+=36)rg+='<i style="top:'+y+'px"></i>';
  for(n=1;n<=totalLevels;n++){
