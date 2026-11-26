@@ -384,7 +384,28 @@ var isAdmin=false;
 var TABS=[["tasks","📜","Tasks"],["miners","⛑️","Miners"],["mine","⛏️","Mine"],["wallet","👝","Wallet"],["profile","🎖️","Profile"]];
 if(isAdmin)TABS.push(["admin","🛠️","Admin"]);
 var tab="mine",$=function(i){return document.getElementById(i)},V=$("view");
-var RANKS=[["Rookie Digger","⛑️",1],["Tunnel Runner","🧱",101],["Rock Breaker","🪨",201],["Iron Driller","⚙️",301]];
+var RANKS=[
+ {name:"Rookie Digger",emoji:"⛑️",place:"Starter Mine",min:100,max:2840,speed:[0.2,3.81],daily:[5,95.3],tool:"Pickaxe",crew:1},
+ {name:"Tunnel Runner",emoji:"🏜️",place:"Red Sand Canyon",min:2890,max:9740,speed:[3.84,7.45],daily:[96,186],tool:"Pickaxe",crew:2},
+ {name:"Rock Breaker",emoji:"🪨",place:"Boulder Quarry",min:9820,max:47000,speed:[7.49,67.5],daily:[187,1690],tool:"Sledgehammer",crew:3},
+ {name:"Iron Driller",emoji:"⚙️",place:"Iron Deep Shaft",min:47800,max:163000,speed:[68.8,273],daily:[1720,6820],tool:"Drill",crew:3},
+ {name:"Crystal Hunter",emoji:"💎",place:"Frost Crystal Cave",min:164000,max:1520000,speed:[276,636],daily:[6890,15900],tool:"Crystal pick",crew:4},
+ {name:"Magma Miner",emoji:"🌋",place:"Lava Core",min:1580000,max:14500000,speed:[640,1160],daily:[16000,29100],tool:"Jackhammer",crew:4},
+ {name:"Gold Baron",emoji:"👑",place:"Golden Vault",min:14700000,max:37200000,speed:[1170,1860],daily:[29200,46500],tool:"Golden pick",crew:5},
+ {name:"Diamond Tycoon",emoji:"💠",place:"Diamond Grotto",min:37700000,max:184000000,speed:[1870,2730],daily:[46700,68200],tool:"Laser drill",crew:5},
+ {name:"Cosmic Excavator",emoji:"🚀",place:"Asteroid Belt",min:186000000,max:552000000,speed:[2740,3770],daily:[68500,94400],tool:"Plasma drill",crew:6},
+ {name:"Raj Legend",emoji:"🌌",place:"Galaxy Throne",min:562000000,max:3880000000,speed:[3790,5000],daily:[94700,125000],tool:"Mythic hammer",crew:6}
+];
+function rankInfo(){
+ var holding=Math.max(0,Number(S.bal)||0)+Math.max(0,Number(S.onchain)||0),current=-1;
+ for(var i=0;i<RANKS.length;i++)if(holding>=RANKS[i].min)current=i;
+ var best=Number.isInteger(S.bestRank)?S.bestRank:-1;
+ if(current>best){best=current;S.bestRank=best;try{localStorage.setItem("raj",JSON.stringify(S))}catch(e){}}
+ var idx=Math.max(current,best),r=idx>=0?RANKS[idx]:RANKS[0];
+ var ratio=idx<0?0:Math.max(0,Math.min(1,(Math.max(holding,r.min)-r.min)/(r.max-r.min)));
+ function mix(a){return a[0]+(a[1]-a[0])*ratio}
+ return {holding:holding,index:idx,current:current,rank:r,speed:idx<0?0.2:mix(r.speed),daily:idx<0?5:mix(r.daily),next:idx<RANKS.length-1?RANKS[idx+1]:null};
+}
 function toast(m){var t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove("on")},1800)}
 function f4(n){return n.toFixed(4)}
 function nav(){$("nav").innerHTML=TABS.map(function(t){return '<button data-t="'+t[0]+'" class="'+(t[0]==tab?"on":"")+'"><span>'+ICON(t[0])+'</span>'+t[2]+'</button>'}).join("");
@@ -528,10 +549,22 @@ function tasks(){var days=[5,6,7,8,9,10],h='';
  $("ci").onclick=function(){S.claimedToday=true;S.streak=Math.min(7,S.streak+1);S.bal+=10;S.hist.unshift({t:"Check-in",s:"Day "+S.streak+" · just now",v:10});save();toast("+10 $RAJ");render()};
  [].forEach.call(V.querySelectorAll(".go"),function(b){b.onclick=function(){var i=+b.dataset.i;S.tasks[i]=1;S.bal+=T[i][2];S.hist.unshift({t:"Task Reward",s:T[i][1]+" · just now",v:T[i][2]});save();toast("+"+T[i][2]+" $RAJ");render()}})}
 
-function miners(){var nx=283,p=Math.min(100,S.xp%nx/nx*100);
- V.innerHTML='<div class="pad"><h2>Miners</h2><div class="card"><small style="color:var(--mut)">MY MINER</small><div class="row"><div><div style="font-size:24px;font-weight:900;color:var(--gold)">Rookie Digger III</div><div class="lbl">⭐ Lv '+S.lvl+' &nbsp; ⚡ 0.97 TH/s</div></div><div style="font-size:64px">⛑️</div></div><div class="lbl" style="margin-top:8px">Next: Lv '+(S.lvl+1)+' · '+(S.xp|0)+' / '+nx+'</div><div class="bar"><i style="width:'+p+'%;background:var(--gold)"></i></div></div>'+
- '<b>Company ranks</b><div style="margin:10px 0;white-space:nowrap;overflow:auto">'+RANKS.map(function(r,i){return '<div class="rank'+(i==0?" me":"")+'"><div>'+r[1]+'</div>'+r[0]+'<br>Lv '+r[2]+'+'+(i==0?'<br><span style="color:var(--grn)">YOU</span>':"")+'</div>'}).join("")+'</div>'+
- '<div class="ladderlist">'+["I","II","III","IV","V","VI"].map(function(r,i){return '<div class="lv"><span>Rookie Digger '+r+'</span><span class="pill">'+(i<3?"✓ Unlocked":"🔒 HOLD "+(300+i*350)+" $RAJ")+'</span></div>'}).join("")+'</div></div>'}
+function miners(){
+  var q=rankInfo(),r=q.rank;
+  function fmt(n){if(n>=1000000000)return (n/1000000000).toFixed(2).replace(/0+$/,"").replace(/\\.$/,"")+"B";if(n>=1000000)return (n/1000000).toFixed(2).replace(/0+$/,"").replace(/\\.$/,"")+"M";if(n>=1000)return (n/1000).toFixed(n>=100000?0:2).replace(/\\.?0+$/,"")+"K";return String(Math.round(n))}
+  function rng(a){return fmt(a[0])+" – "+fmt(a[1])}
+  var pct=q.index<0?0:Math.min(100,Math.max(0,(q.holding-r.min)/(r.max-r.min)*100));
+  var cards=RANKS.map(function(x,i){
+   var unlocked=i<=q.index,active=i===q.index;
+   return '<div class="card" style="margin:9px 0;padding:13px;border:1px solid '+(active?'#ffd45a':'#ffffff18')+';background:'+(active?'linear-gradient(135deg,#49317f,#24194b)':'#ffffff0c')+'">'+
+    '<div class="row" style="align-items:center"><div style="font-size:30px;width:42px">'+x.emoji+'</div><div style="flex:1"><b style="font-size:17px;color:'+(active?'var(--gold)':'#fff')+'">'+x.name+'</b><div class="lbl">'+x.place+'</div></div><span class="pill">'+(active?'YOUR RANK':unlocked?'✓ UNLOCKED':'🔒 LOCKED')+'</span></div>'+
+    '<div class="two" style="margin-top:10px"><div><small class="lbl">Holding needed</small><b>'+rng([x.min,x.max])+' $RAJ</b></div><div><small class="lbl">Mining speed</small><b>'+rng(x.speed)+' TH/s</b></div><div><small class="lbl">Daily output</small><b>'+rng(x.daily)+' $RAJ</b></div><div><small class="lbl">Tool · Crew</small><b>'+x.tool+' · '+x.crew+'</b></div></div>'+
+    (active?'<div class="bar" style="margin-top:10px"><i style="width:'+pct+'%;background:var(--gold)"></i></div><small class="lbl">'+fmt(q.holding)+' / '+fmt(x.max)+' $RAJ held · next rank '+(q.next?fmt(q.next.min)+' $RAJ':'MAX RANK')+'</small>':'')+
+    '</div>';
+  }).join("");
+  V.innerHTML='<div class="pad"><h2>Miners</h2><div class="card"><small class="lbl">YOUR PERMANENT HIGHEST RANK</small><div class="row" style="align-items:center;margin-top:6px"><div style="font-size:48px">'+(q.index>=0?r.emoji:'⛏️')+'</div><div style="flex:1"><b style="font-size:23px;color:var(--gold)">'+(q.index>=0?r.name:'Unranked Miner')+'</b><div class="lbl">'+r.place+' · '+fmt(q.holding)+' $RAJ combined holding</div></div></div><div class="two" style="margin-top:12px"><div><small class="lbl">Current mining speed</small><b>'+q.speed.toFixed(2)+' TH/s</b></div><div><small class="lbl">Estimated daily output</small><b>'+fmt(q.daily)+' $RAJ</b></div></div>'+(q.next?'<div class="lbl" style="margin-top:9px">Next unlock: '+q.next.name+' at '+fmt(q.next.min)+' $RAJ</div>':'<div class="lbl" style="margin-top:9px">All ranks unlocked. Raj Legend!</div>')+'</div><h3 style="margin:14px 0 6px">All Mining Ranks</h3><div class="lbl">Your highest unlocked rank stays saved even if your holding changes.</div>'+cards+'</div>';
+  var speed=$("ths");if(speed)speed.textContent=q.speed.toFixed(2);
+ }
 function wallet(){V.innerHTML='<div class="pad"><h2>Vault</h2><div class="vault"><div class="lbl" style="color:#d6ffe9">COMBINED HOLDING · DECIDES YOUR LEVEL</div><div class="big"><span class="coin">R</span>'+(S.bal|0)+'</div><span class="pill">≈ $'+(S.bal*PRICE).toFixed(3)+'</span> <span class="pill">Pre-listing</span>'+
  '<div class="two" style="margin-top:12px"><div>In-app<br><b style="font-size:20px">'+(S.bal|0)+'</b></div><div>On-chain<br><b style="font-size:20px">'+S.onchain+'</b></div></div></div>'+
  '<h3 style="margin:6px 0">TON Wallet</h3><div class="card row"><div><b>'+(S.wallet?"Connected":"Not connected")+'</b><div class="lbl">'+(S.wallet?short(S.addr):"Connect to withdraw at TGE")+'</div></div><button class="mini" id="cw">'+(S.wallet?"Disconnect":"Connect")+'</button></div>'+
