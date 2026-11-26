@@ -943,3 +943,21 @@ setInterval(tick,1000);
 setInterval(save,5000);
 })();
 </script></body></html>
+
+
+/* Layout correction: keep splash intact and center the mining screen in Telegram's viewport */
+#splash{display:flex!important;align-items:center!important;justify-content:center!important;min-height:100%;z-index:100!important}
+#splash .splash-mark{width:100%;height:auto;display:flex!important;align-items:center;justify-content:center}
+#splash .splash-logo{display:block!important;width:176px!important;height:176px!important;max-width:54vw!important;max-height:54vw!important}
+#app{height:100dvh;min-height:100%;overflow:hidden}
+#app.mining #top{display:none!important}
+#app.mining #view{position:relative!important;inset:auto!important;flex:1 1 auto!important;min-height:0!important;width:100%;overflow-y:auto!important;overflow-x:hidden!important;padding-top:max(18px,env(safe-area-inset-top,0px));padding-bottom:8px}
+#app.mining #nav{position:relative;flex:0 0 auto}
+.tap-home{min-height:100%;height:auto;justify-content:space-evenly;gap:10px;padding:22px 18px 18px}
+.tap-balance{padding:10px 12px 4px}
+.tap-stage{height:min(43vh,320px);min-height:210px;flex:0 1 auto}
+@media(max-height:700px){
+ .tap-home{justify-content:flex-start;gap:8px;padding-top:10px}
+ .tap-stage{height:34vh;min-height:170px}
+ .tap-session{padding:13px}
+}
