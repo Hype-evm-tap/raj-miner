@@ -229,10 +229,7 @@ h2{font-size:34px;color:#ffc928}
 #miner{cursor:pointer}
 @media(max-width:380px){.rock-cluster{left:calc(50% + 34px);transform:scale(.88);transform-origin:left top}#pickaxe{left:calc(50% + 14px)}}
 
-#miner #rajMinerRive{display:none;width:124px;height:160px;overflow:visible}
 #miner .miner-fallback{display:block}
-#miner.rive-ready #rajMinerRive{display:block}
-#miner.rive-ready .miner-fallback{display:none}
 </style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap"><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://cdn.jsdelivr.net/npm/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"></script></head><body>
 <div id="app">
  <div id="top">
@@ -302,29 +299,6 @@ function rockTile(){var r=[["M8 40Q10 12 44 8L96 14Q118 30 110 62L96 96Q60 108 2
  return s+'</svg>'}
 var RM=["I","II","III","IV","V","VI","VII","VIII","IX","X"];
 function voucher(){V.innerHTML='<div class="pad"><button class="mini" id="bk">← Back</button><h2 style="margin-top:10px">Loss voucher</h2><div class="vhero">Your loss, turned into levels</div><div class="vcard"><div class="lbl" style="color:#cfe0ff">RAJ LOSS VOUCHER</div><div class="big" style="font-size:46px">0</div><div class="lbl" style="color:#cfe0ff">This wallet has no voucher</div></div><div class="card"><b>No voucher for this wallet</b><div class="lbl">Vouchers go to wallets that lost at least $1 on $RAJ, one per wallet.</div></div></div>';$("bk").onclick=render}
-function initRajRiveMiner(){
- var host=$("miner"),canvas=$("rajMinerRive");if(!host||!canvas)return;
- if(window.__rajRiveInstance){try{window.__rajRiveInstance.cleanup()}catch(e){}window.__rajRiveInstance=null}
- if(!window.__rajRiveModule){
-  window.__rajRiveModule=import("https://cdn.jsdelivr.net/npm/@rive-app/canvas@2.31.0/+esm");
- }
- window.__rajRiveModule.then(function(mod){
-  if(!document.body.contains(canvas))return;
-  var RiveClass=mod.Rive||mod.default&&mod.default.Rive;
-  if(!RiveClass)throw Error("Rive runtime unavailable");
-  var instance=new RiveClass({src:"/assets/raj-miner.riv",canvas:canvas,autoplay:false,onLoad:function(){
-   if(!document.body.contains(canvas)){instance.cleanup();return}
-   try{
-    if(instance.stateMachineNames&&instance.stateMachineNames.length)instance.play(instance.stateMachineNames[0]);
-    else if(instance.animationNames&&instance.animationNames.length)instance.play(instance.animationNames[0]);
-    else throw Error("No playable Rive animation found");
-    if(instance.resizeDrawingSurfaceToCanvas)instance.resizeDrawingSurfaceToCanvas();
-    host.classList.add("rive-ready");window.__rajRiveInstance=instance;
-   }catch(e){console.warn("Raj Miner Rive playback:",e)}
-  },onLoadError:function(e){console.warn("Raj Miner Rive load failed:",e)}});
-  window.__rajRiveInstance=instance;
- }).catch(function(e){console.warn("Raj Miner Rive runtime failed; using built-in miner:",e)});
-}
 function mine2(){
  S.lvl=Math.max(1,Math.floor(S.bal/12.4));var L=Math.min(S.lvl,MAXL),H=MAXL*LH+240,g='',rg='',n,y;
  for(y=30;y<H-20;y+=36)rg+='<i style="top:'+y+'px"></i>';
@@ -339,7 +313,7 @@ function mine2(){
  var pickSvg='<svg viewBox="0 0 120 86" width="104" height="76" aria-hidden="true"><defs><linearGradient id="pickWood" x2="0" y2="1"><stop stop-color="#d49a55"/><stop offset="1" stop-color="#6c3917"/></linearGradient><linearGradient id="pickSteel" x2="0" y2="1"><stop stop-color="#f5fbff"/><stop offset=".45" stop-color="#8f9cb2"/><stop offset="1" stop-color="#424c64"/></linearGradient></defs><path d="M24 75L78 13" stroke="#3b210e" stroke-width="13" stroke-linecap="round"/><path d="M24 72L78 10" stroke="url(#pickWood)" stroke-width="8" stroke-linecap="round"/><path d="M57 14Q82 -2 112 14Q91 11 79 25Q65 20 57 14Z" fill="url(#pickSteel)" stroke="#30384c" stroke-width="3" stroke-linejoin="round"/><path d="M64 11Q85 2 102 11" stroke="#fff" stroke-width="3" fill="none" opacity=".8"/></svg>';
  V.innerHTML='<div id="mwrap"><div id="mine"><div id="shaft" style="height:'+H+'px"><div id="ladder">'+rg+'</div>'+g+
  '<div class="rock-cluster" id="rockCluster" style="top:'+(my+38)+'px"><div class="ore-rock rock-a"></div><div class="ore-rock rock-b"></div><div class="ore-rock rock-c"></div><div class="ore-crystal">'+gemSvg(PAL[0])+'</div><div class="rock-cracks"></div></div>'+
- '<div id="miner" style="top:'+my+'px"><canvas id="rajMinerRive" width="248" height="320" aria-label="Raj miner animation"></canvas><span class="miner-fallback">'+minerSvg+'</span></div><div id="pickaxe">'+pickSvg+'</div><div id="hitSpark">✦</div></div></div>'+
+ '<div id="miner" style="top:'+my+'px"><span class="miner-fallback">'+minerSvg+'</span></div><div id="pickaxe">'+pickSvg+'</div><div id="hitSpark">✦</div></div></div>'+
  '<div id="lvl"><span class="coin" style="width:36px;height:36px;font-size:16px">'+L+'</span><div>Rookie Digger '+RM[Math.min(9,Math.floor((L-1)/10))]+'<br><span style="color:var(--gold)">'+rate()+' $RAJ/day</span><div class="mine-level-progress"><i id="mineProgress"></i></div></div></div>'+
  '<div id="feed"><b>● LIVE PAYOUT HISTORY</b><div id="fi">'+feedItem()+'</div></div>'+
  '<div id="nft"><svg viewBox="-4 -22 134 182" width="50"><use href="#mn3"/></svg><small>LIMITED · 1,111</small></div>'+
@@ -348,7 +322,6 @@ function mine2(){
  pick.style.top=(my+35)+"px";spark.style.top=(my+55)+"px";window.__my=my;window.__sh=sh;
  sh.style.backgroundImage='url("data:image/svg+xml,'+encodeURIComponent(rockTile())+'")';
  m.scrollTop=Math.max(0,my-m.clientHeight*0.5);
- initRajRiveMiner();
  var hits=0,climbs=0,broken=false;
  function hitRock(){
   if(broken)return;
