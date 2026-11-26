@@ -874,6 +874,9 @@ var TK=[
  {c:'company',ic:'house',col:'orange',t:'Invite 3 friends',r:30},
  {c:'company',ic:'mine',col:'green',t:'Reach Level 25',r:25}
 ];
+/* Task countdown state and formatter used by the active Tasks view. */
+var NR=Date.now()+(13*3600+21*60)*1000;
+function fmt(ms){var q=Math.max(0,Math.floor(ms/1000)),h=Math.floor(q/3600),m=Math.floor((q%3600)/60);return h+'h '+m+'m'}
 function tasks2(){
  /* Guard legacy/local task state so old saved data cannot crash the Tasks tab. */
  if(!S||typeof S!=='object')S={};
