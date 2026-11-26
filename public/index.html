@@ -2,6 +2,10 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Raj Miner</title>
+<meta name="theme-color" content="#080711">
+<meta name="description" content="Raj Miner — dark neon mining experience">
+<link rel="icon" type="image/svg+xml" href="/devil-icon.svg">
+<link rel="apple-touch-icon" href="/devil-icon.svg">
 <style>
 :root{--bg:#1b0f45;--card:#2d1a6b;--card2:#3a2285;--ink:#fff;--mut:#b9a8ff;--gold:#ffc928;--gold2:#ff9d1c;--grn:#3ee08f;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -820,6 +824,39 @@ button[style*="background:linear-gradient(90deg,#ffd84a"]{
  background:linear-gradient(180deg,#fff1cf 0%,#ffd18a 17%,#ff9c2e 38%,#ffe0a8 52%,#dc7417 74%,#ffbd63 100%)!important;
  border:1px solid #ffe0ad!important;box-shadow:inset 0 1px 2px #fff9,0 0 11px #ff922e77!important;
 }
+
+/* Raj Miner dark-neon devil identity + unified controls */
+:root{--raj-neon-red:#ff315f;--raj-neon-violet:#a855f7;--raj-neon-edge:#9b69ff;--raj-dark-button:linear-gradient(155deg,#272039 0%,#171526 42%,#0d101d 100%)}
+html,body,#app{background:#080711!important}
+.tap-home{background:radial-gradient(ellipse at 50% 18%,#21142f 0%,#10101d 44%,#080711 100%)!important}
+.tap-stage:before,.tap-stage:after,.tap-coin:before,.tap-coin:after{content:none!important;display:none!important}
+.tap-coin{background:transparent!important;box-shadow:none!important;filter:drop-shadow(0 12px 22px #000c)!important}
+.tap-coin img{box-shadow:none!important;filter:none!important}
+.tap-brandline img{width:38px!important;height:38px!important;border-radius:12px!important;border:1px solid #a855f766!important;box-shadow:0 0 16px #a855f733,0 5px 14px #0009!important;background:#0b0915!important}
+#splash .splash-logo{object-fit:contain!important;border-radius:18px!important;padding:0!important;border:1px solid #a855f766!important;background:#090814!important;box-shadow:0 0 24px #a855f755,0 14px 42px #000b!important}
+#app button:not(#nav button):not(#sol-wallet-btn),#top button.btn,#view button.btn,#view button.mini,#view .tap-collect,#view #ci,#app .btn,#app .mini{
+ appearance:none!important;background:var(--raj-dark-button)!important;color:#f5edff!important;
+ border:1px solid #a855f7a8!important;border-radius:13px!important;
+ box-shadow:inset 0 1px 0 #ffffff20,inset 0 -2px 0 #05040b,0 3px 0 #4c2678,0 7px 18px #0009,0 0 13px #a855f733!important;
+ text-shadow:0 0 10px #c084fc33!important;font-weight:850!important;letter-spacing:.025em!important;
+ transition:transform .15s ease,filter .15s ease,box-shadow .15s ease!important
+}
+#app button:not(#nav button):not(#sol-wallet-btn):hover,#top button.btn:hover,#view button.btn:hover,#view button.mini:hover,#view .tap-collect:hover,#view #ci:hover{
+ filter:brightness(1.16)!important;border-color:#ff477b!important;
+ box-shadow:inset 0 1px 0 #ffffff30,0 3px 0 #6e285c,0 7px 20px #000b,0 0 18px #ff315f66!important
+}
+#app button:not(#nav button):not(#sol-wallet-btn):active,#top button.btn:active,#view button.btn:active,#view button.mini:active,#view .tap-collect:active,#view #ci:active{
+ transform:translateY(2px)!important;filter:brightness(1.08)!important;
+ box-shadow:inset 0 2px 5px #05040b,0 1px 0 #4c2678,0 0 15px #a855f755!important
+}
+#app button:focus-visible,#top button.btn:focus-visible,#view button:focus-visible{outline:2px solid #d7a5ff!important;outline-offset:3px}
+#app button:disabled,#top button:disabled,#view button:disabled{filter:saturate(.45) brightness(.72)!important;opacity:.7!important;box-shadow:0 2px 0 #30213d!important}
+#app #nav button{background:#11101c!important;color:#8e87a7!important;border:1px solid #ffffff12!important;box-shadow:inset 0 1px #ffffff08!important}
+#app #nav button.on{color:#f5eaff!important;border-color:#a855f799!important;background:linear-gradient(145deg,#2a1739,#151221)!important;box-shadow:0 0 16px #a855f733,inset 0 1px #ffffff18!important}
+#app #nav button.on span{background:linear-gradient(145deg,#ff477b,#a855f7)!important;box-shadow:0 0 12px #c052ff66!important}
+#sol-wallet-btn{color:#e8d7ff!important;border:1px solid #a855f766!important;background:#171326!important;box-shadow:0 0 14px #a855f733!important}
+#sol-wallet-btn:active{transform:translateY(-50%) scale(.92)!important}
+
 </style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap"><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://cdn.jsdelivr.net/npm/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"></script><script>
 /* Clear stale origin caches and unregister obsolete service workers. */
 (function(){
@@ -850,7 +887,7 @@ button[style*="background:linear-gradient(90deg,#ffd84a"]{
   <span id="ths"></span><span id="cart"></span><button id="unlock" type="button"></button>
  </div>
  <div id="view"></div>
- <div id="splash"><div class="splash-mark"><i class="gold-layer left"></i><img class="splash-logo" src="/icon.jpg" alt="Raj Miner logo"><i class="gold-layer right"></i></div><h1>Raj Miner</h1><p>Checking your connection is secure…</p><small>Protected to keep bots and fake accounts out of the mine.</small></div><div id="toast"></div>
+ <div id="splash"><div class="splash-mark"><i class="gold-layer left"></i><img class="splash-logo" src="/devil-icon.svg" alt="Raj Miner devil logo"><i class="gold-layer right"></i></div><h1>Raj Miner</h1><p>Checking your connection is secure…</p><small>Protected to keep bots and fake accounts out of the mine.</small></div><div id="toast"></div>
 <svg width="0" height="0" style="position:absolute"><defs><g id="mn"><ellipse cx="45" cy="112" rx="28" ry="5" fill="#0007"/><rect x="28" y="70" width="15" height="38" rx="5" fill="#2c55a8"/><rect x="47" y="70" width="15" height="38" rx="5" fill="#2c55a8"/><rect x="26" y="104" width="19" height="8" rx="4" fill="#6b3a12"/><rect x="45" y="104" width="19" height="8" rx="4" fill="#6b3a12"/><rect x="24" y="54" width="42" height="36" rx="12" fill="#3a6fd8"/><path d="M24 62q0-10 12-10h18q12 0 12 10v8H24z" fill="#d63a3a"/><circle cx="36" cy="72" r="3" fill="#ffd84a"/><circle cx="54" cy="72" r="3" fill="#ffd84a"/><path d="M66 58l14 -20" stroke="#f1b27c" stroke-width="9" stroke-linecap="round"/><path d="M74 12l14 -4v6l-14 52" stroke="#8a5a2b" stroke-width="5" fill="none" stroke-linecap="round" transform="translate(-4 0)"/><path d="M62 20q14 -14 30 0" stroke="#aab" stroke-width="6" fill="none" stroke-linecap="round"/><circle cx="45" cy="38" r="17" fill="#f1b27c"/><path d="M33 44q12 10 24 0q-2 8-12 8t-12-8z" fill="#6b3a12"/><circle cx="39" cy="37" r="2.5" fill="#222"/><circle cx="51" cy="37" r="2.5" fill="#222"/><path d="M25 34a20 20 0 0 1 40 0z" fill="#ffc928"/><rect x="22" y="32" width="46" height="6" rx="3" fill="#ff9d1c"/><circle cx="45" cy="18" r="6" fill="#fff"/></g></defs></svg>
  <div id="nav"></div>
 </div>
