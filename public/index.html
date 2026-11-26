@@ -183,7 +183,7 @@ h2{font-size:34px;color:#ffc928}
 #app.mining #nft{top:202px;right:12px;width:66px;height:92px;border-radius:16px;box-shadow:0 5px 16px #0009;border:3px solid #fff0b7;background:linear-gradient(145deg,#fff2b3,#e5a53d 48%,#8c4ac7)}
 #app.mining #nft small{background:linear-gradient(#ffe66a,#ff9d1c);border:1px solid #fff8;font-size:9px}
 #app.mining #vch{bottom:15px;left:14px;width:82px;height:82px;border-radius:20px;box-shadow:0 5px 0 #27105d,0 0 18px #7e55ff88;border:3px solid #b8a4ff;line-height:76px}
-#app.mining #find{display:none}
+#app.mining #find{display:block}
 #app.mining #miner{filter:drop-shadow(0 8px 8px #000c)}
 #app.mining #nav{box-shadow:0 -8px 24px #08031d88;border:1px solid #ffffff14}
 #app.mining #nav button{font-size:12px;min-width:48px}
@@ -283,7 +283,7 @@ function tick(){var now=Date.now(),dt=(now-S.last)/1000;S.last=now;if(window.nrT
 $("unlock").onclick=function(){if(!S.wallet&&S.shift>=CAP){}
  var g=S.shift;if(g<0.01)return;S.bal+=g;S.xp+=g;S.mined=(S.mined||0)+g;S.hist.unshift({t:"Mined",s:"Shift collected · just now",v:+g.toFixed(2)});S.shift=0;
  var up=Math.floor(S.xp/283);toast("+"+f4(g)+" $RAJ collected");save();render()};
-function render(){document.getElementById("app").classList.toggle("mining",tab=="mine");tick();
+function render(){if(window.__mineAutoTimer){clearInterval(window.__mineAutoTimer);window.__mineAutoTimer=null}document.getElementById("app").classList.toggle("mining",tab=="mine");tick();
  if(tab=="mine")mine2();else if(tab=="tasks")tasks2();else if(tab=="miners")miners();else if(tab=="wallet")wallet();else if(tab=="profile")profile2();else admin()}
 var FEED=["Rev*****","Cry*****","Mar*****","Ton*****","Dig*****","Ali*****"];
 function feedItem(){return FEED[Math.random()*FEED.length|0]+" <span>+"+(200+Math.random()*900|0)+" $RAJ · "+(1+Math.random()*22|0)+"h ago</span>"}
@@ -298,7 +298,7 @@ function mine(){
  [].forEach.call(document.querySelectorAll(".gem"),function(g,i){var c=[["#ff5d78","#b3122f","#ffb0bd"],["#ffc04a","#c26a00","#fff0b0"],["#5cc4ff","#1465c9","#c4ecff"]][i%3],n=g.querySelector("small").textContent;g.innerHTML='<svg viewBox="0 0 60 60"><polygon points="30,4 52,20 46,50 14,50 8,20" fill="'+c[0]+'"/><polygon points="30,4 52,20 30,28" fill="'+c[2]+'"/><polygon points="30,28 52,20 46,50" fill="'+c[1]+'"/><polygon points="30,28 8,20 14,50" fill="'+c[0]+'" opacity=".7"/><polygon points="30,4 8,20 30,28" fill="'+c[2]+'" opacity=".6"/><rect x="3" y="46" width="54" height="10" rx="5" fill="#4a4458"/></svg><small>'+n+'</small>'});
  $("find").onclick=function(){var g=document.querySelectorAll(".gem");var x=g[Math.random()*g.length|0];x.classList.add("hl");setTimeout(function(){x.classList.remove("hl")},3200);toast("Raj found a gem! 💎")};
  $("vch").onclick=function(){V.innerHTML='<div class="pad"><button class="mini" id="bk">← Back</button><h2 style="margin-top:10px">Loss voucher</h2><div class="vhero">Your loss, turned into levels</div><div class="vcard"><div class="lbl" style="color:#cfe0ff">RAJ LOSS VOUCHER</div><div class="big" style="font-size:46px">0</div><div class="lbl" style="color:#cfe0ff">This wallet has no voucher</div></div><div class="card"><b>No voucher for this wallet</b><div class="lbl">Vouchers go to wallets that lost at least $1 on $RAJ, one per wallet.</div></div></div>';$("bk").onclick=render};
- $("miner").onclick=function(){var f=document.createElement("div");f.className="float";f.textContent="+"+(RATE*5).toFixed(2);f.style.left="52%";f.style.top="30%";$("mine").appendChild(f);S.shift=Math.min(CAP,S.shift+RATE*5);setTimeout(function(){f.remove()},1200)}}
+ $("miner").onclick=function(){var f=document.createElement("div");f.className="float";f.textContent="+"+(RATE*5).toFixed(2);f.style.left="52%";f.style.top="30%";$("mine").appendChild(f);setTimeout(function(){f.remove()},1200)}}
 var MAXL=40,LH=230,PAL=[["#ff5d78","#b3122f","#ffb0bd"],["#ffc04a","#c26a00","#fff0b0"],["#5cc4ff","#1465c9","#c4ecff"],["#5be08a","#12803f","#c3ffd9"]];
 function gemSvg(c){
  return '<svg viewBox="0 0 60 60" role="img" aria-label="crystal"><defs><linearGradient id="crBody" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="'+c[2]+'"/><stop offset=".28" stop-color="'+c[0]+'"/><stop offset=".72" stop-color="'+c[1]+'"/><stop offset="1" stop-color="#171323"/></linearGradient><linearGradient id="crFace" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".96"/><stop offset=".42" stop-color="'+c[2]+'" stop-opacity=".72"/><stop offset="1" stop-color="'+c[0]+'" stop-opacity=".08"/></linearGradient><linearGradient id="crSide" x1="0" y1="0" x2="0" y2="1"><stop stop-color="'+c[0]+'"/><stop offset="1" stop-color="'+c[1]+'"/></linearGradient><filter id="crGlow"><feGaussianBlur stdDeviation="2.2"/></filter></defs><path d="M30 2L50 15 55 37 38 56 17 53 5 32 10 13Z" fill="'+c[0]+'" opacity=".42" filter="url(#crGlow)"/><path d="M30 4L48 15 53 34 38 53 17 51 7 31 12 14Z" fill="url(#crBody)" stroke="'+c[1]+'" stroke-width="2.2" stroke-linejoin="round"/><path d="M30 4L12 14 27 27 48 15Z" fill="url(#crFace)" stroke="#fff" stroke-opacity=".55" stroke-width="1"/><path d="M30 4L27 27 53 34 48 15Z" fill="'+c[2]+'" opacity=".82"/><path d="M12 14L7 31 27 27Z" fill="#fff" opacity=".34"/><path d="M7 31L17 51 27 27Z" fill="'+c[1]+'" opacity=".88"/><path d="M27 27L17 51 38 53Z" fill="'+c[0]+'" opacity=".72"/><path d="M27 27L38 53 53 34Z" fill="url(#crSide)"/><path d="M30 4L27 27 38 53" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1.1"/><path d="M15 15L25 9" stroke="#fff" stroke-width="2.6" stroke-linecap="round" opacity=".9"/><path d="M11 24L15 18" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".65"/></svg>'
@@ -323,7 +323,7 @@ function mine2(){
  '<div id="lvl"><span class="coin" style="width:36px;height:36px;font-size:16px">'+L+'</span><div>Rookie Digger '+Math.ceil(L/10)+'<br><span style="color:var(--gold)">'+rate()+' $RAJ/day</span><div class="mine-level-progress"><i id="mineProgress"></i></div></div></div>'+
  '<div id="feed"><b>● LIVE PAYOUT HISTORY</b><div id="fi">'+feedItem()+'</div></div>'+
  '<div id="nft"><svg viewBox="-4 -22 134 182" width="50"><use href="#mn3"/></svg><small>LIMITED · 1,111</small></div>'+
- '<div id="vch">🎟️</div><button class="btn" id="find">🎯 Find Victor</button><div id="mine-hint">TAP THE ROCK TO MINE</div></div>';
+ '<div id="vch">🎟️</div><button class="btn" id="find">🎯 Find Victor</button></div>';
  var m=$("mine"),sh=$("shaft"),rock=$("rockCluster"),miner=$("miner"),pick=$("pickaxe"),spark=$("hitSpark"),progress=$("mineProgress");
  pick.style.top=(my+35)+"px";spark.style.top=(my+55)+"px";window.__my=my;window.__sh=sh;
  /* Cave texture disabled: rockTile helper was outside the script and caused a runtime ReferenceError. */
@@ -334,7 +334,7 @@ function mine2(){
   hits++;pick.classList.remove("swinging");void pick.offsetWidth;pick.classList.add("swinging");
   rock.classList.add("rock-hit");spark.classList.remove("spark-on");void spark.offsetWidth;spark.classList.add("spark-on");
   var f=document.createElement("div");f.className="float";f.textContent="+"+(RATE*5).toFixed(2)+" $RAJ";f.style.left=(44+Math.random()*18)+"%";f.style.top=(my+30)+"px";sh.appendChild(f);setTimeout(function(){f.remove()},1150);
-  S.shift=Math.min(CAP,S.shift+RATE*5);
+  
   if(progress)progress.style.width=((hits%4)/4*100)+"%";
   if(hits%4===0){
    broken=true;rock.classList.add("rock-broken");
@@ -347,8 +347,8 @@ function mine2(){
   }else{setTimeout(function(){rock.classList.remove("rock-hit")},260)}
   $("mined").textContent=f4(S.shift);$("usd").textContent="≈ $"+(S.shift*PRICE).toFixed(5);$("fill").style.width=(S.shift/CAP*100)+"%";$("cart").textContent=S.shift>=CAP?"Cart full!":"Mining…";$("unlock").disabled=S.shift<0.01;
  }
- rock.onclick=hitRock;miner.onclick=hitRock;pick.onclick=hitRock;
- $("find").onclick=function(){m.scrollTo({top:Math.max(0,parseFloat(miner.style.top)-m.clientHeight*.5),behavior:"smooth"});var gems=document.querySelectorAll(".gem:not(.lk)");if(gems.length){var x=gems[Math.random()*gems.length|0];x.classList.add("hl");setTimeout(function(){x.classList.remove("hl")},1800)}toast("Crystal vein located 💎")};
+ window.__mineAutoTimer=setInterval(hitRock,1300);
+ $("find").onclick=function(){m.scrollTo({top:Math.max(0,parseFloat(miner.style.top)-m.clientHeight*.5),behavior:"smooth"});var gems=document.querySelectorAll(".gem:not(.lk)");if(gems.length){var x=gems[Math.random()*gems.length|0];x.classList.add("hl");setTimeout(function(){x.classList.remove("hl")},1800)}toast("Victor ka clue mil gaya! 🔎")};
  $("vch").onclick=voucher;
 }
 var ICONS={
@@ -478,7 +478,7 @@ function mine2(){
  '<div id="lvl"><span class="coin" style="width:36px;height:36px;font-size:16px">'+L+'</span><div>Rookie Digger '+Math.ceil(L/10)+'<br><span style="color:var(--gold)">'+rate()+' $RAJ/day</span><div class="mine-level-progress"><i id="mineProgress"></i></div></div></div>'+
  '<div id="feed"><b>● LIVE PAYOUT HISTORY</b><div id="fi">'+feedItem()+'</div></div>'+
  '<div id="nft"><svg viewBox="-4 -22 134 182" width="50"><use href="#mn3"/></svg><small>LIMITED · 1,111</small></div>'+
- '<div id="vch">🎟️</div><button class="btn" id="find">🎯 Find Victor</button><div id="mine-hint">TAP THE ROCK TO MINE</div></div>';
+ '<div id="vch">🎟️</div><button class="btn" id="find">🎯 Find Victor</button></div>';
  var m=$("mine"),sh=$("shaft"),rock=$("rockCluster"),miner=$("miner"),pick=$("pickaxe"),spark=$("hitSpark"),progress=$("mineProgress");
  pick.style.top=(my+35)+"px";spark.style.top=(my+55)+"px";window.__my=my;window.__sh=sh;
  /* removed broken external cave texture call */
@@ -489,7 +489,7 @@ function mine2(){
   hits++;pick.classList.remove("swinging");void pick.offsetWidth;pick.classList.add("swinging");
   rock.classList.add("rock-hit");spark.classList.remove("spark-on");void spark.offsetWidth;spark.classList.add("spark-on");
   var f=document.createElement("div");f.className="float";f.textContent="+"+(RATE*5).toFixed(2)+" $RAJ";f.style.left=(44+Math.random()*18)+"%";f.style.top=(my+30)+"px";sh.appendChild(f);setTimeout(function(){f.remove()},1150);
-  S.shift=Math.min(CAP,S.shift+RATE*5);
+  
   if(progress)progress.style.width=((hits%4)/4*100)+"%";
   if(hits%4===0){
    broken=true;rock.classList.add("rock-broken");
@@ -502,7 +502,7 @@ function mine2(){
   }else{setTimeout(function(){rock.classList.remove("rock-hit")},260)}
   $("mined").textContent=f4(S.shift);$("usd").textContent="≈ $"+(S.shift*PRICE).toFixed(5);$("fill").style.width=(S.shift/CAP*100)+"%";$("cart").textContent=S.shift>=CAP?"Cart full!":"Mining…";$("unlock").disabled=S.shift<0.01;
  }
- rock.onclick=hitRock;miner.onclick=hitRock;pick.onclick=hitRock;
+ window.__mineAutoTimer=setInterval(hitRock,1300);
  $("find").onclick=function(){m.scrollTo({top:Math.max(0,parseFloat(miner.style.top)-m.clientHeight*.5),behavior:"smooth"});var gems=document.querySelectorAll(".gem:not(.lk)");if(gems.length){var x=gems[Math.random()*gems.length|0];x.classList.add("hl");setTimeout(function(){x.classList.remove("hl")},1800)}toast("Crystal vein located 💎")};
  $("vch").onclick=voucher;
 }
