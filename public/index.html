@@ -754,7 +754,7 @@ button[style*="background:linear-gradient(90deg,#ffd84a"]{
 /* Task Center — premium responsive layout, no text/icon collisions */
 .pad0{overflow:hidden}
 .pad0 .ban{height:150px;border-radius:0 0 26px 26px;background:radial-gradient(ellipse at 82% 12%,#42d8ff55 0,transparent 38%),linear-gradient(125deg,#101d3b 0%,#172f58 52%,#123e59 100%);border-bottom:1px solid #69dfff55}
-.pad0 .ban:after{background:linear-gradient(90deg,#06132322,#06132388)}
+.pad0 .ban:after{background:linear-gradient(90deg,#06132322,#06132388)}.pad0 .lamp,.pad0 .note{display:none}
 .pad0 .bico{left:20px;top:23px;color:#9cecff;filter:drop-shadow(0 0 14px #39cfff88)}
 .pad0 .jt{left:82px;top:29px;font:900 clamp(25px,7vw,34px)/1.1 system-ui,sans-serif;letter-spacing:.09em;color:#effbff;-webkit-text-stroke:0;text-shadow:0 2px 0 #356078,0 0 18px #42d8ff66}
 .pad0 .bp{left:18px;right:18px;bottom:16px;display:flex;flex-wrap:wrap;gap:8px}
@@ -937,7 +937,7 @@ function tasks2(){
  var chips=[['all','All','grid'],['onchain','On-chain','link'],['company','Company','briefcase'],['social','Social','share'],['partners','Partners','users']];
  function renderTaskList(){
   var open=TK.filter(function(t,i){t=t||{};return !(t.claimed||S.tasks['id_'+t.id]||S.tasks['k'+i])}),earn=open.reduce(function(a,t){return a+Number(t.r||0)},0);
-  V.innerHTML='<div class="pad0"><div class="ban"><div class="lamp"></div><div class="note n1"></div><div class="note n2"></div><div class="bico">'+ICON('tasks',64)+'</div><h2 class="jt">Tasks</h2><div class="bp"><span class="pill2">☰ '+open.length+' open tasks</span><span class="pill2 g">'+earn+' $RAJ available</span></div></div><div class="pad">'+
+  V.innerHTML='<div class="pad0"><div class="ban"><div class="bico">'+ICON('grid',48)+'</div><h2 class="jt">TASK CENTER</h2><div class="bp"><span class="pill2">☰ '+open.length+' open tasks</span><span class="pill2 g">'+earn+' $RAJ available</span></div></div><div class="pad">'+
   '<div class="ck"><div class="row"><div class="cal">'+ICON('cal',40)+'</div><div style="flex:1;margin-left:12px"><div class="ct">Daily Check-in</div><div class="lbl">Day '+S.streak+' of 7 · '+(S.streak*9+2)+' this week</div></div><span class="streak">'+S.streak+'-day streak</span></div><div class="bar" style="height:10px"><i style="width:'+(S.streak/7*100)+'%;background:linear-gradient(90deg,#ffd84a,#ff9d1c)"></i></div><div class="g4">'+h+'</div>'+
   (S.claimedToday?'<div class="nx"><span>Next reward in</span><b id="nr">'+fmt(NR-Date.now())+'</b></div>':'<button class="btn" id="ci" style="width:100%;margin-top:12px">Claim today’s reward</button>')+'</div>'+
   '<div class="chips2">'+chips.map(function(c){return '<span data-f="'+c[0]+'" class="'+(TF==c[0]?'on':'')+'">'+ICON(c[2],20)+c[1]+'</span>'}).join('')+'</div>'+
