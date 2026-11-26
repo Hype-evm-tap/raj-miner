@@ -19,7 +19,7 @@ let t; const save = () => { clearTimeout(t); t = setTimeout(() => fs.writeFileSy
 const tg = (m, p) => fetch(`https://api.telegram.org/bot${BOT}/${m}`, {
   method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(p) }).then(r => r.json());
 
-const level = b => Math.min(100, Math.floor(Math.sqrt(b / 5)) + 1);
+const level = b => Math.min(1000, Math.floor(Math.sqrt(b / 5)) + 1);
 const MINERS = [
   { id: 'm1', name: 'Rookie Digger', cost: 50, rate: 0.5 },
   { id: 'm2', name: 'Cave Crawler', cost: 200, rate: 2 },
@@ -29,8 +29,8 @@ const price = (m, n) => Math.ceil(m.cost * 1.6 ** n);
 const lv = u => level(Math.max(u.bal, u.peak || 0));
 const rate = u => 2 + lv(u) * 0.5 + MINERS.reduce((a, m) => a + ((u.up || {})[m.id] || 0) * m.rate, 0); // RAJ per hour
 let BOTNAME = ''; tg('getMe', {}).then(r => BOTNAME = r.result?.username || '').catch(() => {});
-const CAP_H = 8;
-const getUser = (id, name = '') => db.users[id] ||= { id, name, bal: 0, since: Date.now(), last: Date.now(), refs: 0, tasks: {}, ton: '', banned: false };
+const CAP_H = 24;
+const getUser = (id, name = '') => db.users[id] ||= { id, name, bal: 0, since: Date.now(), last: Date.now(), refs: 0, refBy: '', refEarned: 0, tasks: {}, ton: '', banned: false };
 
 function verify(init) {
   // Reject missing/invalid Telegram WebApp data safely; never pass undefined to HMAC.
@@ -47,14 +47,16 @@ function verify(init) {
 const view = u => { u.peak = Math.max(u.peak || 0, u.bal); u.up ||= {};
   return { id: u.id, name: u.name, bal: u.bal, lvl: lv(u), rate: rate(u), refs: u.refs, bot: BOTNAME, mined: u.mined || 0,
   days: Math.ceil((Date.now() - u.since) / 864e5), ton: u.ton,
-  pending: Math.min(CAP_H, (Date.now() - u.last) / 36e5) * rate(u), capH: CAP_H,
+  pending: Math.min(CAP_H, (Date.now() - u.last) / 36e5) * rate(u), capH: CAP_H, refEarned: u.refEarned || 0,
   gl: Math.max(0, GAME_PLAYS - recent(u).length), gw: recent(u).length >= GAME_PLAYS ? Math.max(0, recent(u)[0] + DAY - Date.now()) : 0,
   miners: MINERS.map(m => ({ ...m, n: u.up[m.id] || 0, price: price(m, u.up[m.id] || 0) })),
   tasks: db.tasks.map(k => ({ ...k, wait: Math.max(0, (u.tasks[k.id] || 0) + k.every * 36e5 - Date.now()) })) }; };
 const GAME_PLAYS = 5, DAY = 864e5;
 const recent = u => (u.plays = (u.plays || []).filter(t => Date.now() - t < DAY));
 const settle = u => { const h = Math.min(CAP_H, (Date.now() - u.last) / 36e5), got = +(h * rate(u)).toFixed(2);
-  u.bal = +(u.bal + got).toFixed(2); u.mined = +((u.mined || 0) + got).toFixed(2); u.last = Date.now(); return got; };
+  u.bal = +(u.bal + got).toFixed(2); u.mined = +((u.mined || 0) + got).toFixed(2);
+  if (u.refBy && db.users[u.refBy] && got > 0) { const share = +(got * 0.1).toFixed(2); db.users[u.refBy].bal = +(db.users[u.refBy].bal + share).toFixed(2); db.users[u.refBy].refEarned = +((db.users[u.refBy].refEarned || 0) + share).toFixed(2); }
+  u.last = Date.now(); return got; };
 
 const R = {};
 R['POST /api/me'] = u => view(u);
@@ -105,7 +107,7 @@ http.createServer(async (req, res) => {
   const isNew = !db.users[f.id]; const u = getUser(f.id, f.first_name);
   if (u.banned) return out(403, { error: 'banned' });
   const ref = f.start || req.headers['x-ref'];
-  if (isNew && ref && ref !== String(f.id) && db.users[ref]) { db.users[ref].bal += 100; db.users[ref].refs++; }
+  if (isNew && ref && ref !== String(f.id) && db.users[ref]) { u.refBy = String(ref); db.users[ref].bal += 100; db.users[ref].refs++; }
   save();
   const fn = R[req.method + ' ' + url]; if (!fn) return out(404, {});
   try { out(200, await fn(u, b)); } catch (e) { out(500, { error: 'server' }); }
@@ -160,10 +162,10 @@ const HTML = (function () {/*<!doctype html><html><head><meta charset="utf-8">
 <link href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap" rel="stylesheet">
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-:root{--g:#ffc83d;--cy:#38d0ff;--gr:#2ee6a6;--dk:#120a33}
+:root{--g:#ffd36a;--cy:#8bd7c4;--gr:#58d68d;--dk:#14231b}
 *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent;user-select:none}
 body{font-family:'Lilita One',system-ui,sans-serif;letter-spacing:.3px;color:#fff;background:var(--dk);min-height:100vh;overflow-x:hidden}
-.bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(70% 45% at 50% 0,#6a3fe0cc,transparent),radial-gradient(60% 40% at 100% 90%,#00c9a733,transparent),linear-gradient(#1c0f4d,#0b0524)}
+.bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(70% 45% at 50% 0,#367b55cc,transparent),radial-gradient(60% 40% at 100% 90%,#d6a83a22,transparent),linear-gradient(#213d2b,#0c1711)}
 .bg i{position:absolute;width:4px;height:4px;border-radius:50%;background:#fff;animation:tw 3s infinite}
 @keyframes tw{50%{opacity:.1;transform:scale(.5)}}
 .t{text-shadow:0 3px 0 #000a,0 0 14px #0007}
@@ -172,7 +174,7 @@ body{font-family:'Lilita One',system-ui,sans-serif;letter-spacing:.3px;color:#ff
 main{padding:calc(64px + env(safe-area-inset-top)) 14px 120px}
 h1{font-size:30px;color:var(--g);margin:6px 2px 10px}
 .coin{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff2a8,#ffb800 60%,#c77a00);color:#7a4300;font-size:18px;border:2px solid #7a4300;flex:none;text-shadow:0 1px 0 #ffe9a0}
-.card{background:linear-gradient(170deg,#5a3cc8,#2f1d7a);border:2px solid #ffffff26;border-radius:24px;padding:16px;margin:12px 0;box-shadow:0 6px 0 #0d0630}
+.card{background:linear-gradient(170deg,#356c4b,#1e3e2c);border:2px solid #ffffff26;border-radius:24px;padding:16px;margin:12px 0;box-shadow:0 6px 0 #0d0630}
 .tile{width:58px;height:58px;border-radius:18px;display:grid;place-items:center;flex:none;box-shadow:0 5px 0 #0003,inset 0 2px 0 #fff5}
 .tile svg{width:34px;height:34px}
 .c1{background:linear-gradient(#6fe6ff,#17a6e6)}.c2{background:linear-gradient(#ff7ab8,#e02f84)}.c3{background:linear-gradient(#ffd96b,#f39a00)}
@@ -183,7 +185,7 @@ h1{font-size:30px;color:var(--g);margin:6px 2px 10px}
 .btn[disabled]{filter:grayscale(1);opacity:.55}
 .row{display:flex;align-items:center;gap:12px}.sp{flex:1}
 .sm{font-size:14px;opacity:.75}
-.scene{position:relative;height:52vh;min-height:340px;border-radius:28px;overflow:hidden;border:3px solid #ffffff30;box-shadow:0 8px 0 #0a0422,inset 0 0 90px #000b;background:radial-gradient(circle at 50% 45%,#8b63ff 0,transparent 60%),repeating-linear-gradient(35deg,#3f2b80 0 28px,#4d3896 28px 32px,#35256b 32px 62px,#442f8c 62px 66px)}
+.scene{position:relative;height:52vh;min-height:340px;border-radius:28px;overflow:hidden;border:3px solid #ffffff30;box-shadow:0 8px 0 #0a0422,inset 0 0 90px #000b;background:radial-gradient(circle at 50% 45%,#8abf75 0,transparent 60%),repeating-linear-gradient(35deg,#456c43 0 28px,#78945b 28px 32px,#314f35 32px 62px,#587c49 62px 66px)}
 .ladder{position:absolute;left:50%;top:0;bottom:0;width:92px;margin-left:-46px;background:linear-gradient(90deg,#9a6430 0 12px,transparent 12px 80px,#9a6430 80px);box-shadow:0 0 30px #0008}
 .ladder i{position:absolute;inset:0 12px;background:repeating-linear-gradient(#d0924a 0 14px,#0000 14px 56px);animation:climb 1.1s linear infinite}
 @keyframes climb{to{background-position:0 56px}}
@@ -238,8 +240,8 @@ for(let i=0;i<70;i++){const s=document.createElement('i');s.style.cssText=`left:
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const f=n=>Number(n).toLocaleString(undefined,{maximumFractionDigits:2});
 const hm=ms=>{const s=Math.ceil(ms/1000);return `${Math.floor(s/3600)}h ${Math.floor(s%3600/60)}m`};
-const ranks=['Rookie Digger','Cave Crawler','Gem Hunter','Gold Seeker','Mine Foreman','Mine Boss','Crystal Lord','Raj Legend'],rom=['I','II','III','IV','V'];
-const rank=l=>ranks[Math.min(7,Math.floor((l-1)/5))]+' '+rom[(l-1)%5];
+const ranks=['Rookie Digger','Tunnel Runner','Rock Breaker','Iron Driller','Crystal Hunter','Magma Miner','Gold Baron','Diamond Tycoon','Cosmic Excavator',"Raj Legend"];
+const rank=l=>ranks[Math.min(9,Math.floor((l-1)/100))];
 const I={
 tasks:'<svg viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="3" fill="#f6e7bd" stroke="#6b4a1e" stroke-width="1.6"/><path d="M8.5 12l2.5 2.5 4.5-5" fill="none" stroke="#1fa65a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
 arcade:'<svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="11" rx="5.5" fill="#6d7bd1" stroke="#2c2f6b" stroke-width="1.6"/><path d="M7 10v5M4.5 12.5h5" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/><circle cx="16" cy="11.5" r="1.4" fill="#ffd34d"/><circle cx="18.6" cy="14" r="1.4" fill="#ff6b6b"/></svg>',
@@ -273,11 +275,11 @@ async function draw(){
   <div class="crys" style="left:6%;bottom:20%">${gem()}<b>${me.lvl}</b></div><div class="crys" style="right:6%;top:12%;animation-delay:-1.5s">${gem()}<b>${me.lvl+1}</b></div>
   <div class="mn">${miner()}</div><div id="fx"></div></div>
   <div class="card"><div class="row"><b style="font-size:22px">Mining storage</b><span class="sp"></span><b id="pend" style="color:var(--g);font-size:22px">+0</b></div>
-  <div class="bar"><b id="fill"></b></div><div class="row sm"><span>+${f(me.rate)} RAJ / hour</span><span class="sp"></span><span>${me.capH}h capacity</span></div><br>
+  <div class="bar"><b id="fill"></b></div><div class="row sm"><span>+${f(me.rate)} RAJ / hour</span><span class="sp"></span><span>${me.capH}h shift</span></div><br>
   <button class="btn g" id="claim" style="width:100%">CLAIM</button></div>`;
  if(tab=='tasks')h=`<h1 class="t">Tasks</h1>`+me.tasks.map((k,i)=>`<div class="card row"><div class="tile c${i%2?2:1}">${I.tasks}</div><div class="sp"><div style="font-size:22px">${esc(k.title)}</div><div style="color:var(--g);font-size:20px">+${k.reward} RAJ <span class="sm">· every ${k.every}h</span></div></div>
   ${k.wait?`<b style="font-size:20px">${hm(k.wait)}</b>`:`<button class="btn" data-k="${esc(k.id)}" data-u="${esc(k.url||'')}">Go</button>`}</div>`).join('')+
-  `<div class="crew"><div class="row"><div class="tile c3">${I.miners}</div><div style="font-size:28px">Build your crew!</div></div><div style="font-size:20px;margin:10px 0">+100 RAJ for each qualified referral</div><button class="btn o" id="inv" style="width:100%">Invite friends</button></div>`;
+  `<div class="crew"><div class="row"><div class="tile c3">${I.miners}</div><div style="font-size:28px">Build your crew!</div></div><div style="font-size:20px;margin:10px 0">100 RAJ per referral + 10% of their mining</div><button class="btn o" id="inv" style="width:100%">Invite friends</button></div>`;
  if(tab=='miners')h=`<h1 class="t">Miners</h1><div class="sm" style="margin:-6px 2px 8px">Hire miners to raise your RAJ per hour</div>`+me.miners.map(m=>`<div class="card row"><div class="tile c3">${I.miners}</div><div class="sp"><div style="font-size:22px">${esc(m.name)}</div><div style="color:var(--gr);font-size:18px">+${m.rate} RAJ/h each</div><div class="sm">Owned: ${m.n}</div></div>
   <button class="btn ${me.bal>=m.price?'o':''}" data-b="${m.id}" ${me.bal>=m.price?'':'disabled'}><span class="coin" style="width:22px;height:22px;font-size:13px;vertical-align:middle">R</span> ${f(m.price)}</button></div>`).join('');
  if(tab=='arcade'){if(!top.length)top=await fetch('/api/top',{headers:{'x-init':tg.initData}}).then(r=>r.json()).catch(()=>[]);
@@ -290,7 +292,7 @@ async function draw(){
  if(tab=='me'){const u=tg.initDataUnsafe?.user||{};h=`<div class="hero"><div class="avatar">${esc((me.name||'R')[0].toUpperCase())}<div class="lvb">Lv ${me.lvl}</div></div><div class="t" style="font-size:34px;margin-top:26px">${esc(me.name)}</div>
   <div style="color:#7ad7ff;font-size:20px">${u.username?'@'+esc(u.username):''}</div><div style="color:var(--g);font-size:22px;margin-top:4px">${rank(me.lvl)}</div></div>
   <div class="card stats"><div><b>${f(me.mined)}</b><span class="sm">MINED</span></div><div><b>${me.lvl}</b><span class="sm">PEAK LV</span></div><div><b>${me.refs}</b><span class="sm">RECRUITS</span></div><div><b>${me.days}</b><span class="sm">DAYS</span></div></div>
-  <div class="crew"><div class="row"><div class="tile c3">${I.miners}</div><div style="font-size:28px">Build your crew!</div></div><div style="font-size:20px;margin:10px 0">+100 RAJ for each qualified referral</div><button class="btn o" id="inv" style="width:100%">Invite friends</button></div>`}
+  <div class="crew"><div class="row"><div class="tile c3">${I.miners}</div><div style="font-size:28px">Build your crew!</div></div><div style="font-size:20px;margin:10px 0">100 RAJ per referral + 10% of their mining</div><button class="btn o" id="inv" style="width:100%">Invite friends</button></div>`}
  app.innerHTML=h;
 }
 app.onclick=async e=>{const el=e.target.closest('button');if(!el)return;
