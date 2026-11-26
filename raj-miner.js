@@ -98,8 +98,9 @@ R['POST /api/gend'] = (u, b) => {
 };
 http.createServer(async (req, res) => {
   const url = req.url.split('?')[0];
-  const out = (c, o) => { res.writeHead(c, { 'content-type': 'application/json' }); res.end(JSON.stringify(o)); };
-  if (req.method === 'GET' && (url === '/' || url === '/index.html')) { res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' }); return res.end(HTML); }
+  const noCache = { 'cache-control': 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0', 'pragma': 'no-cache', 'expires': '0', 'surrogate-control': 'no-store' };
+  const out = (c, o) => { res.writeHead(c, { 'content-type': 'application/json; charset=utf-8', ...noCache }); res.end(JSON.stringify(o)); };
+  if (req.method === 'GET' && (url === '/' || url === '/index.html')) { res.writeHead(200, { 'content-type': 'text/html; charset=utf-8', ...noCache }); return res.end(HTML); }
   if (!url.startsWith('/api/')) { res.writeHead(404); return res.end(); }
   let raw = ''; for await (const c of req) raw += c;
   let b = {}; try { b = JSON.parse(raw || '{}'); } catch {}
