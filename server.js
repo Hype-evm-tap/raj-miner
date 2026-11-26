@@ -116,6 +116,37 @@ app.get("/", (req, res) => {
 .nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:center;gap:8px;padding:12px;background:rgba(7,11,22,.94);border-top:1px solid #1e2740}
 .nav button{flex:1;max-width:96px;border:0;background:#141c2f;color:#c7d2fe;padding:11px;border-radius:14px;font-weight:700;font-size:13px;cursor:pointer}
 .nav button.active{background:#22d3ee;color:#04121f}button:disabled{opacity:.5;cursor:not-allowed}
+
+/* Raj Miner premium dashboard refresh */
+:root{color-scheme:dark}
+body{background:radial-gradient(ellipse at 50% -15%,#174c3a 0,#091510 38%,#060b0a 100%);color:#f4fff8}
+.app{max-width:460px;padding:18px 16px 104px}
+.topbar{padding:7px 2px 18px;margin-bottom:12px}
+.logo{width:46px;height:46px;border-radius:15px;background:linear-gradient(145deg,#d7ff91,#3dbb77);color:#082315;box-shadow:0 7px 24px #39d17a44;font-size:22px}
+.brand h1{font-size:18px;letter-spacing:.2px}.brand p{color:#9db9a8}
+.level{background:#13271d;border:1px solid #345c42;color:#d7ff91;padding:9px 14px}
+.hero{position:relative;overflow:hidden;text-align:center;background:linear-gradient(155deg,rgba(28,72,49,.94),rgba(10,25,19,.98));border:1px solid #315c42;border-radius:30px;padding:27px 18px 22px;margin-bottom:14px;box-shadow:0 18px 48px #0007,inset 0 1px #ffffff12}
+.hero:before{content:"";position:absolute;width:250px;height:250px;border-radius:50%;background:#72e69b12;filter:blur(28px);top:-155px;left:calc(50% - 125px)}
+.coin{position:relative;width:142px;height:142px;margin:0 auto 18px;border:7px solid #caff9b;background:radial-gradient(circle at 30% 25%,#efffc2,#83d75d 38%,#218c55 75%,#0c4a31);box-shadow:0 0 0 7px #9be87b18,0 0 48px #66dc8b55,inset 0 5px 16px #fff8;color:#0a3a25;font-size:58px}
+.balance{font-size:clamp(34px,10vw,44px);font-weight:900;letter-spacing:-1.5px;color:#f2ffe9}
+.unit{color:#b8d9bd;font-size:13px;font-weight:700}
+.power{margin:10px 0 18px;color:#b5d2bc;font-size:12px}
+.tap{border-radius:17px;padding:17px;font-size:16px;color:#092516;background:linear-gradient(100deg,#d8ff91,#8ce58b 55%,#4fc982);box-shadow:0 8px 25px #53d88735;transition:transform .15s}
+.tap:active{transform:scale(.98)}
+.status{margin-top:12px;color:#b7d8bf;font-weight:600}
+.grid{gap:11px;margin-bottom:14px}
+.tile{background:linear-gradient(145deg,#152a20,#0d1a14);border:1px solid #294b36;border-radius:19px;padding:17px 12px;box-shadow:inset 0 1px #ffffff08}
+.tile b{font-size:23px;color:#e7ffdf}.tile span{color:#a7c5ad;font-size:11px;letter-spacing:.3px}
+.section{background:linear-gradient(145deg,#14271d,#0c1711);border:1px solid #294b36;border-radius:22px;padding:16px;margin-bottom:13px;box-shadow:0 10px 26px #0003}
+.section h2{font-size:15px;letter-spacing:.2px;color:#eaffdf;margin-bottom:13px}
+.task{background:#0d1b13;border:1px solid #284733;border-radius:15px;padding:13px;margin-bottom:9px}
+.task b{color:#edffea;font-size:13px}.task small{color:#9bb8a2;font-size:11px}
+.task button{background:linear-gradient(100deg,#d8ff91,#75d98c);color:#092516;border-radius:11px;padding:10px 13px}
+.nav{background:rgba(5,15,10,.96);border-top:1px solid #294b36;backdrop-filter:blur(18px);padding:11px 10px calc(11px + env(safe-area-inset-bottom))}
+.nav button{background:#14271d;color:#b9d8c0;border:1px solid #294b36;border-radius:13px}
+.nav button.active{background:linear-gradient(100deg,#d8ff91,#75d98c);color:#092516;border-color:transparent}
+button:disabled{opacity:.45}
+@media(max-width:360px){.coin{width:120px;height:120px}.balance{font-size:32px}.app{padding-left:12px;padding-right:12px}}
 </style></head><body>
 <main class="app">
 <div class="topbar"><div class="brand"><div class="logo">R</div><div><h1>Raj Miner</h1><p>Mine • Upgrade • Invite</p></div></div><div class="level" id="level">Level 1</div></div>
