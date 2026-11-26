@@ -793,6 +793,33 @@ button[style*="background:linear-gradient(90deg,#ffd84a"]{
 .pad0 .tk .mini{min-width:64px;max-width:82px;padding:9px 10px;border-radius:11px;font:800 11px system-ui;white-space:nowrap}
 .pad0 .tk .done{font-size:22px;justify-self:center}
 @media(max-width:370px){.pad0 .pad{padding-left:11px;padding-right:11px}.pad0 .tk{grid-template-columns:44px minmax(0,1fr) auto;gap:8px;padding:10px}.pad0 .tic{width:42px;height:42px;border-radius:12px}.pad0 .tk .mini{min-width:55px;padding:8px 7px}.pad0 .streak{font-size:9px;padding:5px 6px}}
+
+/* Raj premium amber-orange controls — unified app-wide button system */
+:root{--raj-orange-metal:linear-gradient(180deg,#fff2d1 0%,#ffd28a 10%,#f5a43d 28%,#ffca70 43%,#d87518 58%,#ffb84f 72%,#a94d0b 88%,#f7c77b 100%);--raj-orange-edge:#ffe0ad;--raj-orange-glow:#ff9b32}
+#app button:not(#nav button),#app .btn,#app .mini,#app .tap-collect,#app #ci,#top .btn{
+ appearance:none!important;background:var(--raj-orange-metal)!important;color:#321805!important;
+ border:1px solid var(--raj-orange-edge)!important;border-radius:13px!important;
+ box-shadow:inset 0 1px 2px #fff9,inset 0 -2px 4px #7b390b66,0 3px 0 #87430f,0 6px 15px #0006,0 0 13px #ff9b3230!important;
+ text-shadow:0 1px 0 #fff7!important;font-weight:850!important;letter-spacing:.025em;
+ transition:transform .14s ease,filter .14s ease,box-shadow .14s ease!important;
+}
+#app button:not(#nav button):hover,#app .btn:hover,#app .mini:hover,#app .tap-collect:hover,#app #ci:hover,#top .btn:hover{
+ filter:brightness(1.08) saturate(1.08)!important;box-shadow:inset 0 1px 2px #fff, inset 0 -2px 4px #7b390b55,0 3px 0 #87430f,0 7px 19px #0007,0 0 19px #ff9b3266!important;
+}
+#app button:not(#nav button):active,#app .btn:active,#app .mini:active,#app .tap-collect:active,#app #ci:active,#top .btn:active{
+ transform:translateY(2px)!important;filter:brightness(.98)!important;
+ box-shadow:inset 0 2px 4px #71350966,0 1px 0 #87430f,0 0 12px #ff9b3244!important;
+}
+#app button:focus-visible,#app .btn:focus-visible,#app .mini:focus-visible,#top .btn:focus-visible{outline:2px solid #ffe4b8!important;outline-offset:3px}
+#app button:disabled,#app .btn:disabled,#app .mini:disabled,#app .tap-collect:disabled{
+ filter:grayscale(.45) brightness(.78)!important;opacity:.68!important;box-shadow:inset 0 1px 2px #fff5,0 2px 0 #57320f!important;transform:none!important
+}
+#app .tap-collect{min-height:52px;padding:15px 18px!important;border-radius:16px!important;font-size:15px!important;letter-spacing:.06em!important;text-transform:uppercase;box-shadow:inset 0 1px 2px #fff,inset 0 -3px 5px #71350966,0 4px 0 #87430f,0 8px 20px #0007,0 0 20px #ff9b3255!important}
+#top .btn{border-radius:11px!important}
+#top .bar i,.bar i,.tap-progress i,#session-fill,.energy-bar i,.energy-progress i,.energy-fill{
+ background:linear-gradient(180deg,#fff1cf 0%,#ffd18a 17%,#ff9c2e 38%,#ffe0a8 52%,#dc7417 74%,#ffbd63 100%)!important;
+ border:1px solid #ffe0ad!important;box-shadow:inset 0 1px 2px #fff9,0 0 11px #ff922e77!important;
+}
 </style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap"><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://cdn.jsdelivr.net/npm/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"></script><script>
 /* Clear stale origin caches and unregister obsolete service workers. */
 (function(){
