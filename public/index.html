@@ -723,7 +723,11 @@ html,body{background:#080d18!important;color:var(--ink)}
 #mine .rock-cluster,#mine #ladder,#mine #miner,#mine #pickaxe,#mine #hitSpark,#mine .gem,#mine .debris{display:none!important}
 
 /* Duplicate session header markup permanently removed. */
-\n/* Refined mining header: center LIVE on the app and use a clean filled wallet glyph */\n.tap-brandline{position:relative!important}\n.tap-brandline .tap-live{left:50%!important;right:auto!important;top:50%!important;transform:translate(-50%,-50%)!important;margin:0!important}\n.sol-wallet-float{width:40px!important;height:40px!important;right:0!important;border-radius:12px!important;color:#d8e8ff!important}\n.sol-wallet-float svg{width:29px!important;height:29px!important}\n.sol-wallet-float.connected{color:#75e7bd!important}\n</style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap"><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://cdn.jsdelivr.net/npm/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"></script><script>
+\n/* Refined mining header: center LIVE on the app and use a clean filled wallet glyph */\n.tap-brandline{position:relative!important}\n.tap-brandline .tap-live{left:50%!important;right:auto!important;top:50%!important;transform:translate(-50%,-50%)!important;margin:0!important}\n.sol-wallet-float{width:40px!important;height:40px!important;right:0!important;border-radius:12px!important;color:#d8e8ff!important}\n.sol-wallet-float svg{width:29px!important;height:29px!important}\n.sol-wallet-float.connected{color:#75e7bd!important}\n
+/* More separation between the SOL badge and the Raj coin */
+.tap-stage .sol-float{left:calc(50% + min(34vw,132px))!important;top:47%!important}
+@media(max-width:360px){.tap-stage .sol-float{left:calc(50% + 34vw)!important}}
+</style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap"><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://cdn.jsdelivr.net/npm/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"></script><script>
 /* Clear stale origin caches and unregister obsolete service workers. */
 (function(){
  try {
@@ -848,12 +852,21 @@ var TK=[
  {c:'company',ic:'mine',col:'green',t:'Reach Level 25',r:25}
 ];
 function tasks2(){
+ /* Guard legacy/local task state so old saved data cannot crash the Tasks tab. */
+ if(!S||typeof S!=='object')S={};
+ if(!S.tasks||typeof S.tasks!=='object'||Array.isArray(S.tasks))S.tasks={};
+ if(!Array.isArray(S.hist))S.hist=[];
+ if(!Number.isFinite(Number(S.streak)))S.streak=0;
+ if(!Number.isFinite(Number(S.bal)))S.bal=0;
+ if(typeof S.claimedToday!=='boolean')S.claimedToday=!!S.claimedToday;
+ if(!Array.isArray(TK))TK=[];
+ if(!V)V=$('view');
  var days=[5,6,7,8,9,10],h='';
  days.forEach(function(v,i){h+='<div class="dt'+(i<S.streak?' done':'')+'"><b>D'+(i+1)+'</b>'+ICON('coin',40)+(i<S.streak?'<em class="ok">✓</em>':'')+'<span>+'+v+'</span></div>'});
  h+='<div class="dt bonus"><u>BONUS</u><b>D7</b><div class="stack">'+ICON('coin',44)+ICON('coin',54)+ICON('coin',44)+'</div><span>+11</span></div>';
  var chips=[['all','All','stack'],['onchain','On-chain','gem'],['company','Company','house'],['social','Social','heart'],['partners','Partners','hand']];
  function renderTaskList(){
-  var open=TK.filter(function(t,i){return !(t.claimed||S.tasks['id_'+t.id]||S.tasks['k'+i])}),earn=open.reduce(function(a,t){return a+Number(t.r||0)},0);
+  var open=TK.filter(function(t,i){t=t||{};return !(t.claimed||S.tasks['id_'+t.id]||S.tasks['k'+i])}),earn=open.reduce(function(a,t){return a+Number(t.r||0)},0);
   V.innerHTML='<div class="pad0"><div class="ban"><div class="lamp"></div><div class="note n1"></div><div class="note n2"></div><div class="bico">'+ICON('tasks',64)+'</div><h2 class="jt">Tasks</h2><div class="bp"><span class="pill2">☰ '+open.length+' open tasks</span><span class="pill2 g">'+earn+' $RAJ available</span></div></div><div class="pad">'+
   '<div class="ck"><div class="row"><div class="cal">'+ICON('cal',40)+'</div><div style="flex:1;margin-left:12px"><div class="ct">Daily Check-in</div><div class="lbl">Day '+S.streak+' of 7 · '+(S.streak*9+2)+' this week</div></div><span class="streak">'+S.streak+'-day streak</span></div><div class="bar" style="height:10px"><i style="width:'+(S.streak/7*100)+'%;background:linear-gradient(90deg,#ffd84a,#ff9d1c)"></i></div><div class="g4">'+h+'</div>'+
   (S.claimedToday?'<div class="nx"><span>Next reward in</span><b id="nr">'+fmt(NR-Date.now())+'</b></div>':'<button class="btn" id="ci" style="width:100%;margin-top:12px">Claim today’s reward</button>')+'</div>'+
@@ -864,7 +877,7 @@ function tasks2(){
   [].forEach.call(V.querySelectorAll('.go'),function(b){b.onclick=function(){var i=+b.dataset.i,t=TK[i];if(!t)return;b.disabled=true;if(t.id&&tg&&tg.initData){fetch('/api/tasks/'+t.id+'/claim',{method:'POST',headers:{'Content-Type':'application/json','x-init-data':tg.initData},body:'{}'}).then(function(r){return r.json()}).then(function(j){if(!j.ok)throw Error(j.error||'Task claim failed');t.claimed=true;S.tasks['id_'+t.id]=1;S.bal=Number(j.balance)||S.bal;S.serverRev=Number(j.balanceRevision)||S.serverRev;S.hist.unshift({t:'Task Reward',s:t.t+' · just now',v:Number(j.reward)||0});save();toast(j.alreadyClaimed?'Task already claimed':'+'+Number(j.reward||0)+' $RAJ');renderTaskList()}).catch(function(e){b.disabled=false;toast(e.message)})}else{S.tasks['k'+i]=1;S.bal+=Number(t.r||0);S.hist.unshift({t:'Task Reward',s:t.t+' · just now',v:Number(t.r||0)});save();toast('+'+Number(t.r||0)+' $RAJ');renderTaskList()}}});
  }
  renderTaskList();
- fetch('/api/tasks').then(function(r){if(!r.ok)throw Error('Task list unavailable');return r.json()}).then(function(j){if(j&&j.ok&&Array.isArray(j.tasks)&&j.tasks.length){TK=j.tasks.map(function(t){return {id:String(t.id),c:t.category||'social',ic:t.category==='onchain'?'gem':t.category==='company'?'house':t.category==='partners'?'spons':t.category==='social'?'tg':'tasks',col:t.category==='onchain'?'blue':t.category==='company'?'orange':t.category==='partners'?'pink':'blue',t:t.title,r:Number(t.reward)||0,link:t.link||'',claimed:!!t.claimed}});renderTaskList()}}).catch(function(){});
+ fetch('/api/tasks').then(function(r){if(!r.ok)throw Error('Task list unavailable');return r.json()}).then(function(j){if(j&&j.ok&&Array.isArray(j.tasks)&&j.tasks.length){TK=j.tasks.filter(function(t){return t&&typeof t==='object'}).map(function(t){return {id:String(t.id),c:t.category||'social',ic:t.category==='onchain'?'gem':t.category==='company'?'house':t.category==='partners'?'spons':t.category==='social'?'tg':'tasks',col:t.category==='onchain'?'blue':t.category==='company'?'orange':t.category==='partners'?'pink':'blue',t:t.title||'Task',r:Number(t.reward)||0,link:t.link||'',claimed:!!t.claimed}});renderTaskList()}}).catch(function(){});
 }
 var CONFIG={BOT:'Raj_company_bot'};
 function tgUser(){return (tg&&tg.initDataUnsafe&&tg.initDataUnsafe.user)||null}
