@@ -288,7 +288,7 @@ function tasks2(){var days=[5,6,7,8,9,10],h='';
  var ci=$('ci');if(ci)ci.onclick=function(){S.claimedToday=true;S.streak=Math.min(7,S.streak+1);S.bal+=10;NR=Date.now()+86400000;S.hist.unshift({t:'Check-in',s:'Day '+S.streak+' · just now',v:10});save();toast('+10 $RAJ');render()};
  [].forEach.call(V.querySelectorAll('.chips2 span'),function(b){b.onclick=function(){TF=b.dataset.f;render()}});
  [].forEach.call(V.querySelectorAll('.go'),function(b){b.onclick=function(){var i=+b.dataset.i,t=TK[i];S.tasks['k'+i]=1;S.bal+=t.r;S.hist.unshift({t:'Task Reward',s:t.t+' · just now',v:t.r});save();toast('+'+t.r+' $RAJ');render()}})}
-var CONFIG={BOT:'RajMinerBot'};
+var CONFIG={BOT:'Raj_company_bot'};
 function tgUser(){return (tg&&tg.initDataUnsafe&&tg.initDataUnsafe.user)||null}
 function esc(t){return String(t).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 function short(a){return a?a.slice(0,4)+'…'+a.slice(-4):''}
@@ -296,7 +296,7 @@ var TICK='<svg viewBox="0 0 24 24" width="30" height="30"><path d="M12 1l3 2.2 3
 var TC=null;
 function initTon(){if(!window.TON_CONNECT_UI)return;try{TC=new TON_CONNECT_UI.TonConnectUI({manifestUrl:location.origin+'/tonconnect-manifest.json',uiPreferences:{theme:'DARK'}});TC.onStatusChange(function(w){var a='';if(w&&w.account){a=w.account.address;try{a=TON_CONNECT_UI.toUserFriendlyAddress(a)}catch(e){}}S.wallet=!!w;S.addr=a;save();if(tab=='wallet'||tab=='profile')render()})}catch(e){TC=null}}
 function walletToggle(){if(TC){if(TC.connected)TC.disconnect();else TC.openModal()}else{S.wallet=!S.wallet;S.addr=S.wallet?'UQDemoRajWalletAddress000000000000000000000x2c':'';save();toast('Demo mode: real wallet works on your deployed link');render()}}
-function auth(){if(!(tg&&tg.initData))return;fetch('/api/auth',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({initData:tg.initData})}).then(function(r){return r.json()}).then(function(j){if(j&&j.ok&&j.isAdmin&&!TABS.some(function(t){return t[0]=='admin'})){TABS.push(['admin','🛠️','Admin']);nav()}}).catch(function(){})}
+function auth(){if(!(tg&&tg.initData))return;fetch('/api/auth',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({initData:tg.initData})}).then(function(r){return r.json()}).then(function(j){isAdmin=!!(j&&j.ok&&j.isAdmin);if(isAdmin&&!TABS.some(function(t){return t[0]=='admin'})){TABS.push(['admin','🛠️','Admin']);nav()}}).catch(function(){isAdmin=false})}
 function profile2(){var u=tgUser(),name=u?((u.first_name||'')+' '+(u.last_name||'')).trim():uname,un=u&&u.username?'@'+u.username:'',photo=u&&u.photo_url,verified=S.wallet||(u&&u.is_premium);
  if(!S.joined){S.joined=Date.now();save()}
  var days=Math.max(1,Math.ceil((Date.now()-S.joined)/86400000)),L=S.lvl,link='https://t.me/'+CONFIG.BOT+'?startapp='+(uid||'ref');
@@ -327,7 +327,7 @@ function wallet(){V.innerHTML='<div class="pad"><h2>Vault</h2><div class="vault"
  '<div class="card"><div class="row"><b style="font-size:22px;font-family:Lilita One,system-ui">Mine Pass</b><span class="pill">🔒 #?</span></div><div class="lbl">Needed to claim, withdraw and play at TGE.</div><div class="chk"><i>'+(S.wallet?"✓":"–")+'</i>Wallet connected</div><div class="chk"><i>✓</i>Wallet at least 7 days old</div><div class="chk"><i>✓</i>Hold minimum $RAJ</div></div>'+
  '<h3>History</h3>'+S.hist.slice(0,14).map(function(h){return '<div class="hist"><div>'+h.t+'<small>'+h.s+'</small></div><em>+'+h.v+'</em></div>'}).join("")+'</div>';
  $("cw").onclick=walletToggle}
-function profile(){var link="https://t.me/RajMinerBot?start="+(uid||"ref");
+function profile(){var link="https://t.me/"+CONFIG.BOT+"?startapp="+(uid||"ref");
  V.innerHTML='<div class="pad"><div class="avatar">🧑‍🔧</div><div style="text-align:center;font-size:24px;font-weight:900">'+uname+'</div><div class="lbl" style="text-align:center;margin-bottom:10px">Rookie Digger III · Trainee</div>'+
  '<div class="card stats"><div><b>0</b>MINED</div><div><b>Lv '+S.lvl+'</b>PEAK</div><div><b>3</b>RECRUITS</div><div><b>13</b>DAYS</div></div>'+
  '<h3>Hire Friends</h3><div class="invite"><b style="font-size:22px">Build your crew!</b><div style="margin-top:8px">🎁 +100 $RAJ for each Qualified referral<br>％ 10% of everything your Qualified referrals mine, for life</div><div class="lnk">'+link+'</div><button class="cyan" id="inv">Invite friends</button></div>'+
