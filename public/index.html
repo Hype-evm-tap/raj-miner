@@ -466,6 +466,22 @@ h3{font:750 19px system-ui,sans-serif!important;color:#f3f8ff}
 #splash p{color:#b6d8ed}
 @media(max-width:380px){.pad{padding:13px}.section-heading{font-size:23px!important}.tic{width:48px;height:48px}.tk{gap:9px}.pst{padding:11px 0}.pst b{font-size:18px!important}}
 
+
+/* Stationary automatic mining: no climbing, ladder, ledges, or level markers */
+#mine.static-mine{position:absolute;inset:0;height:100%;overflow:hidden;background:radial-gradient(ellipse at 50% 46%,#264a59 0%,#172e3d 35%,#091725 78%)!important;display:flex;align-items:center;justify-content:center}
+#mine.static-mine:before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 48%,transparent 12%,#020912aa 100%);pointer-events:none}
+.mine-atmosphere{position:absolute;inset:0;opacity:.45;background:repeating-linear-gradient(135deg,transparent 0 70px,#9ac0d015 72px 76px,transparent 78px 140px),radial-gradient(circle at 20% 20%,#5ab5d022,transparent 28%),radial-gradient(circle at 82% 72%,#e2ad5a18,transparent 25%)}
+.mine-crystal{position:relative;z-index:2;width:clamp(120px,38vw,190px);height:clamp(120px,38vw,190px);display:flex;align-items:center;justify-content:center;filter:drop-shadow(0 0 24px #46d8ff77);animation:crystal-float 3s ease-in-out infinite}
+.mine-crystal svg{width:100%;height:100%}
+.mine-crystal.crystal-hit{animation:crystal-hit .45s ease}
+@keyframes crystal-float{50%{transform:translateY(-9px)}}
+@keyframes crystal-hit{0%{transform:scale(1)}45%{transform:scale(1.13);filter:brightness(1.6) drop-shadow(0 0 34px #7deaff)}100%{transform:scale(1)}}
+.mine-status{position:absolute;z-index:3;left:14px;right:14px;top:14px;display:flex;align-items:center;gap:9px;padding:11px 13px;border-radius:14px;background:#071827dd;border:1px solid #78cce944;box-shadow:0 8px 24px #0005;font-size:11px;letter-spacing:.08em}
+.mine-status b{margin-left:auto;color:#f5d28a;font-size:12px;letter-spacing:0}
+.live-dot{width:8px;height:8px;border-radius:50%;background:#39d6a0;box-shadow:0 0 10px #39d6a0}
+.mine-caption{position:absolute;bottom:24px;z-index:2;color:#b8d3e3;font-size:13px;letter-spacing:.04em}
+.crystal-found{position:absolute;z-index:4;top:68%;left:50%;transform:translateX(-50%);font-size:11px;font-weight:900;letter-spacing:.12em;color:#ffe2a0;text-shadow:0 2px 10px #000}
+#ladder,#shaft,#miner,#pickaxe,#hitSpark,.mark,.mine-level-progress{display:none!important}
 </style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap"><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://cdn.jsdelivr.net/npm/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"></script></head><body>
 <div id="app">
  <div id="top">
@@ -552,68 +568,20 @@ function gemSvg(c){
 }
 var RM=["I","II","III","IV","V","VI","VII","VIII","IX","X"];
 function mine2(){
- S.lvl=Math.max(1,Math.floor(S.bal/12.4));var L=S.lvl,totalLevels=Math.max(40,L+20),H=totalLevels*LH+240,g='',n,y;
-
- for(n=1;n<=totalLevels;n++){
-  y=(MAXL-n)*LH+120;var lk=n>L,left=n%2==0;
-  g+='<div class="gem'+(lk?' lk':'')+'" data-gem="'+n+'" style="top:'+y+'px;'+(left?'left:5%':'right:5%')+'">'+gemSvg(PAL[n%4])+'<small>'+(lk?' ':'')+n+'</small></div>';
-  if(n%5==0)g+='<div class="mark" style="top:'+(y-125)+'px">LEVEL '+n+'</div>';
- }
- var my=(totalLevels-L)*LH+50;
- V.innerHTML='<div id="mwrap"><div id="mine"><div id="shaft" style="height:'+H+'px">'+g+
- '<div class="rock-cluster crystal-node" id="rockCluster" style="top:'+(my+38)+'px"><div class="ore-crystal">'+gemSvg(PAL[0])+'</div><div class="rock-cracks"></div></div>'+
- '</div></div>'+
- '<div id="lvl"><span class="coin" style="width:36px;height:36px;font-size:16px">'+L+'</span><div>Rookie Digger '+Math.ceil(L/10)+'<br><span style="color:var(--gold)">'+rate()+' $RAJ/day</span><div class="mine-level-progress"><i id="mineProgress"></i></div></div></div>'+
- '<div id="feed" aria-label="Live status"><b>● LIVE</b></div>'+
-
- '</div>';
- var m=$("mine"),sh=$("shaft"),rock=$("rockCluster"),progress=$("mineProgress");
- window.__my=my;window.__sh=sh;
- /* Cave texture disabled: rockTile helper was outside the script and caused a runtime ReferenceError. */
- m.scrollTop=Math.max(0,my-m.clientHeight*0.5);
- var hits=0,climbs=0,broken=false;
- function hitRock(){
-  if(broken)return;
+ if(window.__mineAutoTimer){clearInterval(window.__mineAutoTimer);window.__mineAutoTimer=null}
+ var L=Math.max(1,Math.floor(S.bal/12.4));
+ V.innerHTML='<div id="mwrap"><div id="mine" class="static-mine"><div class="mine-atmosphere"></div><div class="mine-crystal" id="mineCrystal">'+gemSvg(PAL[0])+'</div><div class="mine-status"><span class="live-dot"></span><span>MINING ACTIVE</span><b>'+rate()+' $RAJ/day</b></div><div class="mine-caption">Automatic crystal mining</div></div></div>';
+ var mine=$("mine"),crystal=$("mineCrystal"),hits=0;
+ window.__my=0;window.__sh=mine;
+ function mineTick(){
   hits++;
-  rock.classList.add("rock-hit");
-  var f=document.createElement("div");f.className="float";f.textContent="+"+(RATE*5).toFixed(2)+" $RAJ";f.style.left=(44+Math.random()*18)+"%";f.style.top=(my+30)+"px";sh.appendChild(f);setTimeout(function(){f.remove()},1150);
-  
-  if(progress)progress.style.width=((hits%4)/4*100)+"%";
-  if(hits%4===0){
-   broken=true;rock.classList.add("rock-broken");
-   for(var j=0;j<7;j++){var p=document.createElement("i");p.className="debris";p.style.setProperty("--dx",(Math.random()*130-65)+"px");p.style.setProperty("--dy",(Math.random()*-100-10)+"px");rock.appendChild(p);setTimeout(function(x){x.remove()},750,p)}
-   var gem=document.createElement("div");gem.className="float gem-pop";gem.textContent=" CRYSTAL FOUND";gem.style.left="32%";gem.style.top=(my+4)+"px";sh.appendChild(gem);setTimeout(function(){gem.remove()},1250);
-   climbs++;var nextTop=Math.max(80,my-52);my=nextTop;
-   m.scrollTo({top:Math.max(0,nextTop-m.clientHeight*.48),behavior:"smooth"});
-   setTimeout(function(){rock.classList.remove("rock-hit","rock-broken");rock.innerHTML='<div class="ore-rock rock-a"></div><div class="ore-rock rock-b"></div><div class="ore-rock rock-c"></div><div class="ore-crystal">'+gemSvg(PAL[(climbs)%4])+'</div><div class="rock-cracks"></div>';rock.style.top=(nextTop+38)+"px";rock.style.opacity="1";broken=false;hits=0;if(progress)progress.style.width="0%"},820);
-   toast("Crystal mined automatically ");
-  }else{setTimeout(function(){rock.classList.remove("rock-hit")},260)}
+  crystal.classList.remove("crystal-hit");void crystal.offsetWidth;crystal.classList.add("crystal-hit");
+  var f=document.createElement("div");f.className="float";f.textContent="+"+(RATE*5).toFixed(2)+" $RAJ";f.style.left=(42+Math.random()*16)+"%";f.style.top=(46+Math.random()*8)+"%";mine.appendChild(f);setTimeout(function(){f.remove()},1150);
+  if(hits%4===0){var p=document.createElement("div");p.className="crystal-found";p.textContent="CRYSTAL MINED";mine.appendChild(p);setTimeout(function(){p.remove()},1000)}
   $("mined").textContent=f4(S.shift);$("usd").textContent="≈ $"+(S.shift*PRICE).toFixed(5);$("fill").style.width=(S.shift/CAP*100)+"%";$("cart").textContent=S.shift>=CAP?"Cart full!":"Mining…";$("unlock").disabled=S.shift<0.01;
  }
- window.__mineAutoTimer=setInterval(hitRock,1300);
- }
-var ICONS={
-tasks:'<rect x="9" y="6" width="28" height="36" rx="5" fill="url(#gP1)" stroke="#8a5a2b" stroke-width="2"/><circle cx="9" cy="8" r="5" fill="#e8c98a" stroke="#8a5a2b" stroke-width="2"/><circle cx="37" cy="40" r="5" fill="#e8c98a" stroke="#8a5a2b" stroke-width="2"/><path d="M16 22l6 7 11-13" stroke="#1f7a46" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/><path d="M16 22l6 7 11-13" stroke="#3ee08f" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>',
-arcade:'<path d="M8 20q0-8 8-8h16q8 0 8 8v10q0 8-7 8-4 0-6-4h-10q-2 4-6 4-7 0-7-8z" fill="url(#gPu)" stroke="#2a1873" stroke-width="2.5"/><path d="M15 21v8M11 25h8" stroke="#fff" stroke-width="3" stroke-linecap="round"/><circle cx="32" cy="22" r="3" fill="#ff5d9a"/><circle cx="37" cy="27" r="3" fill="#3ee0ff"/><ellipse cx="22" cy="15" rx="9" ry="2" fill="#fff" opacity=".35"/>',
-miners:'<path d="M7 32q0-20 17-20t17 20z" fill="url(#gGd)" stroke="#8a5a00" stroke-width="2.5"/><rect x="4" y="30" width="40" height="8" rx="4" fill="#ff9d1c" stroke="#8a4a00" stroke-width="2.5"/><circle cx="24" cy="21" r="6" fill="#fff" stroke="#8a5a00" stroke-width="2.5"/><path d="M14 22q3-8 10-9" stroke="#fff" stroke-width="3" fill="none" opacity=".7" stroke-linecap="round"/>',
-mine:'<polygon points="24,4 39,17 34,39 24,46 14,39 9,17" fill="url(#gSt)" stroke="#9bdcff" stroke-width="2.5" stroke-linejoin="round"/><path d="M24 4l0 42M9 17l15 8 15-8M14 39l10-14 10 14" fill="none" stroke="#fff" stroke-width="2" opacity=".7"/>',
-wallet:'<path d="M17 12q7 4 14 0l-3 6h-8z" fill="#c9954f" stroke="#5a3414" stroke-width="2"/><path d="M16 18h16q10 8 8 20-1 6-8 6H16q-7 0-8-6-2-12 8-20z" fill="url(#gBr)" stroke="#4a2a0c" stroke-width="2.5"/><ellipse cx="22" cy="10" rx="6" ry="3" fill="url(#gGd)" stroke="#8a5a00" stroke-width="1.5"/><ellipse cx="29" cy="9" rx="5" ry="2.6" fill="url(#gGd)" stroke="#8a5a00" stroke-width="1.5"/><path d="M13 30q4-4 8-2" stroke="#fff" stroke-width="2.5" fill="none" opacity=".4" stroke-linecap="round"/>',
-profile:'<path d="M13 4l11 20 11-20h-6l-5 10-5-10z" fill="#e8334a" stroke="#7a1020" stroke-width="2" stroke-linejoin="round"/><circle cx="24" cy="32" r="12" fill="url(#gGd)" stroke="#8a5a00" stroke-width="2.5"/><circle cx="24" cy="32" r="7.5" fill="#3a6fd8" stroke="#1d3a78" stroke-width="2"/><polygon points="24,26 26,30.5 31,31 27.5,34.5 28.5,39 24,36.5 19.5,39 20.5,34.5 17,31 22,30.5" fill="#ffe27a"/>',
-coin:'<circle cx="24" cy="24" r="19" fill="url(#gGd)" stroke="#8a5a00" stroke-width="3"/><circle cx="24" cy="24" r="13" fill="none" stroke="#c26a00" stroke-width="2.5"/><text x="24" y="31" text-anchor="middle" font-family="Lilita One,system-ui" font-size="20" fill="#8a4a00">R</text><ellipse cx="17" cy="14" rx="7" ry="3" fill="#fff" opacity=".5" transform="rotate(-30 17 14)"/>',
-cal:'<rect x="5" y="8" width="38" height="34" rx="8" fill="#fff4d6" stroke="#7a4a00" stroke-width="2.5"/><rect x="5" y="8" width="38" height="12" rx="8" fill="#e8334a"/><path d="M15 5v8M33 5v8" stroke="#5a3414" stroke-width="3.5" stroke-linecap="round"/><path d="M15 30l6 6 12-13" stroke="#1f9e5e" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>',
-stack:'<ellipse cx="24" cy="38" rx="16" ry="6" fill="url(#gGd)" stroke="#8a5a00" stroke-width="2"/><ellipse cx="24" cy="30" rx="16" ry="6" fill="url(#gGd)" stroke="#8a5a00" stroke-width="2"/><ellipse cx="24" cy="22" rx="16" ry="6" fill="url(#gGd)" stroke="#8a5a00" stroke-width="2"/><ellipse cx="24" cy="14" rx="16" ry="6" fill="#ffe27a" stroke="#8a5a00" stroke-width="2"/>',
-gem:'<polygon points="24,4 42,16 24,44 6,16" fill="url(#gBl)" stroke="#0a4a9a" stroke-width="2.5" stroke-linejoin="round"/><polygon points="24,4 42,16 6,16" fill="#fff" opacity=".45"/><path d="M15 16l9 28 9-28" stroke="#0a4a9a" stroke-width="1.5" fill="none" opacity=".5"/>',
-house:'<path d="M6 24L24 8l18 16v18H6z" fill="#e8a05a" stroke="#6b3a12" stroke-width="2.5" stroke-linejoin="round"/><path d="M4 26L24 7l20 19" stroke="#c0392b" stroke-width="5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><rect x="19" y="28" width="10" height="14" rx="2" fill="#6b3a12"/><path d="M34 6v10h8z" fill="#e8334a"/>',
-heart:'<ellipse cx="24" cy="23" rx="19" ry="16" fill="url(#gBl)" stroke="#0a4a9a" stroke-width="2.5"/><path d="M14 40l-2 6 10-5z" fill="#2a8aff"/><path d="M24 31q-11-7-11-13 0-5 5-5 4 0 6 4 2-4 6-4 5 0 5 5 0 6-11 13z" fill="#ff3d6e" stroke="#9a1038" stroke-width="2"/>',
-spons:'<path d="M9 40V20l9 6V18l9 6V12h12v28z" fill="#fff" stroke="#9a1068" stroke-width="2.5" stroke-linejoin="round"/><path d="M15 34h2M22 34h2M29 34h2" stroke="#e8338a" stroke-width="3" stroke-linecap="round"/>',
-tg:'<path d="M6 22L42 8 34 40 22 30z" fill="#fff" stroke="#0a5a9a" stroke-width="2.5" stroke-linejoin="round"/><path d="M22 30l-1 9 5-6" fill="#cfe8ff" stroke="#0a5a9a" stroke-width="2"/>',
-x:'<path d="M10 8l28 32M38 8L10 40" stroke="#fff" stroke-width="6" stroke-linecap="round"/>'};
-function ICON(k,z){z=z||34;var b=ICONS[k];return b?'<svg viewBox="0 0 48 48" width="'+z+'" height="'+z+'">'+b+'</svg>':'<span style="font-size:'+(z*.7)+'px"></span>'}
-var TF='all',NR=Date.now()+(13*3600+21*60)*1000,SPT=Date.now()+(5*3600+39*60)*1000;
-function fmt(ms){var q=Math.max(0,ms/1000|0),h=q/3600|0,m=(q%3600)/60|0;return h+'h '+m+'m'}
-window.nrTick=function(){var a=$('nr');if(a)a.textContent=fmt(NR-Date.now());var b=$('spt');if(b)b.textContent=fmt(SPT-Date.now())};
-var TK=[{c:'partners',ic:'spons',col:'pink',t:'Sponsored task',r:5,tag:'EVERY 12H',timer:1},{c:'social',ic:'tg',col:'blue',t:'Join Raj Channel',r:5},{c:'social',ic:'x',col:'dark',t:'Follow Raj on X',r:5},{c:'social',ic:'heart',col:'pink',t:'React to latest post',r:3},{c:'onchain',ic:'gem',col:'blue',t:'Connect TON wallet',r:20},{c:'onchain',ic:'coin',col:'gold',t:'Hold 100 $RAJ',r:15},{c:'company',ic:'house',col:'orange',t:'Invite 3 friends',r:30},{c:'company',ic:'mine',col:'green',t:'Reach Level 25',r:25}];
-window.spark=function(){var sh=window.__sh;if(!sh||!sh.isConnected)return;var f=document.createElement('div');f.className='float';f.textContent='+'+RATE.toFixed(2);f.style.left=(50+Math.random()*8-2)+'%';f.style.top=(window.__my+10)+'px';sh.appendChild(f);setTimeout(function(){f.remove()},1200);for(var i=0;i<5;i++){var q=document.createElement('i');q.className='sp';q.style.left='calc(50% + '+(Math.random()*60-10)+'px)';q.style.top=(window.__my+70)+'px';q.style.setProperty('--dx',(Math.random()*80-40)+'px');q.style.setProperty('--dy',(-30-Math.random()*60)+'px');sh.appendChild(q);(function(z){setTimeout(function(){z.remove()},700)})(q)}};
+ window.__mineAutoTimer=setInterval(mineTick,1300);
+}
 function tasks2(){var days=[5,6,7,8,9,10],h='';
  days.forEach(function(v,i){h+='<div class="dt'+(i<S.streak?' done':'')+'"><b>D'+(i+1)+'</b>'+ICON('coin',40)+(i<S.streak?'<em class="ok">✓</em>':'')+'<span>+'+v+'</span></div>'});
  h+='<div class="dt bonus"><u>BONUS</u><b>D7</b><div class="stack">'+ICON('coin',44)+ICON('coin',54)+ICON('coin',44)+'</div><span>+11</span></div>';
