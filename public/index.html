@@ -68,7 +68,7 @@ h2{margin:6px 0 12px;font-size:28px;font-weight:900;color:#fff;text-shadow:0 3px
 .invite .lnk{background:#0004;border-radius:10px;padding:8px;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;margin:10px 0}
 .cyan{display:block;width:100%;border:0;border-radius:14px;padding:12px;font:900 17px inherit;font-family:inherit;color:#05324a;background:linear-gradient(#5be6ff,#18b3ff);box-shadow:0 4px 0 #0a76b4;cursor:pointer}
 .rank{display:inline-block;text-align:center;width:84px;font-size:11px;margin-right:8px;opacity:.55}.rank.me{opacity:1}.rank div{width:64px;height:64px;border-radius:50%;margin:0 auto 4px;background:#ffffff1c;display:flex;align-items:center;justify-content:center;font-size:32px}.rank.me div{border:3px solid var(--grn)}
-.ladderlist .lv{display:flex;justify-content:space-between;padding:10px;background:#ffffff12;border-radius:12px;margin-bottom:6px}
+
 #toast{position:absolute;left:50%;top:90px;transform:translateX(-50%);background:#000c;padding:8px 16px;border-radius:20px;z-index:9;opacity:0;transition:.3s;pointer-events:none;font-size:14px}
 #toast.on{opacity:1}
 h2,h3,.big,.btn,.cyan,.mini,#nav button,#lvl,#feed b,.vault .big,.invite b{font-family:'Lilita One',system-ui,sans-serif;font-weight:400;letter-spacing:.02em}
@@ -321,8 +321,7 @@ h2{font-size:34px;color:#ffc928}
 @keyframes caveDust{from{transform:translate3d(0,0,0)}to{transform:translate3d(-34px,-78px,0)}}
 #ladder{z-index:3!important;filter:drop-shadow(0 0 9px #000)!important}
 #ladder i{background:linear-gradient(180deg,#e8edf0 0%,#9da8b2 35%,#424d59 78%,#202832 100%)!important}
-#miner{z-index:6!important;filter:drop-shadow(0 9px 9px #000e) drop-shadow(0 0 7px #ffb34b33)!important;animation:minerClimbWork 1.35s ease-in-out infinite!important}
-@keyframes minerClimbWork{0%,100%{transform:translateY(0) rotate(-1deg)}38%{transform:translateY(-3px) rotate(1deg)}72%{transform:translateY(1px) rotate(-.5deg)}}
+38%{transform:translateY(-3px) rotate(1deg)}72%{transform:translateY(1px) rotate(-.5deg)}}
 #miner .miner-fallback{filter:saturate(1.12) contrast(1.04)}
 #pickaxe{z-index:7!important;filter:drop-shadow(0 4px 3px #000)!important}
 #pickaxe.swinging{animation:pickSwing .36s cubic-bezier(.2,.75,.25,1)!important}
@@ -459,7 +458,7 @@ h3{font:750 19px system-ui,sans-serif!important;color:#f3f8ff}
 .rank-icon{width:42px;flex:none;display:flex;align-items:center;justify-content:center}
 .rank-icon.featured{width:52px;height:52px;border-radius:16px;background:#1c4963;border:1px solid #6ac7e855}
 .rank-icon svg{display:block}
-.ladderlist .lv{background:#10263b;border:1px solid #ffffff12;border-radius:12px}
+
 #toast{background:#10283b;border:1px solid #72c6e755;box-shadow:0 8px 25px #0007}
 #splash{background:radial-gradient(circle at 50% 35%,#164765,#071321 70%)}
 #splash h1{font:850 34px system-ui,sans-serif;color:#f6cd71;text-shadow:none}
@@ -549,19 +548,6 @@ $("unlock").onclick=function(){if(!S.wallet&&S.shift>=CAP){}
  var up=Math.floor(S.xp/283);toast("+"+f4(g)+" $RAJ collected");save();render()};
 function render(){if(window.__mineAutoTimer){clearInterval(window.__mineAutoTimer);window.__mineAutoTimer=null}document.getElementById("app").classList.toggle("mining",tab=="mine");tick();
  if(tab=="mine")mine2();else if(tab=="tasks")tasks2();else if(tab=="miners")miners();else if(tab=="wallet")wallet();else if(tab=="profile")profile2();else admin()}
-var FEED=["Rev*****","Cry*****","Mar*****","Ton*****","Dig*****","Ali*****"];
-function feedItem(){return FEED[Math.random()*FEED.length|0]+" <span>+"+(200+Math.random()*900|0)+" $RAJ · "+(1+Math.random()*22|0)+"h ago</span>"}
-function mine(){
- var rungs="";for(var i=0;i<14;i++)rungs+='<i style="top:'+(i*8+3)+'%"></i>';
- V.innerHTML='<div id="mine"><div id="ladder">'+rungs+'</div>'+
- '<div id="lvl"><span class="coin" style="width:36px;height:36px;font-size:16px">'+S.lvl+'</span><div>Rookie Digger III<br><span style="color:var(--gold)">'+rate()+' $RAJ/day</span></div></div>'+
- '<div id="feed" aria-label="Live status"><b>● LIVE</b></div>'+
- '<div id="nft"><small>LIMITED · 1,111</small></div>'+
- '<div class="gem" style="left:10%;top:36%"><small>22</small></div><div class="gem" style="right:8%;top:68%;animation-delay:.8s"><small>21</small></div><div class="gem" style="left:14%;top:58%;animation-delay:1.4s"><small>20</small></div>'+
- '<div id="miner"><svg viewBox="0 0 90 120" width="92"><use href="#mn"/></svg></div><button class="btn" id="find"> Find Victor</button></div>';
- [].forEach.call(document.querySelectorAll(".gem"),function(g,i){var c=[["#ff5d78","#b3122f","#ffb0bd"],["#ffc04a","#c26a00","#fff0b0"],["#5cc4ff","#1465c9","#c4ecff"]][i%3],n=g.querySelector("small").textContent;g.innerHTML='<svg viewBox="0 0 60 60"><polygon points="30,4 52,20 46,50 14,50 8,20" fill="'+c[0]+'"/><polygon points="30,4 52,20 30,28" fill="'+c[2]+'"/><polygon points="30,28 52,20 46,50" fill="'+c[1]+'"/><polygon points="30,28 8,20 14,50" fill="'+c[0]+'" opacity=".7"/><polygon points="30,4 8,20 30,28" fill="'+c[2]+'" opacity=".6"/><rect x="3" y="46" width="54" height="10" rx="5" fill="#4a4458"/></svg><small>'+n+'</small>'});
- $("find").onclick=function(){var g=document.querySelectorAll(".gem");var x=g[Math.random()*g.length|0];x.classList.add("hl");setTimeout(function(){x.classList.remove("hl")},3200);toast("Raj found a gem! ")};
- $("miner").onclick=function(){var f=document.createElement("div");f.className="float";f.textContent="+"+(RATE*5).toFixed(2);f.style.left="52%";f.style.top="30%";$("mine").appendChild(f);setTimeout(function(){f.remove()},1200)}}
 var MAXL=40,LH=230,PAL=[["#ff5d78","#b3122f","#ffb0bd"],["#ffc04a","#c26a00","#fff0b0"],["#5cc4ff","#1465c9","#c4ecff"],["#5be08a","#12803f","#c3ffd9"]];
 function gemSvg(c){
  return '<svg viewBox="0 0 60 60" role="img" aria-label="crystal"><defs><linearGradient id="crBody" x1="0" y1="0" x2=".9" y2="1"><stop stop-color="'+c[2]+'"/><stop offset=".28" stop-color="'+c[0]+'"/><stop offset=".72" stop-color="'+c[1]+'"/><stop offset="1" stop-color="#171323"/></linearGradient><linearGradient id="crFace" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff" stop-opacity=".96"/><stop offset=".42" stop-color="'+c[2]+'" stop-opacity=".72"/><stop offset="1" stop-color="'+c[0]+'" stop-opacity=".08"/></linearGradient><linearGradient id="crSide" x1="0" y1="0" x2="0" y2="1"><stop stop-color="'+c[0]+'"/><stop offset="1" stop-color="'+c[1]+'"/></linearGradient><filter id="crGlow"><feGaussianBlur stdDeviation="2.2"/></filter></defs><path d="M30 2L50 15 55 37 38 56 17 53 5 32 10 13Z" fill="'+c[0]+'" opacity=".42" filter="url(#crGlow)"/><path d="M30 4L48 15 53 34 38 53 17 51 7 31 12 14Z" fill="url(#crBody)" stroke="'+c[1]+'" stroke-width="2.2" stroke-linejoin="round"/><path d="M30 4L12 14 27 27 48 15Z" fill="url(#crFace)" stroke="#fff" stroke-opacity=".55" stroke-width="1"/><path d="M30 4L27 27 53 34 48 15Z" fill="'+c[2]+'" opacity=".82"/><path d="M12 14L7 31 27 27Z" fill="#fff" opacity=".34"/><path d="M7 31L17 51 27 27Z" fill="'+c[1]+'" opacity=".88"/><path d="M27 27L17 51 38 53Z" fill="'+c[0]+'" opacity=".72"/><path d="M27 27L38 53 53 34Z" fill="url(#crSide)"/><path d="M30 4L27 27 38 53" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1.1"/><path d="M15 15L25 9" stroke="#fff" stroke-width="2.6" stroke-linecap="round" opacity=".9"/><path d="M11 24L15 18" stroke="#fff" stroke-width="1.5" stroke-linecap="round" opacity=".65"/></svg>'
