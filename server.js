@@ -47,7 +47,7 @@ app.get('/api/admin/stats',requireAdmin,async(req,res)=>{
 });
 app.get('/api/admin/users',requireAdmin,async(req,res)=>{
  const q=String(req.query.q||'').trim().slice(0,80),limit=Math.min(100,Math.max(1,Number(req.query.limit)||50));
- const result=await pool.query("SELECT telegram_id::text id,username,first_name,last_name,is_premium,is_banned,admin_note,created_at,last_seen FROM users WHERE ($1='' OR telegram_id::text ILIKE '%'||$1||'%' OR COALESCE(username,'') ILIKE '%'||$1||'%' OR first_name ILIKE '%'||$1||'%') ORDER BY last_seen DESC LIMIT $2",[q,limit]);
+ const result=await pool.query("SELECT telegram_id::text id,username,first_name,last_name,is_premium,is_banned,admin_note,balance::float balance,created_at,last_seen FROM users WHERE ($1='' OR telegram_id::text ILIKE '%'||$1||'%' OR COALESCE(username,'') ILIKE '%'||$1||'%' OR first_name ILIKE '%'||$1||'%') ORDER BY last_seen DESC LIMIT $2",[q,limit]);
  res.json({ok:true,users:result.rows});
 });
 app.patch('/api/admin/users/:id',requireAdmin,async(req,res)=>{
