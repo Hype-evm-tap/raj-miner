@@ -47,7 +47,7 @@ import { createAppKit, SolanaAdapter, networks } from 'https://cdn.jsdelivr.net/
     b.disabled=true;
     try {
       if(connectedAddress) await modal.disconnect({namespace:'solana'});
-      else await modal.open({namespace:'solana'});
+      else await modal.open({view:'Connect',namespace:'solana'});
     } catch(error) {
       console.error('Solana wallet action failed:',error);
       b.title='Wallet action failed: '+(error&&error.message?error.message:'Please try again');
