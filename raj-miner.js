@@ -232,6 +232,7 @@ input{width:100%;padding:13px;border-radius:14px;border:2px solid #ffffff30;back
 <div id="promo"><div><div class="hero" style="background:none;border:0"></div></div></div>
 <nav id="nav"></nav>
 <script>
+const app=document.getElementById('app'),bg=document.getElementById('bg'),nav=document.getElementById('nav'),cv=document.getElementById('cv'),lv=document.getElementById('lv');
 const tg=window.Telegram?.WebApp;
 if(!tg){document.getElementById('app').innerHTML='<div class="card" style="text-align:center;margin-top:25vh"><h1 class="t">Open inside Telegram</h1><p class="sm" style="margin:14px 0">Raj Miner needs your Telegram account to load your mining balance. Open the bot and tap its Mini App button.</p><a class="btn" style="display:inline-block;text-decoration:none" href="https://t.me/Raj_company_bot?start=app">Open @Raj_company_bot</a></div>';throw new Error('Telegram WebApp SDK unavailable; open through the bot');}
 tg.ready();tg.expand();try{tg.disableVerticalSwipes();tg.setHeaderColor('#1c0f4d');tg.setBackgroundColor('#0b0524')}catch(e){}
