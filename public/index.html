@@ -644,6 +644,12 @@ html,body{background:#080d18!important;color:var(--ink)}
 
 /* Raj Miner: remove the visible stone/rock cluster; preserve the rest of the scene */
 .rock-cluster{display:none!important}
+
+/* Remove the legacy rocky mine backdrop; keep the Raj coin tap screen clean */
+#mine{background:#17122d!important;background-image:none!important}
+#mine:before,#mwrap:after,#shaft:before,#shaft:after{display:none!important;background:none!important}
+#shaft{background:#17122d!important;background-image:none!important;box-shadow:none!important}
+#mine .rock-cluster,#mine #ladder,#mine #miner,#mine #pickaxe,#mine #hitSpark,#mine .gem,#mine .debris{display:none!important}
 </style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap"><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://cdn.jsdelivr.net/npm/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"></script><script>
 /* Clear stale origin caches and unregister obsolete service workers. */
 (function(){
