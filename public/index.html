@@ -288,6 +288,70 @@ h2{font-size:34px;color:#ffc928}
 .gem svg{filter:drop-shadow(0 0 5px #ffffffaa) drop-shadow(0 5px 5px #000b) saturate(1.15)!important}
 #shaft{background-size:cover!important;background-position:center top!important;background-repeat:no-repeat!important}
 
+
+/* Raj Miner cinematic underground world refresh */
+#shaft{
+ background-color:#171820!important;
+ background-image:
+  radial-gradient(ellipse at 72% 20%,rgba(255,174,72,.19),transparent 24%),
+  radial-gradient(ellipse at 22% 58%,rgba(42,171,207,.13),transparent 26%),
+  radial-gradient(ellipse at 68% 82%,rgba(255,190,76,.10),transparent 25%),
+  linear-gradient(90deg,#080b12 0%,#252630 13%,#35333b 27%,#171923 49%,#302c34 74%,#0b0d14 100%)!important;
+ background-size:100% 100%!important;
+ background-repeat:no-repeat!important;
+ overflow:hidden;
+}
+#shaft:before{
+ content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+ background:
+  repeating-linear-gradient(168deg,transparent 0 44px,rgba(220,207,181,.055) 45px,transparent 49px 92px),
+  repeating-linear-gradient(12deg,transparent 0 78px,rgba(0,0,0,.24) 80px,transparent 86px 136px),
+  linear-gradient(90deg,rgba(0,0,0,.72),transparent 18%,transparent 78%,rgba(0,0,0,.68)),
+  radial-gradient(ellipse at 50% 42%,transparent 15%,rgba(0,0,0,.22) 72%,rgba(0,0,0,.76));
+}
+#shaft:after{
+ content:"";position:absolute;inset:-12% -10%;z-index:1;pointer-events:none;opacity:.28;
+ background-image:
+  radial-gradient(2px 2px at 12% 22%,#fff 45%,transparent 70%),
+  radial-gradient(1.5px 1.5px at 74% 38%,#ffe2a3 45%,transparent 70%),
+  radial-gradient(2px 2px at 48% 72%,#fff 45%,transparent 70%),
+  radial-gradient(1px 1px at 88% 84%,#fff 45%,transparent 70%),
+  radial-gradient(1px 1px at 30% 55%,#ffd08a 45%,transparent 70%);
+ background-size:230px 190px,290px 240px,330px 270px,260px 220px,190px 210px;
+ animation:caveDust 18s linear infinite;
+}
+@keyframes caveDust{from{transform:translate3d(0,0,0)}to{transform:translate3d(-34px,-78px,0)}}
+#ladder{z-index:3!important;filter:drop-shadow(0 0 9px #000)!important}
+#ladder i{background:linear-gradient(180deg,#e8edf0 0%,#9da8b2 35%,#424d59 78%,#202832 100%)!important}
+#miner{z-index:6!important;filter:drop-shadow(0 9px 9px #000e) drop-shadow(0 0 7px #ffb34b33)!important;animation:minerClimbWork 1.35s ease-in-out infinite!important}
+@keyframes minerClimbWork{0%,100%{transform:translateY(0) rotate(-1deg)}38%{transform:translateY(-3px) rotate(1deg)}72%{transform:translateY(1px) rotate(-.5deg)}}
+#miner .miner-fallback{filter:saturate(1.12) contrast(1.04)}
+#pickaxe{z-index:7!important;filter:drop-shadow(0 4px 3px #000)!important}
+#pickaxe.swinging{animation:pickSwing .36s cubic-bezier(.2,.75,.25,1)!important}
+.rock-cluster{z-index:5!important;filter:drop-shadow(0 14px 13px #000d)!important}
+.ore-rock{
+ background:
+  linear-gradient(145deg,rgba(255,255,255,.16),transparent 34%,rgba(0,0,0,.4)),
+  repeating-linear-gradient(28deg,transparent 0 13px,rgba(10,9,15,.19) 14px 16px,transparent 17px 31px),
+  linear-gradient(145deg,#aaa7a4 0%,#77747a 23%,#494750 57%,#24232c 100%)!important;
+ border:2px solid #191a22!important;
+ box-shadow:inset 5px 5px 10px #ffffff32,inset -10px -13px 17px #000c,0 8px 0 #111219!important;
+}
+.ore-rock:before{background:repeating-linear-gradient(126deg,transparent 0 10px,#16151c55 11px 13px,transparent 14px 24px),linear-gradient(130deg,#fff4,transparent 42%,#0008)!important;opacity:.9!important}
+.ore-rock:after{background:linear-gradient(90deg,#fff8,transparent)!important}
+.ore-crystal{z-index:6;filter:drop-shadow(0 0 7px #70dfff) drop-shadow(0 0 19px #39bfffaa)!important;animation:crystalPulse 1.9s ease-in-out infinite!important}
+@keyframes crystalPulse{0%,100%{filter:drop-shadow(0 0 6px #65dfff) drop-shadow(0 0 13px #39bfff88)}50%{filter:drop-shadow(0 0 12px #a6f1ff) drop-shadow(0 0 28px #39bfffdd)}}
+.gem:not(.lk) svg{filter:drop-shadow(0 0 8px #70dfff) drop-shadow(0 8px 7px #000c)!important}
+.torch{z-index:4!important}
+.torch:before{filter:blur(.4px);box-shadow:0 0 16px #ff9d2a88}
+#hitSpark{z-index:9!important}
+#lvl,#feed,#nft,#vch,#find{backdrop-filter:blur(10px);box-shadow:0 8px 24px #0006}
+#lvl{background:linear-gradient(135deg,#18283ceF,#111827eF)!important;border:1px solid #f3c46a66!important}
+#feed{background:linear-gradient(135deg,#092b31ed,#101b2bee)!important;border:1px solid #55e2c488!important}
+#find{border:1px solid #ffe6a0!important;box-shadow:0 5px 0 #8b4c13,0 10px 25px #0008!important}
+#mwrap:after{z-index:10!important;background:linear-gradient(180deg,rgba(4,8,15,.02),rgba(4,8,15,.18)),radial-gradient(ellipse at 50% 46%,#0000 34%,#0009 100%)!important}
+@media(prefers-reduced-motion:reduce){#shaft:after,#miner,.ore-crystal{animation:none!important}}
+
 </style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap"><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://cdn.jsdelivr.net/npm/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"></script></head><body>
 <div id="app">
  <div id="top">
