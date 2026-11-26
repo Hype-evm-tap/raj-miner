@@ -832,7 +832,7 @@ function ICON(k,z){
  return '<svg aria-hidden="true" viewBox="0 0 24 24" width="'+size+'" height="'+size+'" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+body+'</svg>';
 }
 function nav(){$("nav").innerHTML=TABS.map(function(t){return '<button type="button" data-t="'+t[0]+'" class="'+(t[0]==tab?"on":"")+'">'+ICON(t[1])+t[2]+'</button>'}).join("");
- [].forEach.call($("nav").children,function(b){b.onclick=function(e){if(e){e.preventDefault();e.stopPropagation()}tab=b.dataset.t;nav();if(tab==="tasks"){document.getElementById("app").classList.remove("mining");try{tasks2()}catch(err){console.error("Tasks screen failed:",err);toast("Tasks could not load. Please retry.")}}else{render()}}})}
+ [].forEach.call($("nav").children,function(b){b.onclick=function(e){if(e){e.preventDefault();e.stopPropagation()}tab=b.dataset.t;nav();if(tab==="tasks"){document.getElementById("app").classList.remove("mining");try{tasks2()}catch(err){console.error("Tasks screen failed:",err);V.innerHTML='<div class="pad"><h2>Tasks could not load</h2><p class="lbl">'+esc(err&&err.message?err.message:"Unknown task error")+'</p><button class="btn" id="tasks-retry">Retry</button></div>';var rb=$("tasks-retry");if(rb)rb.onclick=function(){tasks2()};toast("Tasks error: "+(err&&err.message?err.message:"Please retry"))}}else{render()}}})}
 function rate(){return (S.lvl+2)}
 function tick(){var now=Date.now(),dt=(now-S.last)/1000;S.last=now;if(window.nrTick)nrTick();if(tab=="mine"&&Math.random()<.5&&window.spark)spark();if(S.shift<CAP)S.shift=Math.min(CAP,S.shift+dt*RATE);
  $("mined").textContent=f4(S.shift);$("usd").textContent="≈ $"+(S.shift*PRICE).toFixed(5);$("fill").style.width=(S.shift/CAP*100)+"%";
@@ -879,8 +879,8 @@ function tasks2(){
  if(!S||typeof S!=='object')S={};
  if(!S.tasks||typeof S.tasks!=='object'||Array.isArray(S.tasks))S.tasks={};
  if(!Array.isArray(S.hist))S.hist=[];
- if(!Number.isFinite(Number(S.streak)))S.streak=0;
- if(!Number.isFinite(Number(S.bal)))S.bal=0;
+ if(!Number.isFinite(Number(S.streak)))S.streak=0;else S.streak=Number(S.streak);
+ if(!Number.isFinite(Number(S.bal)))S.bal=0;else S.bal=Number(S.bal);
  if(typeof S.claimedToday!=='boolean')S.claimedToday=!!S.claimedToday;
  if(!Array.isArray(TK))TK=[];
  if(!V)V=$('view');
