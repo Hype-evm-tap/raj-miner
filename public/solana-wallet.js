@@ -29,7 +29,7 @@ import { DefaultSIWX } from 'https://cdn.jsdelivr.net/npm/@reown/appkit-siwx@1.8
       networks:[networks.solana],
       defaultNetwork:networks.solana,
       siwx:siwxAuth,
-      metadata:{name:'Raj Miner',description:'Raj Miner Solana wallet connection',url:location.origin,icons:[location.origin+'/devil-icon.svg']},
+      metadata:{name:'Raj Miner',description:'Raj Miner Solana wallet connection',url:location.origin,icons:[location.origin+'/icon.jpg']},
       themeMode:'dark',
       features:{analytics:false,email:false,socials:[]},
       enableWalletGuide:false
