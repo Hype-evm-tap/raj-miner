@@ -1079,6 +1079,46 @@ html,body,#app,#view{background:#100f0c!important;color:#f6f0e2!important}
 #view .tap-stage .raj-spark-coin{display:block!important;visibility:visible!important;opacity:1!important;position:absolute!important;z-index:8!important;width:30px!important;height:30px!important;object-fit:contain!important;pointer-events:none!important;animation:rajCoinScatter .88s cubic-bezier(.16,.72,.24,1) forwards!important}
 @keyframes rajCoinScatter{0%{transform:translate(0,0) scale(.48);opacity:0}16%{opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(.82) rotate(145deg);opacity:0}}
 @media(max-width:380px){#view .pad{padding:13px!important}#view h2{font-size:23px!important}#nav button span{width:36px;height:36px}}
+/* Final clean Raj identity: remove all devil/purple styling app-wide */
+:root{
+ --raj-neon-red:#d9bd7b!important;--raj-neon-violet:#b99a5b!important;
+ --raj-red:#d9bd7b!important;--raj-violet:#b99a5b!important;
+ --raj-panel:#171a1e!important;--raj-panel2:#20252b!important;--raj-muted:#aeb6bf!important;
+}
+html,body,#app,#view,#mine,#mine.static-mine,.mine-world,.tap-home{
+ background-color:#101419!important;
+ background-image:linear-gradient(155deg,#171d24 0%,#101419 55%,#0c1015 100%)!important;
+ color:#edf1f5!important;
+}
+#top,#nav{background:linear-gradient(180deg,#20262d,#11161b)!important;border-color:#6c778355!important}
+#nav button,#nav button.on{color:#d9bd7b!important}
+#nav button span,#nav button.on span{background:linear-gradient(145deg,#303943,#1b2229)!important;border:1px solid #a88d5b88!important;box-shadow:none!important}
+#app button:not(#nav button),#view button,#view .btn,#view .mini,#view .cyan,#view .cp,#view .tap-collect{
+ background:linear-gradient(135deg,#d9bd7b,#a98749)!important;color:#1c1b18!important;
+ border-color:#e7d4a4!important;box-shadow:0 3px 0 #66502e!important;text-shadow:none!important;
+}
+#view .card,#view .ck,#view .tk,#view .vault,#view .ban,#view .nx,#view .crew,#view .pst,#view .lk,#view .dk,#view .invite,#view .tap-session{
+ background:linear-gradient(145deg,#252c33,#171d23)!important;border-color:#78838d66!important;color:#edf1f5!important;
+}
+#view .tap-stage{background:transparent!important;background-image:none!important;border:0!important;box-shadow:none!important}
+#view .tap-coin,#view .tap-coin img{background:transparent!important;border:0!important;box-shadow:none!important;filter:none!important}
+#view .tap-live,#view .pill,#view .pill2,#view .chips2 span,#view .dt,#view .tic,#view .streak{
+ background:#252d35!important;border-color:#87919b66!important;color:#e4e9ee!important;
+}
+#view .chips2 span.on,#view .dt.day7,#view .cal,#view .lvb{background:#55472f!important;border-color:#d9bd7b!important;color:#fff0c8!important}
+#view .pban{background:linear-gradient(155deg,#303a43,#1c242b 70%,#101419)!important}
+#view .pban:after{background:linear-gradient(#0000,#101419)!important}
+#view .ring,#view .avatar{background:linear-gradient(135deg,#d9bd7b,#78613b)!important}
+#view .ring img,#view .ring span{background:#20272d!important}
+#view .tk .tic{background:#28313a!important;border-color:#78838d!important}
+#view .tk .tic svg{filter:none!important}
+#view .tic.red{background:#28313a!important;border-color:#78838d!important}
+#view .tap-balance strong,#view .big,#view .pn,#view .hist em,#view .pr,#view .pu,#view h1,#view h2,#view h3{color:#e8d5a6!important;text-shadow:none!important}
+#view .lbl,#view small,#view .muted{color:#aeb8c2!important}
+#view .streak{color:#e8d5a6!important;border-color:#a88d5b!important}
+#view .ck>.bar i,#view .bar i{background:linear-gradient(90deg,#d9bd7b,#9c7b43)!important;box-shadow:none!important}
+#view [style*="#472044"],#view [style*="#38203d"],#view [style*="#21152e"],#view [style*="#26172f"]{background:#252d35!important;border-color:#87919b!important;box-shadow:none!important}
+#splash .splash-logo{border:0!important;box-shadow:none!important;background:transparent!important}
 </style>
 </head><body>
 <script>
