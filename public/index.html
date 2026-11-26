@@ -836,6 +836,17 @@ function mine2(){
  var collect=$("mine-collect");if(collect)collect.onclick=function(){$("unlock").click()};
  window.__mineAutoTimer=setInterval(updateMine,1000);
 }
+var TF='all';
+var TK=[
+ {c:'partners',ic:'spons',col:'pink',t:'Sponsored task',r:5,tag:'EVERY 12H',timer:1},
+ {c:'social',ic:'tg',col:'blue',t:'Join Raj Channel',r:5},
+ {c:'social',ic:'x',col:'dark',t:'Follow Raj on X',r:5},
+ {c:'social',ic:'heart',col:'pink',t:'React to latest post',r:3},
+ {c:'onchain',ic:'gem',col:'blue',t:'Connect TON wallet',r:20},
+ {c:'onchain',ic:'coin',col:'gold',t:'Hold 100 $RAJ',r:15},
+ {c:'company',ic:'house',col:'orange',t:'Invite 3 friends',r:30},
+ {c:'company',ic:'mine',col:'green',t:'Reach Level 25',r:25}
+];
 function tasks2(){
  var days=[5,6,7,8,9,10],h='';
  days.forEach(function(v,i){h+='<div class="dt'+(i<S.streak?' done':'')+'"><b>D'+(i+1)+'</b>'+ICON('coin',40)+(i<S.streak?'<em class="ok">✓</em>':'')+'<span>+'+v+'</span></div>'});
