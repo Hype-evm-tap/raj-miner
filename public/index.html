@@ -390,6 +390,82 @@ h2{font-size:34px;color:#ffc928}
 #feed{white-space:nowrap}
 @media(max-width:380px){#lvl{max-width:calc(100% - 92px);gap:6px;padding-right:8px}#lvl>div{font-size:12px}}
 
+
+/* Raj Miner full-app visual refresh: clean, icon-led, premium mining dashboard */
+:root{--bg:#071321;--card:#10243a;--card2:#15304a;--ink:#f4f8ff;--mut:#9bb0c7;--gold:#f6c65b;--gold2:#e99b35;--grn:#35d6a0}
+html,body{background:#071321;color:var(--ink)}
+#app{background:linear-gradient(180deg,#091827 0%,#071321 100%)}
+#top{background:linear-gradient(135deg,#102b43,#0b1b2d 72%);border-bottom:1px solid #3b789044;box-shadow:0 8px 26px #0005}
+#nav{background:linear-gradient(180deg,#10263b,#081624);border-top:1px solid #4c789044;box-shadow:0 -8px 28px #0005}
+#nav button{color:#91a9c1;font-size:11px;letter-spacing:.04em}
+#nav button span{width:42px;height:42px;border-radius:13px;background:linear-gradient(145deg,#183a56,#10263b);border:1px solid #75b9df33;box-shadow:inset 0 1px 0 #ffffff18}
+#nav button.on{color:#fff}
+#nav button.on span{background:linear-gradient(145deg,#ffe39a,#e8a83d);border:1px solid #fff8;box-shadow:0 5px 16px #e9a63d55;transform:translateY(-7px) scale(1.08)}
+h2{font:800 26px system-ui,sans-serif!important;color:#f6fbff!important;text-shadow:none!important;letter-spacing:-.03em}
+h3{font:750 19px system-ui,sans-serif!important;color:#f3f8ff}
+.section-heading{display:flex;align-items:center;gap:10px;margin:8px 0 16px!important}
+.section-heading svg,.inline-icon-title svg{flex:none;filter:drop-shadow(0 3px 8px #36b7ef44)}
+.sub-heading{font-size:19px!important;margin:16px 0 10px!important}
+.inline-icon-title{display:flex;align-items:center;gap:8px}
+.card,.ck,.tk{background:linear-gradient(145deg,#122b42,#0c1e30)!important;border:1px solid #6ba8ce24!important;border-radius:18px!important;box-shadow:0 8px 22px #0003!important}
+.pad{padding:16px}
+.btn,.mini,.cyan,.cp{font-family:system-ui,sans-serif!important;font-weight:800!important;letter-spacing:.01em}
+.btn{color:#1c2631;background:linear-gradient(135deg,#ffe29a,#e7a33e);box-shadow:0 4px 0 #986321}
+.mini{background:linear-gradient(135deg,#ffe29a,#e7a33e);color:#1c2631}
+.cyan{color:#052338;background:linear-gradient(135deg,#8be5ff,#28aee0);box-shadow:0 4px 0 #12648b}
+.pill,.pill2,.streak{background:#153b55;border:1px solid #68c9ef44;color:#bfeaff}
+.vault{background:linear-gradient(135deg,#0e795f,#0d4f4b)!important;border:1px solid #63e5c155;box-shadow:0 10px 26px #0004}
+.big{color:#fff}
+.bar{background:#ffffff18;border:1px solid #ffffff10}
+.bar i{background:linear-gradient(90deg,#29c5ef,#f4c35e)!important}
+#lvl{background:#0a1d2fee;border:1px solid #7ec9ee44;box-shadow:0 8px 22px #0006;border-radius:16px}
+#feed{left:auto;right:12px;top:14px;width:auto;min-width:72px;background:#082d2aee;border:1px solid #38d6a277;border-radius:12px;padding:7px 10px;text-align:center;box-shadow:0 5px 16px #0005}
+#feed b{font:800 10px system-ui,sans-serif!important}
+#mine{background-color:#172536}
+.ban{height:154px;background:radial-gradient(circle at 82% 18%,#27a9cf55 0,transparent 35%),linear-gradient(135deg,#153b59,#0b1c30 75%)!important}
+.ban:after{background:linear-gradient(transparent,#071321)!important}
+.ban .note,.ban .lamp{display:none}
+.jt{left:92px;top:36px;font:850 34px system-ui,sans-serif!important;color:#f7fbff!important;-webkit-text-stroke:0!important;text-shadow:none!important}
+.bico{filter:drop-shadow(0 5px 12px #2eb9e755)}
+.pill2{border-radius:12px;font:700 12px system-ui,sans-serif!important}
+.ck{border-radius:20px!important}
+.ct,.tt,.tr b,.tm,.nx,.dt b,.dt span{font-family:system-ui,sans-serif!important;font-weight:750}
+.dt{background:linear-gradient(145deg,#153c58,#10283d)!important;border:1px solid #50b8d244!important;border-radius:14px}
+.dt.done{background:linear-gradient(145deg,#0e5d50,#103c3b)!important;border-color:#39d6a0!important}
+.dt.bonus{background:linear-gradient(145deg,#54401d,#2c2a24)!important;border-color:#d9ad55!important}
+.chips2 span{background:#102b42;border:1px solid #68a9ce33;font:700 13px system-ui,sans-serif!important}
+.chips2 span.on{background:linear-gradient(135deg,#ffe29a,#e7a33e);color:#1c2631;box-shadow:0 3px 0 #986321}
+.tk{padding:12px 14px;border-radius:17px!important}
+.tic{width:54px;height:54px;border-radius:15px;box-shadow:inset 0 1px 0 #fff5,0 5px 12px #0004}
+.tt{font:750 15px system-ui,sans-serif!important}
+.tr b{font:800 13px system-ui,sans-serif!important;color:#f6cd71}
+.pban{min-height:430px;background:radial-gradient(circle at 50% 22%,#1c6580 0,#153b59 28%,#0a1b2d 72%)!important}
+.pban:after{height:100%;background:linear-gradient(transparent 45%,#071321)!important}
+.stars{opacity:.35}
+.mt,.hut,.rail{opacity:.18;filter:saturate(.5)}
+.ring{width:112px;height:112px;background:linear-gradient(135deg,#80e2ff,#e9b957);box-shadow:0 0 30px #39bde444}
+.ring img,.ring span{background:#10263a}
+.pn{font:800 24px system-ui,sans-serif!important;margin-top:18px;text-shadow:none}
+.pu{font:600 14px system-ui,sans-serif!important;color:#8ddfff}
+.pr{font:700 13px system-ui,sans-serif!important;color:#f4cb73}
+.pst{background:#0c2238cc;border:1px solid #70b9df33;border-radius:18px;backdrop-filter:blur(12px)}
+.pst b{font:800 20px system-ui,sans-serif!important}
+.crew{background:linear-gradient(135deg,#1a536c,#13334a 70%,#182d3c)!important;border:1px solid #76cce044;color:#fff;box-shadow:0 10px 24px #0004}
+.cw2{font:800 23px system-ui,sans-serif!important;-webkit-text-stroke:0;text-shadow:none;color:#f7fbff}
+.dk{background:linear-gradient(145deg,#205c79,#12334d);border:1px solid #8ddfff55;box-shadow:0 4px 12px #0004}
+.ir{background:#ffffff0c;border:1px solid #ffffff18;color:#eaf6ff;border-radius:14px;font-size:13px}
+.lk{background:#071b2b;border:1px solid #78bddd33;border-radius:14px}
+.cp{background:linear-gradient(135deg,#ffe29a,#e7a33e);box-shadow:none}
+.rank-icon{width:42px;flex:none;display:flex;align-items:center;justify-content:center}
+.rank-icon.featured{width:52px;height:52px;border-radius:16px;background:#1c4963;border:1px solid #6ac7e855}
+.rank-icon svg{display:block}
+.ladderlist .lv{background:#10263b;border:1px solid #ffffff12;border-radius:12px}
+#toast{background:#10283b;border:1px solid #72c6e755;box-shadow:0 8px 25px #0007}
+#splash{background:radial-gradient(circle at 50% 35%,#164765,#071321 70%)}
+#splash h1{font:850 34px system-ui,sans-serif;color:#f6cd71;text-shadow:none}
+#splash p{color:#b6d8ed}
+@media(max-width:380px){.pad{padding:13px}.section-heading{font-size:23px!important}.tic{width:48px;height:48px}.tk{gap:9px}.pst{padding:11px 0}.pst b{font-size:18px!important}}
+
 </style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap"><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://cdn.jsdelivr.net/npm/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"></script></head><body>
 <div id="app">
  <div id="top">
@@ -567,7 +643,7 @@ function profile2(){var u=tgUser(),name=u?((u.first_name||'')+' '+(u.last_name||
  V.innerHTML='<div class="pban"><div class="stars"></div><div class="mt m1"></div><div class="mt m2"></div><div class="hut"></div><div class="rail"></div><div class="pcont"><div class="ring">'+(photo?'<img src="'+esc(photo)+'" alt="" onerror="this.remove()">':'<span>'+esc((name||'R').charAt(0).toUpperCase())+'</span>')+'<em class="lvb">Lv '+L+'</em></div><div class="pn">'+esc(name)+(verified?TICK:'')+'</div><div class="pu">'+esc(un)+'</div><div class="pr">Rookie Digger '+Math.ceil(L/10)+' · Trainee</div><div class="pst"><div><b>'+Math.floor(S.mined||0)+'</b> MINED</div><div><b>Lv '+L+'</b> PEAK</div><div><b>3</b> RECRUITS</div><div><b>'+days+'</b> DAYS</div></div></div></div>'+
  '<div class="pad"><h3 style="font-size:26px;margin:0 0 10px">Hire Friends</h3><div class="crew"><div class="row"><div class="dk"></div><div class="cw2">Build your crew!</div><div class="dk r">ⓘ</div></div><div class="ir"><div class="dk s"></div><div>'+APPSET.referral_reward+' <span class="coin" style="width:22px;height:22px;font-size:12px">R</span> for each Qualified referral</div></div><div class="ir"><div class="dk s">％</div><div>'+APPSET.referral_commission+'% of everything your Qualified referrals mine, for life</div></div><div class="lk"><span></span><div class="lt">'+esc(link)+'</div><button class="cp" id="cp">⧉</button></div><button class="cyan" id="inv" style="margin-top:12px">Invite friends</button></div>'+
  '<div class="two"><div class="card"><b>Hiring bonus</b><div class="lbl" id="refCount">Loading referrals…</div><div class="big" style="font-size:22px" id="refEarned">0</div></div><div class="card"><b>Crew commission</b><div class="lbl" id="crewCount">Mining commission</div><div class="big" style="font-size:22px" id="crewEarned">0</div></div></div>'+
- '<div class="card"><div class="row"><b> Top Miners</b><span class="pill">LIVE RANKING</span></div><div id="leaderBoard"><div class="lbl">Loading top users…</div></div></div>';fetch('/api/leaderboard').then(function(r){return r.json()}).then(function(j){var el=$('leaderBoard');if(!el)return;el.innerHTML=(j.users||[]).length?j.users.map(function(x,i){var nm=esc(x.first_name||(x.username?'@'+x.username:'Miner'));return '<div class="hist"><div><b>#'+(i+1)+' '+nm+'</b><small>'+(x.username?'@'+esc(x.username):'Raj Miner')+'</small></div><em>'+Number(x.balance||0).toFixed(2)+' $RAJ</em></div>'}).join(''):'<div class="lbl">Leaderboard will appear as miners sync their balances.</div>'}).catch(function(){});
+ '<div class="card"><div class="row"><b class="inline-icon-title">'+ICON('miners',26)+' Top Miners</b><span class="pill">LIVE RANKING</span></div><div id="leaderBoard"><div class="lbl">Loading top users…</div></div></div>';fetch('/api/leaderboard').then(function(r){return r.json()}).then(function(j){var el=$('leaderBoard');if(!el)return;el.innerHTML=(j.users||[]).length?j.users.map(function(x,i){var nm=esc(x.first_name||(x.username?'@'+x.username:'Miner'));return '<div class="hist"><div><b>#'+(i+1)+' '+nm+'</b><small>'+(x.username?'@'+esc(x.username):'Raj Miner')+'</small></div><em>'+Number(x.balance||0).toFixed(2)+' $RAJ</em></div>'}).join(''):'<div class="lbl">Leaderboard will appear as miners sync their balances.</div>'}).catch(function(){});
  fetch('/api/referrals/me',{headers:{'x-init-data':tg&&tg.initData||''}}).then(function(r){return r.json()}).then(function(j){if(!j.ok)return;var a=$('refCount'),b=$('refEarned'),d=$('crewCount'),e=$('crewEarned');if(a)a.textContent=j.count+' qualified';if(b)b.textContent=Number(j.bonus||0).toFixed(2)+' $RAJ';if(d)d.textContent='Referral mining commission';if(e)e.textContent=Number(j.commission||0).toFixed(2)+' $RAJ'}).catch(function(){});function cpy(){try{navigator.clipboard.writeText(link)}catch(e){}toast('Invite link copied')}
  $('cp').onclick=cpy;$('inv').onclick=function(){cpy();if(tg&&tg.openTelegramLink){tg.openTelegramLink('https://t.me/share/url?url='+encodeURIComponent(link))}}}
 function tasks(){var days=[5,6,7,8,9,10],h='';
@@ -593,14 +669,14 @@ function miners(){
     (active?'<div class="bar" style="margin-top:10px"><i style="width:'+pct+'%;background:var(--gold)"></i></div><small class="lbl">'+fmt(q.holding)+' / '+fmt(x.max)+' $RAJ held · next rank '+(q.next?fmt(q.next.min)+' $RAJ':'MAX RANK')+'</small>':'')+
     '</div>';
   }).join("");
-  V.innerHTML='<div class="pad"><h2>Miners</h2><div class="card"><small class="lbl">YOUR PERMANENT HIGHEST RANK</small><div class="row" style="align-items:center;margin-top:6px"><div style="font-size:48px">'+(q.index>=0?r.emoji:'')+'</div><div style="flex:1"><b style="font-size:23px;color:var(--gold)">'+(q.index>=0?r.name:'Unranked Miner')+'</b><div class="lbl">'+r.place+' · '+fmt(q.holding)+' $RAJ combined holding</div></div></div><div class="two" style="margin-top:12px"><div><small class="lbl">Current mining speed</small><b>'+q.speed.toFixed(2)+' TH/s</b></div><div><small class="lbl">Estimated daily output</small><b>'+fmt(q.daily)+' $RAJ</b></div></div>'+(q.next?'<div class="lbl" style="margin-top:9px">Next unlock: '+q.next.name+' at '+fmt(q.next.min)+' $RAJ</div>':'<div class="lbl" style="margin-top:9px">All ranks unlocked. Raj Legend!</div>')+'</div><h3 style="margin:14px 0 6px">All Mining Ranks</h3><div class="lbl">Your highest unlocked rank stays saved even if your holding changes.</div>'+cards+'</div>';
+  V.innerHTML='<div class="pad"><h2 class="section-heading">'+ICON('miners',34)+'Miners</h2><div class="card"><small class="lbl">YOUR PERMANENT HIGHEST RANK</small><div class="row" style="align-items:center;margin-top:6px"><div style="font-size:48px">'+(q.index>=0?r.emoji:'')+'</div><div style="flex:1"><b style="font-size:23px;color:var(--gold)">'+(q.index>=0?r.name:'Unranked Miner')+'</b><div class="lbl">'+r.place+' · '+fmt(q.holding)+' $RAJ combined holding</div></div></div><div class="two" style="margin-top:12px"><div><small class="lbl">Current mining speed</small><b>'+q.speed.toFixed(2)+' TH/s</b></div><div><small class="lbl">Estimated daily output</small><b>'+fmt(q.daily)+' $RAJ</b></div></div>'+(q.next?'<div class="lbl" style="margin-top:9px">Next unlock: '+q.next.name+' at '+fmt(q.next.min)+' $RAJ</div>':'<div class="lbl" style="margin-top:9px">All ranks unlocked. Raj Legend!</div>')+'</div><h3 style="margin:14px 0 6px">All Mining Ranks</h3><div class="lbl">Your highest unlocked rank stays saved even if your holding changes.</div>'+cards+'</div>';
   var speed=$("ths");if(speed)speed.textContent=q.speed.toFixed(2);
  }
-function wallet(){V.innerHTML='<div class="pad"><h2>Vault</h2><div class="vault"><div class="lbl" style="color:#d6ffe9">COMBINED HOLDING · DECIDES YOUR LEVEL</div><div class="big"><span class="coin">R</span>'+(S.bal|0)+'</div><span class="pill">≈ $'+(S.bal*PRICE).toFixed(3)+'</span> <span class="pill">Pre-listing</span>'+
+function wallet(){V.innerHTML='<div class="pad"><h2 class="section-heading">'+ICON('wallet',34)+'Vault</h2><div class="vault"><div class="lbl" style="color:#d6ffe9">COMBINED HOLDING · DECIDES YOUR LEVEL</div><div class="big"><span class="coin">R</span>'+(S.bal|0)+'</div><span class="pill">≈ $'+(S.bal*PRICE).toFixed(3)+'</span> <span class="pill">Pre-listing</span>'+
  '<div class="two" style="margin-top:12px"><div>In-app<br><b style="font-size:20px">'+(S.bal|0)+'</b></div><div>On-chain<br><b style="font-size:20px">'+S.onchain+'</b></div></div></div>'+
- '<h3 style="margin:6px 0">TON Wallet</h3><div class="card row"><div><b>'+(S.wallet?"Connected":"Not connected")+'</b><div class="lbl">'+(S.wallet?short(S.addr):"Connect to withdraw at TGE")+'</div></div><button class="mini" id="cw">'+(S.wallet?"Disconnect":"Connect")+'</button></div>'+
+ '<h3 class="section-heading sub-heading">'+ICON('wallet',28)+'TON Wallet</h3><div class="card row"><div><b>'+(S.wallet?"Connected":"Not connected")+'</b><div class="lbl">'+(S.wallet?short(S.addr):"Connect to withdraw at TGE")+'</div></div><button class="mini" id="cw">'+(S.wallet?"Disconnect":"Connect")+'</button></div>'+
  '<div class="card"><div class="row"><b style="font-size:22px;font-family:Lilita One,system-ui">Mine Pass</b><span class="pill"> #?</span></div><div class="lbl">Needed to claim, withdraw and play at TGE.</div><div class="chk"><i>'+(S.wallet?"✓":"–")+'</i>Wallet connected</div><div class="chk"><i>✓</i>Wallet at least 7 days old</div><div class="chk"><i>✓</i>Hold minimum $RAJ</div></div>'+
- '<h3>History</h3>'+S.hist.slice(0,14).map(function(h){return '<div class="hist"><div>'+h.t+'<small>'+h.s+'</small></div><em>+'+h.v+'</em></div>'}).join("")+'</div>';
+ '<h3 class="section-heading sub-heading">'+ICON('stack',28)+'History</h3>'+S.hist.slice(0,14).map(function(h){return '<div class="hist"><div>'+h.t+'<small>'+h.s+'</small></div><em>+'+h.v+'</em></div>'}).join("")+'</div>';
  $("cw").onclick=walletToggle}
 function profile(){var link="https://t.me/"+CONFIG.BOT+"?startapp="+(uid||"ref");
  V.innerHTML='<div class="pad"><div class="avatar"></div><div style="text-align:center;font-size:24px;font-weight:900">'+uname+'</div><div class="lbl" style="text-align:center;margin-bottom:10px">Rookie Digger III · Trainee</div>'+
