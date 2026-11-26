@@ -228,7 +228,12 @@ h2{font-size:34px;color:#ffc928}
 #feed,#nft,#lvl,#vch,#find{z-index:8}
 #miner{cursor:pointer}
 @media(max-width:380px){.rock-cluster{left:calc(50% + 34px);transform:scale(.88);transform-origin:left top}#pickaxe{left:calc(50% + 14px)}}
-\n#miner #rajMinerRive{display:none;width:124px;height:160px;overflow:visible}\n#miner .miner-fallback{display:block}\n#miner.rive-ready #rajMinerRive{display:block}\n#miner.rive-ready .miner-fallback{display:none}\n</style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap"><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://cdn.jsdelivr.net/npm/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"></script></head><body>
+
+#miner #rajMinerRive{display:none;width:124px;height:160px;overflow:visible}
+#miner .miner-fallback{display:block}
+#miner.rive-ready #rajMinerRive{display:block}
+#miner.rive-ready .miner-fallback{display:none}
+</style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap"><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://cdn.jsdelivr.net/npm/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"></script></head><body>
 <div id="app">
  <div id="top">
   <div class="row">
@@ -342,7 +347,8 @@ function mine2(){
  var m=$("mine"),sh=$("shaft"),rock=$("rockCluster"),miner=$("miner"),pick=$("pickaxe"),spark=$("hitSpark"),progress=$("mineProgress");
  pick.style.top=(my+35)+"px";spark.style.top=(my+55)+"px";window.__my=my;window.__sh=sh;
  sh.style.backgroundImage='url("data:image/svg+xml,'+encodeURIComponent(rockTile())+'")';
- m.scrollTop=Math.max(0,my-m.clientHeight*0.5);\n initRajRiveMiner();
+ m.scrollTop=Math.max(0,my-m.clientHeight*0.5);
+ initRajRiveMiner();
  var hits=0,climbs=0,broken=false;
  function hitRock(){
   if(broken)return;
