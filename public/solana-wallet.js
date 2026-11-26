@@ -39,6 +39,15 @@ import { ReownAuthentication } from 'https://cdn.jsdelivr.net/npm/@reown/appkit-
       paint();
     });
     modal.subscribeNetwork(()=>paint());
+    modal.subscribeEvents(event=>{
+      const name=event&&event.data&&event.data.event||event&&event.event||'';
+      const b=button();
+      if(name==='CLICK_SIGN_SIWX_MESSAGE'&&b)b.title='Approve the sign-in message in Trust Wallet';
+      if(name==='SIWX_AUTH_SUCCESS'){authenticated=true;paint();if(b)b.title='Signed in with Solana';}
+      if(name==='SIWX_AUTH_ERROR'&&b){const detail=event&&event.data&&event.data.properties&&event.data.properties.message;b.title='Sign-in failed: '+(detail||'Reown authentication error');}
+      if(name==='CONNECT_ERROR'&&b){const detail=event&&event.data&&event.data.properties&&event.data.properties.message;b.title='Wallet connection failed: '+(detail||'Please retry');}
+      if(name)console.info('Raj Reown event:',name,event);
+    });
     window.__rajSolanaAppKit=modal;
     paint();
   } catch(error) {
@@ -54,8 +63,8 @@ import { ReownAuthentication } from 'https://cdn.jsdelivr.net/npm/@reown/appkit-
     try {
       if(connectedAddress) await modal.disconnect({namespace:'solana'});
       else {
-        /* Force a fresh Reown sign-in challenge on each new connection. */
-        if(siwxAuth)siwxAuth.clearStorageTokens();
+        /* Let AppKit manage SIWX nonce/session state. Clearing it before
+           every connect can interrupt the wallet sign-message flow. */
         authenticated=false;
         paint();
         await modal.open({view:'Connect',namespace:'solana'});
