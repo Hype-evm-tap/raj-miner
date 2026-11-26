@@ -46,7 +46,7 @@ app.post('/api/auth',async(req,res)=>{
    const rewards=await pool.query("SELECT key,value FROM app_settings WHERE key IN ('referral_reward','signup_reward')");
    const cfg=Object.fromEntries(rewards.rows.map(x=>[x.key,Number(x.value)]));
    if(refId)await pool.query('UPDATE users SET balance=balance+$2,balance_revision=balance_revision+1,referral_bonus_earned=referral_bonus_earned+$2 WHERE telegram_id=$1',[refId,cfg.referral_reward??100]);
-   if((cfg.signup_reward||0)>0)await pool.query('UPDATE users SET balance=balance+$2 WHERE telegram_id=$1',[id,cfg.signup_reward]);
+   if((cfg.signup_reward||0)>0)await pool.query('UPDATE users SET balance=balance+$2,balance_revision=balance_revision+1 WHERE telegram_id=$1',[id,cfg.signup_reward]);
   }else{
    await pool.query('UPDATE users SET username=$2,first_name=$3,last_name=$4,is_premium=$5,is_admin=$6,last_seen=NOW() WHERE telegram_id=$1',[id,u.username||null,u.first_name||'',u.last_name||'',!!u.is_premium,admin]);
   }
