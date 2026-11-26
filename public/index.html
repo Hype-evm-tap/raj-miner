@@ -560,6 +560,12 @@ function rankInfo(){
 }
 function toast(m){var t=$("toast");t.textContent=m;t.classList.add("on");clearTimeout(t._h);t._h=setTimeout(function(){t.classList.remove("on")},1800)}
 function f4(n){return n.toFixed(4)}
+// ICON is scoped to this app script. The later legacy script has its own ICON/ICONS,
+// so keep this renderer local to prevent startup ReferenceError.
+function ICON(k,z){
+ var glyph={tasks:"☷",miners:"⛏",mine:"⚒",wallet:"▣",profile:"♙",coin:"R",cal:"▦",stack:"▤",gem:"◆",house:"⌂",heart:"♥",spons:"★",tg:"➤",x:"𝕏",hand:"✋"};
+ return '<span aria-hidden="true" style="display:inline-flex;width:'+((z||34))+'px;height:'+((z||34))+'px;align-items:center;justify-content:center;font-size:'+Math.round((z||34)*.78)+'px;line-height:1">'+(glyph[k]||'•')+'</span>';
+}
 function nav(){$("nav").innerHTML=TABS.map(function(t){return '<button data-t="'+t[0]+'" class="'+(t[0]==tab?"on":"")+'"><span>'+ICON(t[1])+'</span>'+t[2]+'</button>'}).join("");
  [].forEach.call($("nav").children,function(b){b.onclick=function(){tab=b.dataset.t;nav();render()}})}
 function rate(){return (S.lvl+2)}
