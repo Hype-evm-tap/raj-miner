@@ -239,7 +239,7 @@ h2{font-size:34px;color:#ffc928}
 @media(max-width:380px){.rock-cluster{left:calc(50% + 34px);transform:scale(.88);transform-origin:left top}#pickaxe{left:calc(50% + 14px)}}
 
 #miner .miner-fallback{display:block}
-</style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap"><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://cdn.jsdelivr.net/npm/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"></script></head><body>
+</style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap"><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://unpkg.com/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script></head><body>
 <div id="app">
  <div id="top">
   <div class="row">
@@ -392,19 +392,35 @@ function tgUser(){return (tg&&tg.initDataUnsafe&&tg.initDataUnsafe.user)||null}
 function esc(t){return String(t).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
 function short(a){return a?a.slice(0,4)+'…'+a.slice(-4):''}
 var TICK='<svg viewBox="0 0 24 24" width="30" height="30"><path d="M12 1l3 2.2 3.7-.2 1.2 3.5 3 2.2-1.2 3.5 1.2 3.5-3 2.2-1.2 3.5-3.7-.2L12 23l-3-2.2-3.7.2-1.2-3.5-3-2.2 1.2-3.5L1.1 9.3l3-2.2 1.2-3.5L9 3.8z" fill="#2aa3ff" stroke="#bfe6ff" stroke-width="1"/><path d="M7.5 12.3l3 3 6-6.5" stroke="#fff" stroke-width="2.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-var TC=null;
-function initTon(){if(!window.TON_CONNECT_UI)return;try{TC=new TON_CONNECT_UI.TonConnectUI({manifestUrl:location.origin+'/tonconnect-manifest.json',uiPreferences:{theme:'DARK'}});TC.onStatusChange(function(w){var a='';if(w&&w.account){a=w.account.address;try{a=TON_CONNECT_UI.toUserFriendlyAddress(a)}catch(e){}}S.wallet=!!w;S.addr=a;save();if(tab=='wallet'||tab=='profile')render()})}catch(e){TC=null}}
-function walletToggle(){if(TC){if(TC.connected)TC.disconnect();else TC.openModal()}else{S.wallet=!S.wallet;S.addr=S.wallet?'UQDemoRajWalletAddress000000000000000000000x2c':'';save();toast('Demo mode: real wallet works on your deployed link');render()}}
+var TC=null,tonReady=false;
+function initTon(){
+ S.wallet=false;S.addr='';
+ if(!window.TON_CONNECT_UI){console.error('TON Connect UI SDK failed to load');return}
+ try{
+  TC=new TON_CONNECT_UI.TonConnectUI({manifestUrl:location.origin+'/tonconnect-manifest.json',restoreConnection:true,uiPreferences:{theme:'DARK'}});
+  TC.onStatusChange(function(w){
+   var a='';
+   if(w&&w.account){a=w.account.address;try{a=TON_CONNECT_UI.toUserFriendlyAddress(a)}catch(e){}}
+   S.wallet=!!(w&&w.account);S.addr=a;tonReady=true;save();
+   if(tab=='wallet'||tab=='profile')render();
+  },function(err){console.error('TON Connect error',err);toast('Wallet connection error. Please retry.')});
+ }catch(e){console.error('TON Connect initialization failed',e);TC=null}
+}
+function walletToggle(){
+ if(!TC){toast('TON Connect is unavailable. Reload the app and try again.');return}
+ if(TC.connected){TC.disconnect().catch(function(e){console.error(e);toast('Could not disconnect wallet')})}
+ else{TC.openModal().catch(function(e){console.error(e);toast('Could not open wallet list')})}
+}
 function auth(){if(!(tg&&tg.initData))return;fetch('/api/auth',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({initData:tg.initData})}).then(function(r){return r.json()}).then(function(j){isAdmin=!!(j&&j.ok&&j.isAdmin);if(isAdmin&&!TABS.some(function(t){return t[0]=='admin'})){TABS.push(['admin','🛠️','Admin']);nav()}}).catch(function(){isAdmin=false})}
 function profile2(){var u=tgUser(),name=u?((u.first_name||'')+' '+(u.last_name||'')).trim():uname,un=u&&u.username?'@'+u.username:'',photo=u&&u.photo_url,verified=S.wallet||(u&&u.is_premium);
  if(!S.joined){S.joined=Date.now();save()}
  var days=Math.max(1,Math.ceil((Date.now()-S.joined)/86400000)),L=S.lvl,link='https://t.me/'+CONFIG.BOT+'?startapp='+(uid||'ref');
  V.innerHTML='<div class="pban"><div class="stars"></div><div class="mt m1"></div><div class="mt m2"></div><div class="hut"></div><div class="rail"></div><div class="pcont"><div class="ring">'+(photo?'<img src="'+esc(photo)+'" alt="" onerror="this.remove()">':'<span>'+esc((name||'R').charAt(0).toUpperCase())+'</span>')+'<em class="lvb">Lv '+L+'</em></div><div class="pn">'+esc(name)+(verified?TICK:'')+'</div><div class="pu">'+esc(un)+'</div><div class="pr">Rookie Digger '+RM[Math.min(9,Math.floor((L-1)/10))]+' · Trainee</div><div class="pst"><div><b>'+Math.floor(S.mined||0)+'</b>⛏ MINED</div><div><b>Lv '+L+'</b>👑 PEAK</div><div><b>3</b>👥 RECRUITS</div><div><b>'+days+'</b>📅 DAYS</div></div></div></div>'+
- '<div class="pad"><h3 style="font-size:26px;margin:0 0 10px">Hire Friends</h3><div class="crew"><div class="row"><div class="dk">👥</div><div class="cw2">Build your crew!</div><div class="dk r">ⓘ</div></div><div class="ir"><div class="dk s">🎁</div><div>+100 <span class="coin" style="width:22px;height:22px;font-size:12px">R</span> for each Qualified referral</div></div><div class="ir"><div class="dk s">％</div><div>10% of everything your Qualified referrals mine, for life</div></div><div class="lk"><span>🔗</span><div class="lt">'+esc(link)+'</div><button class="cp" id="cp">⧉</button></div><button class="cyan" id="inv" style="margin-top:12px">Invite friends</button></div>'+
+ '<div class="pad"><div class="card" style="margin-bottom:14px"><div class="row"><div><b style="font-size:18px">TON Wallet</b><div class="lbl" id="profile-wallet-status">'+(S.wallet?'Connected · '+esc(short(S.addr)):'Connect an external TON wallet')+'</div></div><button class="mini" id="cw-profile">'+(S.wallet?'Disconnect':'Connect Wallet')+'</button></div><div class="lbl" style="margin-top:8px">Tonkeeper · MyTonWallet · Telegram Wallet and other supported TON wallets</div></div><h3 style="font-size:26px;margin:0 0 10px">Hire Friends</h3><div class="crew"><div class="row"><div class="dk">👥</div><div class="cw2">Build your crew!</div><div class="dk r">ⓘ</div></div><div class="ir"><div class="dk s">🎁</div><div>+100 <span class="coin" style="width:22px;height:22px;font-size:12px">R</span> for each Qualified referral</div></div><div class="ir"><div class="dk s">％</div><div>10% of everything your Qualified referrals mine, for life</div></div><div class="lk"><span>🔗</span><div class="lt">'+esc(link)+'</div><button class="cp" id="cp">⧉</button></div><button class="cyan" id="inv" style="margin-top:12px">Invite friends</button></div>'+
  '<div class="two"><div class="card"><b>Hiring bonus</b><div class="lbl">0 qualified</div><div class="big" style="font-size:22px">0</div></div><div class="card"><b>Crew commission</b><div class="lbl">0 qualified referrals</div><div class="big" style="font-size:22px">0</div></div></div>'+
  '<div class="card"><b>My Crew (3)</b>'+[["T-mobile","Referral",.5],["Md Sumon","No wallet",0],["Grzegorz","Referral",.5]].map(function(c){return '<div class="hist"><div>'+c[0]+'<small>'+c[1]+'</small></div><em>+'+c[2]+'</em></div>'}).join("")+'</div></div>';
  function cpy(){try{navigator.clipboard.writeText(link)}catch(e){}toast('Invite link copied')}
- $('cp').onclick=cpy;$('inv').onclick=function(){cpy();if(tg&&tg.openTelegramLink){tg.openTelegramLink('https://t.me/share/url?url='+encodeURIComponent(link))}}}
+ $('cp').onclick=cpy;$('inv').onclick=function(){cpy();if(tg&&tg.openTelegramLink){tg.openTelegramLink('https://t.me/share/url?url='+encodeURIComponent(link))}};$('cw-profile').onclick=walletToggle}
 function tasks(){var days=[5,6,7,8,9,10],h='';
  days.forEach(function(v,i){h+='<div class="day'+(i<S.streak?" done":"")+'">D'+(i+1)+'<br>🪙<br>+'+v+'</div>'});
  h+='<div class="day bonus">BONUS<br>D7<br>🏆<br>+11</div>';
