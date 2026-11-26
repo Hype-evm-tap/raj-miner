@@ -491,6 +491,20 @@ h3{font:750 19px system-ui,sans-serif!important;color:#f3f8ff}
 #splash .gold-layer.left{left:8px;transform:skewY(-13deg) rotate(-5deg)}#splash .gold-layer.right{right:8px;transform:skewY(13deg) rotate(5deg)}
 @media(prefers-reduced-motion:reduce){#splash .splash-logo{animation:none!important}}
 </style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap"><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://cdn.jsdelivr.net/npm/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"></script></head><body>
+<script>
+(function(){
+ function recover(message){
+  var splash=document.getElementById('splash'),view=document.getElementById('view');
+  if(splash){splash.style.opacity='0';setTimeout(function(){if(splash.parentNode)splash.remove()},500)}
+  if(view&&!view.children.length){
+   view.innerHTML='<div style="padding:28px 18px;text-align:center;color:#fff"><h2>Raj Miner could not start</h2><p style="color:#b9a8ff">A startup error was detected. Reload the mini app to try again.</p><button onclick="location.reload()" style="border:0;border-radius:12px;padding:12px 22px;font-weight:800;background:#ffc928;color:#4b2a00">Reload App</button><p style="font-size:11px;color:#b9a8ff;margin-top:14px">'+String(message||'Startup error').replace(/[&<>]/g,'') .slice(0,160)+'</p></div>';
+  }
+ }
+ window.addEventListener('error',function(e){recover(e.message||'JavaScript error')});
+ window.addEventListener('unhandledrejection',function(e){recover(e.reason&&e.reason.message||'Network initialization error')});
+ setTimeout(function(){var s=document.getElementById('splash'),v=document.getElementById('view');if(s&&v&&!v.children.length)recover('App startup timed out')},10000);
+})();
+</script>
 <div id="app">
  <div id="top">
   <div class="row">
