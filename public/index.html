@@ -490,7 +490,16 @@ h3{font:750 19px system-ui,sans-serif!important;color:#f3f8ff}
 #splash .gold-layer:before{top:9px}#splash .gold-layer:after{bottom:9px}
 #splash .gold-layer.left{left:8px;transform:skewY(-13deg) rotate(-5deg)}#splash .gold-layer.right{right:8px;transform:skewY(13deg) rotate(5deg)}
 @media(prefers-reduced-motion:reduce){#splash .splash-logo{animation:none!important}}
-</style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap"><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://cdn.jsdelivr.net/npm/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"></script></head><body>
+</style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap"><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://cdn.jsdelivr.net/npm/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"></script><script>
+/* Remove stale app-origin caches and unregister obsolete service workers. */
+(function(){
+ try {
+  if('serviceWorker' in navigator) navigator.serviceWorker.getRegistrations().then(function(regs){regs.forEach(function(reg){reg.unregister()})}).catch(function(){});
+  if(window.caches&&caches.keys) caches.keys().then(function(keys){return Promise.all(keys.map(function(key){return caches.delete(key)}))}).catch(function(){});
+ } catch(e) {}
+})();
+</script>
+</head><body>
 <script>
 (function(){
  function recover(message){
