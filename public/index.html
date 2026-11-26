@@ -268,7 +268,7 @@ var tg=window.Telegram&&window.Telegram.WebApp,uid=tg&&tg.initDataUnsafe&&tg.ini
 var uname=(tg&&tg.initDataUnsafe&&tg.initDataUnsafe.user&&tg.initDataUnsafe.user.first_name)||"Raj Digger";
 if(tg){try{tg.ready();tg.expand()}catch(e){}}
 var isAdmin=false;
-var TABS=[["tasks","📜","Tasks"],["arcade","🎮","Arcade"],["miners","⛑️","Miners"],["mine","⛏️","Mine"],["wallet","👝","Wallet"],["profile","🎖️","Profile"]];
+var TABS=[["tasks","📜","Tasks"],["miners","⛑️","Miners"],["mine","⛏️","Mine"],["wallet","👝","Wallet"],["profile","🎖️","Profile"]];
 if(isAdmin)TABS.push(["admin","🛠️","Admin"]);
 var tab="mine",$=function(i){return document.getElementById(i)},V=$("view");
 var RANKS=[["Rookie Digger","⛑️",1],["Tunnel Runner","🧱",101],["Rock Breaker","🪨",201],["Iron Driller","⚙️",301]];
@@ -284,7 +284,7 @@ $("unlock").onclick=function(){if(!S.wallet&&S.shift>=CAP){}
  var g=S.shift;if(g<0.01)return;S.bal+=g;S.xp+=g;S.mined=(S.mined||0)+g;S.hist.unshift({t:"Mined",s:"Shift collected · just now",v:+g.toFixed(2)});S.shift=0;
  var up=Math.floor(S.xp/283);toast("+"+f4(g)+" $RAJ collected");save();render()};
 function render(){document.getElementById("app").classList.toggle("mining",tab=="mine");tick();
- if(tab=="mine")mine2();else if(tab=="tasks")tasks2();else if(tab=="arcade")arcade();else if(tab=="miners")miners();else if(tab=="wallet")wallet();else if(tab=="profile")profile2();else admin()}
+ if(tab=="mine")mine2();else if(tab=="tasks")tasks2();else if(tab=="miners")miners();else if(tab=="wallet")wallet();else if(tab=="profile")profile2();else admin()}
 var FEED=["Rev*****","Cry*****","Mar*****","Ton*****","Dig*****","Ali*****"];
 function feedItem(){return FEED[Math.random()*FEED.length|0]+" <span>+"+(200+Math.random()*900|0)+" $RAJ · "+(1+Math.random()*22|0)+"h ago</span>"}
 function mine(){
@@ -414,8 +414,7 @@ function tasks(){var days=[5,6,7,8,9,10],h='';
  T.map(function(t,i){var d=S.tasks[i];return '<div class="task"><span class="ic">'+t[0]+'</span><div><b>'+t[1]+'</b><small>+'+t[2]+' $RAJ</small></div><button class="mini go" data-i="'+i+'"'+(d?" disabled":"")+'>'+(d?"Done ✓":"Start")+'</button></div>'}).join("")+'</div>';
  $("ci").onclick=function(){S.claimedToday=true;S.streak=Math.min(7,S.streak+1);S.bal+=10;S.hist.unshift({t:"Check-in",s:"Day "+S.streak+" · just now",v:10});save();toast("+10 $RAJ");render()};
  [].forEach.call(V.querySelectorAll(".go"),function(b){b.onclick=function(){var i=+b.dataset.i;S.tasks[i]=1;S.bal+=T[i][2];S.hist.unshift({t:"Task Reward",s:T[i][1]+" · just now",v:T[i][2]});save();toast("+"+T[i][2]+" $RAJ");render()}})}
-function arcade(){V.innerHTML='<div class="pad"><h2>Arcade</h2><div class="card" style="text-align:center"><b>Tap the Gem</b><br><small style="color:var(--mut)">Each tap adds to your shift</small><div class="tap" id="tp">💎</div><div id="tc" class="lbl">Taps: 0</div></div></div>';
- var c=0;$("tp").onclick=function(){c++;S.shift=Math.min(CAP,S.shift+0.01);$("tc").textContent="Taps: "+c}}
+
 function miners(){var nx=283,p=Math.min(100,S.xp%nx/nx*100);
  V.innerHTML='<div class="pad"><h2>Miners</h2><div class="card"><small style="color:var(--mut)">MY MINER</small><div class="row"><div><div style="font-size:24px;font-weight:900;color:var(--gold)">Rookie Digger III</div><div class="lbl">⭐ Lv '+S.lvl+' &nbsp; ⚡ 0.97 TH/s</div></div><div style="font-size:64px">⛑️</div></div><div class="lbl" style="margin-top:8px">Next: Lv '+(S.lvl+1)+' · '+(S.xp|0)+' / '+nx+'</div><div class="bar"><i style="width:'+p+'%;background:var(--gold)"></i></div></div>'+
  '<b>Company ranks</b><div style="margin:10px 0;white-space:nowrap;overflow:auto">'+RANKS.map(function(r,i){return '<div class="rank'+(i==0?" me":"")+'"><div>'+r[1]+'</div>'+r[0]+'<br>Lv '+r[2]+'+'+(i==0?'<br><span style="color:var(--grn)">YOU</span>':"")+'</div>'}).join("")+'</div>'+
@@ -570,8 +569,7 @@ function tasks(){var days=[5,6,7,8,9,10],h='';
  T.map(function(t,i){var d=S.tasks[i];return '<div class="task"><span class="ic">'+t[0]+'</span><div><b>'+t[1]+'</b><small>+'+t[2]+' $RAJ</small></div><button class="mini go" data-i="'+i+'"'+(d?" disabled":"")+'>'+(d?"Done ✓":"Start")+'</button></div>'}).join("")+'</div>';
  $("ci").onclick=function(){S.claimedToday=true;S.streak=Math.min(7,S.streak+1);S.bal+=10;S.hist.unshift({t:"Check-in",s:"Day "+S.streak+" · just now",v:10});save();toast("+10 $RAJ");render()};
  [].forEach.call(V.querySelectorAll(".go"),function(b){b.onclick=function(){var i=+b.dataset.i;S.tasks[i]=1;S.bal+=T[i][2];S.hist.unshift({t:"Task Reward",s:T[i][1]+" · just now",v:T[i][2]});save();toast("+"+T[i][2]+" $RAJ");render()}})}
-function arcade(){V.innerHTML='<div class="pad"><h2>Arcade</h2><div class="card" style="text-align:center"><b>Tap the Gem</b><br><small style="color:var(--mut)">Each tap adds to your shift</small><div class="tap" id="tp">💎</div><div id="tc" class="lbl">Taps: 0</div></div></div>';
- var c=0;$("tp").onclick=function(){c++;S.shift=Math.min(CAP,S.shift+0.01);$("tc").textContent="Taps: "+c}}
+
 function miners(){var nx=283,p=Math.min(100,S.xp%nx/nx*100);
  V.innerHTML='<div class="pad"><h2>Miners</h2><div class="card"><small style="color:var(--mut)">MY MINER</small><div class="row"><div><div style="font-size:24px;font-weight:900;color:var(--gold)">Rookie Digger III</div><div class="lbl">⭐ Lv '+S.lvl+' &nbsp; ⚡ 0.97 TH/s</div></div><div style="font-size:64px">⛑️</div></div><div class="lbl" style="margin-top:8px">Next: Lv '+(S.lvl+1)+' · '+(S.xp|0)+' / '+nx+'</div><div class="bar"><i style="width:'+p+'%;background:var(--gold)"></i></div></div>'+
  '<b>Company ranks</b><div style="margin:10px 0;white-space:nowrap;overflow:auto">'+RANKS.map(function(r,i){return '<div class="rank'+(i==0?" me":"")+'"><div>'+r[1]+'</div>'+r[0]+'<br>Lv '+r[2]+'+'+(i==0?'<br><span style="color:var(--grn)">YOU</span>':"")+'</div>'}).join("")+'</div>'+
