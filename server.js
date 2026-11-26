@@ -94,7 +94,7 @@ app.delete('/api/admin/users/:id',requireAdmin,async(req,res)=>{const id=String(
 
 app.get('/tonconnect-manifest.json',(req,res)=>{
  const base=process.env.BASE_URL||(req.headers['x-forwarded-proto']||'https')+'://'+req.headers.host;
- res.set('Access-Control-Allow-Origin','*').json({url:base,name:'Raj Miner',iconUrl:base+'/icon.png'});
+ res.set('Access-Control-Allow-Origin','*').json({url:base,name:'Raj Miner',iconUrl:base+'/icon.jpg'});
 });
 app.use(express.static(path.join(__dirname,'public')));
 app.get('/api/health',(req,res)=>res.json({ok:true,database:!!pool}));
