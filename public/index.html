@@ -1058,6 +1058,148 @@ h2{font-family:Inter,system-ui,sans-serif!important;font-size:26px!important;fon
 #mine:before{display:none!important}#shaft{background:transparent!important}
 @media (max-width:380px){h2{font-size:23px!important}.pad{padding:13px!important}.big{font-size:26px!important}}
 
+
+/* FINAL RAJ MINER ADVANCED UI — preserve Raj logo and all existing app logic */
+:root{
+ --ui-bg:#050b14;--ui-bg2:#081522;--ui-panel:#0c1b2a;--ui-panel2:#10263a;
+ --ui-line:#4bc9ff22;--ui-line2:#7fe3ff44;--ui-text:#f4fbff;--ui-muted:#8ea8bd;
+ --ui-cyan:#37c9ff;--ui-cyan2:#6ce7ff;--ui-green:#54e0b6;--ui-blue:#2388ff;
+}
+html,body,#app{background:var(--ui-bg)!important;color:var(--ui-text)!important}
+#app{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important}
+#top{
+ background:linear-gradient(180deg,#0b1d30f5,#071421f5)!important;
+ border:0!important;border-bottom:1px solid var(--ui-line)!important;
+ border-radius:0 0 22px 22px!important;box-shadow:0 14px 36px #0009!important;
+ backdrop-filter:blur(20px)!important
+}
+#view{
+ background:
+ radial-gradient(circle at 50% -10%,#103b59 0,transparent 38%),
+ linear-gradient(180deg,#071522 0%,#050b14 100%)!important;
+}
+#view .pad,#view .pad0{padding:15px!important}
+#view h1,#view h2,#view h3{font-family:Inter,system-ui,sans-serif!important;color:#f4fbff!important;text-shadow:none!important}
+#view h2{font-size:25px!important;font-weight:900!important;letter-spacing:-.035em!important}
+#view h3{font-size:18px!important;font-weight:850!important}
+#view .card,#view .ck,#view .tk,#view .vault,#view .invite,#view .crew,#view .tap-session,#view .ban,#view .nx{
+ background:linear-gradient(145deg,#10273a,#091724)!important;
+ border:1px solid #68d8ff1f!important;border-radius:19px!important;
+ box-shadow:0 12px 32px #0006!important;
+}
+#view .card{padding:15px!important}
+#view .lbl,#view small{color:var(--ui-muted)!important}
+#view .pill,#view .pill2,#view .streak{
+ background:#0d2a3d!important;border:1px solid #52d6ff33!important;
+ color:#a9eaff!important;border-radius:999px!important
+}
+#view button:not(#nav button),#top .btn,.btn,.mini,.cyan,.tap-collect,#ci{
+ appearance:none!important;
+ background:linear-gradient(135deg,#55ddff,#168fe0)!important;
+ color:#03131e!important;border:1px solid #9aeaff99!important;
+ border-radius:13px!important;box-shadow:0 4px 0 #075b87,0 8px 20px #0006!important;
+ font-weight:900!important;
+}
+#view button:not(#nav button):active,#top .btn:active,.btn:active,.mini:active,.cyan:active,.tap-collect:active{transform:translateY(2px)!important;box-shadow:0 2px 0 #075b87!important}
+#view input,#view select,#view textarea{
+ background:#06111c!important;color:#f3fbff!important;border:1px solid #4b91b855!important;border-radius:12px!important
+}
+#nav{
+ background:rgba(5,13,23,.94)!important;border-top:1px solid #63d9ff24!important;
+ border-radius:22px 22px 0 0!important;backdrop-filter:blur(22px)!important;
+ box-shadow:0 -14px 34px #0009!important
+}
+#nav button{color:#718da6!important;font-weight:800!important}
+#nav button.on{color:#dff9ff!important;background:#39caff0e!important}
+#nav button.on span{color:#67e3ff!important;filter:drop-shadow(0 0 9px #36cfff88)!important}
+#nav button span{background:transparent!important;border:0!important;box-shadow:none!important}
+.tap-home{
+ min-height:100%!important;padding:13px 15px 18px!important;gap:10px!important;
+ background:
+ radial-gradient(circle at 50% 35%,#123d5b 0,transparent 35%),
+ linear-gradient(180deg,#071724 0%,#050b14 100%)!important
+}
+.tap-brandline{
+ padding:4px 2px 7px!important;border-bottom:1px solid #ffffff0b!important
+}
+.tap-brandline img{
+ width:40px!important;height:40px!important;border-radius:50%!important;
+ border:1px solid #72ddff55!important;background:#081522!important;
+ box-shadow:0 0 0 4px #39caff0b,0 6px 18px #0008!important
+}
+.tap-brandline b{color:#effaff!important;font-size:13px!important;letter-spacing:.14em!important}
+.tap-brandline small{color:#7895ae!important}
+.tap-live{background:#073226!important;border:1px solid #4be1b255!important;color:#67efc5!important}
+.tap-balance{
+ width:100%!important;padding:9px 10px 3px!important;text-align:center!important
+}
+.tap-balance small{color:#7896ae!important;letter-spacing:.2em!important}
+.tap-balance strong{font-size:clamp(32px,9vw,45px)!important;font-weight:950!important;color:#fff!important}
+.tap-balance strong em{color:#65e4bd!important}
+.tap-balance>span{color:#829db6!important}
+.tap-stage{
+ height:min(44vh,325px)!important;min-height:200px!important;
+ background:radial-gradient(circle at 50% 52%,#39caff14 0,transparent 58%)!important;
+}
+.tap-stage:before,.tap-stage:after{content:none!important;display:none!important}
+.tap-coin{
+ width:min(49vw,196px)!important;height:min(49vw,196px)!important;
+ border:0!important;background:transparent!important;
+ filter:drop-shadow(0 18px 30px #000c) drop-shadow(0 0 28px #4bd9ff28)!important
+}
+.tap-coin img{border:0!important;background:transparent!important;filter:none!important}
+.tap-hint{
+ bottom:1px!important;color:#7ea0b9!important;letter-spacing:.28em!important;font-size:8px!important
+}
+.ton-float{
+ position:absolute;z-index:3;left:calc(50% + min(34vw,132px));top:47%;
+ width:54px;height:54px;border-radius:17px;display:flex;flex-direction:column;
+ align-items:center;justify-content:center;gap:0;background:linear-gradient(145deg,#0c2b43,#081522);
+ border:1px solid #4ccfff77;box-shadow:0 7px 22px #0009,0 0 24px #1ca9ef33;
+ transform:translateY(-50%);animation:tonFloat 2.8s ease-in-out infinite;pointer-events:none
+}
+.ton-float svg{width:31px;height:31px;display:block;filter:drop-shadow(0 0 8px #36bfff66)}
+.ton-float b{font-size:8px;line-height:9px;letter-spacing:.16em;color:#9de8ff;font-weight:950}
+@keyframes tonFloat{0%,100%{transform:translateY(-50%)}50%{transform:translateY(calc(-50% - 7px))}}
+.tap-session{
+ padding:14px!important;border-radius:19px!important;
+ background:linear-gradient(145deg,#10283c,#091724)!important;
+ border:1px solid #55d7ff2b!important
+}
+.tap-session-head>b{color:#f2fbff!important}
+.tap-session-head small{color:#66e4c0!important}
+.tap-progress{height:8px!important;background:#020913!important;border:1px solid #ffffff0b!important}
+.tap-progress i{background:linear-gradient(90deg,#2bd6b0,#32c9ff,#7c9dff)!important}
+.tap-collect{
+ background:linear-gradient(110deg,#5ce4c0,#28bce8)!important;color:#03151d!important;
+ box-shadow:0 4px 0 #096d76!important
+}
+#splash{
+ background:radial-gradient(circle at 50% 45%,#123b59 0,#06101b 68%,#03070d 100%)!important
+}
+#splash .splash-logo{
+ width:150px!important;height:150px!important;max-width:58vw!important;max-height:58vw!important;
+ border:0!important;background:transparent!important;box-shadow:0 0 42px #3ecaff2b!important
+}
+#splash .gold-layer,#splash h1,#splash p,#splash small{display:none!important}
+#feed{background:#062a2aee!important;border:1px solid #45dfb277!important;color:#9bf5d9!important}
+#lvl{background:#081b2aee!important;border:1px solid #54d8ff44!important}
+#toast{background:#0b2032ee!important;border:1px solid #56d8ff44!important;color:#e9faff!important}
+#view .ban{background:linear-gradient(145deg,#0f3047,#081622)!important;border:1px solid #55d7ff22!important}
+#view .chips2 span{background:#0b1d2b!important;border:1px solid #4fd2ff22!important;color:#9fc2d8!important}
+#view .chips2 span.on{background:linear-gradient(135deg,#45d9ff,#178fd6)!important;color:#03131d!important}
+#view .dt{background:linear-gradient(145deg,#0d2638,#091724)!important;border:1px solid #4ed5ff22!important}
+#view .dt.done{border-color:#49dfb055!important;background:linear-gradient(145deg,#0d3b35,#091f20)!important}
+#view .tic{background:linear-gradient(145deg,#103247,#0a1c2a)!important;border:1px solid #5ed7ff33!important}
+#view .avatar{background:linear-gradient(145deg,#36caff,#176bba)!important;border:2px solid #8be9ff!important}
+#view .stats b{color:#f5fbff!important}
+@media(max-width:360px){
+ .tap-home{padding-left:11px!important;padding-right:11px!important}
+ .tap-stage{min-height:170px!important}
+ .ton-float{left:calc(50% + 32vw);width:47px;height:47px;border-radius:15px}
+ .ton-float svg{width:27px;height:27px}
+}
+@media(prefers-reduced-motion:reduce){.ton-float{animation:none!important}}
 </style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap"><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://cdn.jsdelivr.net/npm/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"></script><script>
 /* Clear stale origin caches and unregister obsolete service workers. */
 (function(){
@@ -1448,7 +1590,7 @@ function mine2(){
  V.innerHTML='<main class="tap-home">'+
  '<section class="tap-brandline"><img src="/icon.jpg" alt="Raj coin"><div><b>RAJ MINER</b><small>THE RAJ ECOSYSTEM</small></div><span class="tap-live"><i></i> LIVE</span><button class="sol-wallet-float" id="sol-wallet-btn" type="button" aria-label="Connect Solana wallet" title="Connect Solana wallet"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.25A2.25 2.25 0 0 1 6.25 5H20v3H6.25A2.25 2.25 0 0 0 4 10.25v6.5A2.25 2.25 0 0 0 6.25 19H20v-9H6.25A2.25 2.25 0 0 1 4 7.75Z" fill="currentColor"/><path d="M4 10h15.5A2.5 2.5 0 0 1 22 12.5v4A2.5 2.5 0 0 1 19.5 19H6.5A2.5 2.5 0 0 1 4 16.5Z" fill="currentColor"/><path d="M16 13h6v3h-6a1.5 1.5 0 0 1 0-3Z" fill="#0b1525"/><circle cx="17.5" cy="14.5" r=".7" fill="currentColor"/></svg><span></span></button></section>'+
  '<section class="tap-balance"><small>YOUR $RAJ BALANCE</small><strong>'+Math.floor(Number(S.bal)||0).toLocaleString('en-IN')+' <em>$RAJ</em></strong><span>≈ $'+((Number(S.bal)||0)*PRICE).toFixed(3)+'</span></section>'+
- '<section class="tap-stage"><button class="tap-coin" id="raj-tap-coin" aria-label="Raj coin"><img src="/icon.jpg" alt="Raj coin"></button><div class="sol-float" aria-label="Solana SOL"><svg viewBox="0 0 128 128" role="img" aria-hidden="true"><defs><linearGradient id="solGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#80f5c4"/><stop offset=".48" stop-color="#54d5b6"/><stop offset="1" stop-color="#9945ff"/></linearGradient></defs><path d="M28 29h75c3 0 4.5 3.5 2.3 5.7L91 49H16c-3 0-4.5-3.5-2.3-5.7l14-14A3.3 3.3 0 0 1 28 29Z" fill="url(#solGrad)"/><path d="M16 56h75l14 14c2.2 2.2.7 5.7-2.3 5.7H28a3.3 3.3 0 0 1-2.3-1L11.7 61.7C9.5 59.5 11 56 14 56Z" fill="url(#solGrad)"/><path d="M28 83h75c3 0 4.5 3.5 2.3 5.7l-14 14H16c-3 0-4.5-3.5-2.3-5.7l14-14A3.3 3.3 0 0 1 28 83Z" fill="url(#solGrad)"/></svg><b>SOL</b></div><small class="tap-hint">RAJ COIN</small></section>'+
+ '<section class="tap-stage"><button class="tap-coin" id="raj-tap-coin" aria-label="Raj coin"><img src="/icon.jpg" alt="Raj coin"></button><div class="ton-float" aria-label="TON coin"><svg viewBox="0 0 128 128" role="img" aria-hidden="true"><circle cx="64" cy="64" r="58" fill="#1598e6"/><path d="M37 28h54c7 0 11 7 7.5 13L67 91c-1.5 2.5-5.5 2.5-7 0L29.5 41C26 35 30 28 37 28Z" fill="#fff"/><path d="M64 31v57M40 32l24 42 24-42" fill="none" stroke="#1598e6" stroke-width="7" stroke-linejoin="round"/></svg><b>TON</b></div><small class="tap-hint">RAJ COIN</small></section>'+
  '<section class="tap-session"><div class="tap-session-head"><span>MINING REWARDS</span><b><span id="session-earned">'+f4(S.shift)+'</span> <small>$RAJ</small></b></div><div class="tap-progress"><i id="session-fill" style="width:'+(S.shift/CAP*100)+'%"></i></div><div class="tap-session-foot"><span id="session-state">'+(S.shift>=CAP?'Session full':'Session in progress')+'</span><span>'+f4(CAP)+' $RAJ</span></div><button class="tap-collect" id="mine-collect" '+(S.shift<0.01?'disabled':'')+'>Collect $RAJ</button></section></main>';
  var coin=$("raj-tap-coin");if(coin)coin.onclick=function(){
   coin.classList.remove("tap-pop");void coin.offsetWidth;coin.classList.add("tap-pop");
