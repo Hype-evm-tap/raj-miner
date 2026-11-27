@@ -1160,6 +1160,176 @@ html,body,#app,#view,#mine,#mine.static-mine,.mine-world,.tap-home{
 #view .ck>.bar i,#view .bar i{background:linear-gradient(90deg,#d9bd7b,#9c7b43)!important;box-shadow:none!important}
 #view [style*="#472044"],#view [style*="#38203d"],#view [style*="#21152e"],#view [style*="#26172f"]{background:#252d35!important;border-color:#87919b!important;box-shadow:none!important}
 #splash .splash-logo{border:0!important;box-shadow:none!important;background:transparent!important}
+
+/* RAJ MINER — COMPLETE V3 VISUAL REBUILD
+   Visual layer only: existing IDs, handlers and wallet/mining logic remain intact. */
+:root{
+ --v3-bg:#070b12;--v3-panel:#0e1622;--v3-panel2:#121e2c;--v3-line:#26384b;
+ --v3-text:#f4f8fc;--v3-muted:#8195aa;--v3-blue:#5ed8ff;--v3-blue2:#238ecb;
+ --v3-green:#55e0b0;--v3-silver:#d9e8f1;
+}
+html,body,#app{background:#070b12!important;color:var(--v3-text)!important;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important}
+#app{max-width:520px;background:linear-gradient(180deg,#0b111b 0%,#070b12 100%)!important}
+#top{
+ background:rgba(10,17,27,.96)!important;border:0!important;border-bottom:1px solid #5ed8ff18!important;
+ border-radius:0 0 22px 22px!important;box-shadow:0 12px 30px #0008!important;backdrop-filter:blur(18px)
+}
+.top-brand img,.mine-brand img,.tap-brandline img{
+ border-radius:13px!important;border:1px solid #5ed8ff55!important;background:#0d1724!important;
+ box-shadow:0 0 0 3px #5ed8ff0b,0 6px 18px #0009!important
+}
+.top-brand b,.mine-brand b,.tap-brandline b{color:#edf8ff!important;letter-spacing:.13em!important}
+.top-brand small,.mine-brand small,.tap-brandline small{color:#71869d!important}
+#top .btn,#view .btn,#view .mini,#view .cyan,#view .tap-collect,#view #ci,#app button:not(#nav button):not(#sol-wallet-btn){
+ background:linear-gradient(145deg,#e9f5fb 0%,#a8c6d4 48%,#6e94a8 100%)!important;
+ color:#08131d!important;border:1px solid #e8f8ff!important;border-radius:13px!important;
+ box-shadow:inset 0 1px 1px #fff,0 3px 0 #3b596a,0 7px 18px #0009!important;
+ text-shadow:none!important;font-weight:850!important
+}
+#top .btn:active,#view .btn:active,#view .mini:active,#view .tap-collect:active,#app button:active{
+ transform:translateY(2px)!important
+}
+#top .bar,#view .bar,.tap-progress,.mine-progress{background:#ffffff0c!important;border:1px solid #ffffff0b!important}
+#top .bar i,#view .bar i,.tap-progress i,.mine-progress i{
+ background:linear-gradient(90deg,#2aa8df,#70e6ff,#59dfb2)!important;border:0!important;box-shadow:0 0 14px #42cfff66!important
+}
+#view{
+ background:radial-gradient(ellipse at 50% 0%,#102236 0%,#080f19 48%,#070b12 100%)!important;
+ overflow-x:hidden!important
+}
+#view .pad,#view .pad0{padding:16px 15px 28px!important}
+#view h2,#view h3{font-family:Inter,system-ui,sans-serif!important;color:#f3f8fc!important;text-shadow:none!important;letter-spacing:-.03em!important}
+#view h2{font-size:27px!important;font-weight:900!important}
+#view h3{font-size:18px!important;font-weight:800!important}
+#view .card,#view .ck,#view .tk,#view .tap-session,#view .tap-balance,#view .mine-session,#view .mine-quick>div,#view .vault,#view .invite,#view .crew,#view .task{
+ background:linear-gradient(145deg,#111d2a,#0c141f)!important;border:1px solid #5f89a622!important;
+ border-radius:19px!important;box-shadow:0 10px 28px #0007,inset 0 1px #ffffff08!important;color:#f1f6fa!important
+}
+#view .lbl,#view small,#view .task small,#view .tm{color:#7f95aa!important}
+#view .pill,#view .pill2,#view .streak{
+ background:#102a3b!important;border:1px solid #58cbe744!important;color:#aee9ff!important;border-radius:999px!important
+}
+#view input,#view select,#view textarea{background:#09121d!important;color:#edf7fc!important;border:1px solid #47718b!important}
+#nav{
+ background:rgba(7,12,19,.98)!important;border-top:1px solid #5ed8ff1e!important;border-radius:22px 22px 0 0!important;
+ box-shadow:0 -12px 30px #0009!important;padding:8px 5px calc(8px + env(safe-area-inset-bottom,0px))!important
+}
+#nav button{color:#71869d!important;font-size:10px!important}
+#nav button span{background:none!important;border:0!important;box-shadow:none!important;transform:none!important}
+#nav button.on{color:#e9f8ff!important;background:#5ed8ff0d!important}
+#nav button.on span{color:#5ed8ff!important;filter:drop-shadow(0 0 9px #5ed8ff77)!important;background:none!important;border:0!important;box-shadow:none!important;transform:none!important}
+#splash{
+ background:radial-gradient(circle at 50% 42%,#15304a 0%,#0a111c 43%,#05080d 100%)!important
+}
+#splash .gold-layer,#splash h1,#splash p,#splash small{display:none!important}
+#splash .splash-mark{width:170px!important;height:170px!important;margin:0!important;background:none!important;border:0!important;box-shadow:none!important}
+#splash .splash-logo{
+ width:132px!important;height:132px!important;object-fit:contain!important;border-radius:50%!important;padding:0!important;
+ background:transparent!important;border:1px solid #8edfff66!important;
+ box-shadow:0 0 0 8px #5ed8ff0b,0 0 45px #5ed8ff44,0 18px 45px #000c!important
+}
+/* Remove every legacy decorative mining object. */
+#ladder,#miner,#pickaxe,#hitSpark,.rock-cluster,.ore-rock,.ore-crystal,.gem,.debris,.mark,#mine .mine-atmosphere,#mine .crystal-found,#nft,#vch{display:none!important}
+#mine{
+ position:absolute!important;inset:0!important;height:100%!important;overflow:hidden!important;
+ background:radial-gradient(ellipse at 50% 45%,#18354c 0%,#0d1c2b 42%,#070d15 100%)!important
+}
+#mine:before,#mwrap:after,#shaft:before,#shaft:after{display:none!important}
+#shaft{display:none!important}
+#mine.static-mine{display:flex!important;align-items:center!important;justify-content:center!important}
+#mine.static-mine:before{display:block!important;content:"";position:absolute;inset:0;background:
+ radial-gradient(circle at 18% 24%,#5ed8ff18 0 1px,transparent 2px),
+ radial-gradient(circle at 77% 30%,#ffffff14 0 1px,transparent 2px),
+ radial-gradient(circle at 61% 72%,#5ed8ff15 0 1px,transparent 2px),
+ linear-gradient(135deg,transparent 0 48%,#ffffff03 49% 50%,transparent 51% 100%)!important}
+.tap-home{
+ min-height:100%!important;padding:14px 16px 22px!important;gap:10px!important;
+ background:radial-gradient(ellipse at 50% 24%,#15334d 0%,#0b1623 48%,#070b12 100%)!important
+}
+.tap-brandline{padding:2px 0 5px!important}
+.tap-brandline img{width:38px!important;height:38px!important;border-radius:12px!important}
+.tap-brandline b{font-size:12px!important}.tap-brandline small{font-size:8px!important}
+.tap-live{background:#082d27!important;border:1px solid #4bd8ad55!important;color:#72e8c5!important}
+.tap-balance{
+ text-align:center!important;padding:14px 10px 12px!important;background:transparent!important;border:0!important;box-shadow:none!important
+}
+.tap-balance small{font-size:9px!important;letter-spacing:.2em!important;color:#7f95aa!important}
+.tap-balance strong{font-size:clamp(34px,9vw,48px)!important;line-height:1!important;color:#f4f8fc!important;margin:7px 0 3px!important}
+.tap-balance strong em{font-size:12px!important;color:#5ed8ff!important}
+.tap-balance>span{font-size:10px!important;color:#71869d!important}
+.tap-stage{
+ height:min(45vh,330px)!important;min-height:220px!important;flex:1 1 auto!important;
+ background:radial-gradient(circle,#5ed8ff0d 0%,transparent 60%)!important
+}
+.tap-stage:before{content:""!important;display:block!important;position:absolute!important;width:220px!important;height:220px!important;border-radius:50%!important;
+ background:radial-gradient(circle,#5ed8ff18 0%,transparent 68%)!important;filter:blur(10px)!important}
+.tap-coin{
+ width:min(48vw,190px)!important;height:min(48vw,190px)!important;filter:drop-shadow(0 18px 30px #000c) drop-shadow(0 0 20px #5ed8ff20)!important
+}
+.tap-coin img{filter:none!important}
+.sol-float,.sol-wallet-float{
+ background:#0b1724!important;border:1px solid #5ed8ff55!important;color:#bdefff!important;box-shadow:0 7px 20px #000a!important
+}
+.tap-session{
+ width:100%!important;padding:14px!important;border-radius:18px!important;background:linear-gradient(145deg,#111f2e,#0b141f)!important
+}
+.tap-session-head>span,.tap-session-foot{color:#7890a7!important}
+.tap-session-head>b{color:#f2f7fb!important}.tap-session-head small{color:#5ed8ff!important}
+.tap-collect{width:100%!important;min-height:50px!important;margin-top:13px!important}
+.tap-hint{color:#6f879f!important;letter-spacing:.2em!important}
+/* Tasks / daily screen */
+#view:has(.ban) .ban{
+ height:142px!important;border-radius:0 0 24px 24px!important;
+ background:radial-gradient(circle at 80% 20%,#5ed8ff18,transparent 34%),linear-gradient(135deg,#12263a,#0b1521)!important;
+ border-bottom:1px solid #5ed8ff2a!important
+}
+#view:has(.ban) .lamp,#view:has(.ban) .note,#view:has(.ban) .stars,#view:has(.ban) .mt,#view:has(.ban) .hut,#view:has(.ban) .rail{display:none!important}
+#view:has(.ban) .jt{left:72px!important;top:30px!important;font:900 25px/1 Inter,sans-serif!important;color:#f2f8fc!important;text-shadow:none!important;-webkit-text-stroke:0!important}
+#view:has(.ban) .bico{left:17px!important;top:24px!important;color:#5ed8ff!important;filter:drop-shadow(0 0 10px #5ed8ff55)!important}
+#view:has(.ban) .bp{left:16px!important;bottom:13px!important}
+#view:has(.ban) .pill2{background:#0b1c2a!important;border:1px solid #5ed8ff33!important;color:#b8eaff!important;font:700 10px system-ui!important}
+#view:has(.ban) .ck,#view:has(.ban) .tk{background:linear-gradient(145deg,#111e2b,#0c141e)!important;border-color:#5ed8ff20!important}
+#view:has(.ban) .cal{background:linear-gradient(145deg,#e9f5fb,#91b8c9)!important;color:#0a1a26!important;box-shadow:0 5px 14px #0006!important}
+#view:has(.ban) .ct{font:800 16px Inter,sans-serif!important;color:#eef8fd!important}
+#view:has(.ban) .streak{background:#0b2826!important;border-color:#4bd8ad44!important;color:#71e5c0!important}
+#view:has(.ban) .dt{background:linear-gradient(145deg,#13283b,#0c1825)!important;border:1px solid #5ed8ff22!important;border-radius:13px!important}
+#view:has(.ban) .dt b{color:#8ba5ba!important}.dt span{color:#eff7fb!important}
+#view:has(.ban) .dt.bonus{background:linear-gradient(145deg,#173b4d,#102536)!important;border-color:#6edcff66!important}
+#view:has(.ban) .dt .ok{background:#167c61!important;border-color:#58dfb488!important}
+#view:has(.ban) .chips2 span{background:#0f2030!important;border:1px solid #5ed8ff22!important;color:#9cb3c6!important}
+#view:has(.ban) .chips2 span.on{background:linear-gradient(145deg,#e9f5fb,#9dbaca)!important;color:#08131d!important;border-color:#effcff!important}
+#view:has(.ban) .tic{background:linear-gradient(145deg,#dfeef4,#7798aa)!important;border:1px solid #d8f6ff!important;color:#09202d!important}
+#view:has(.ban) .tr b{color:#5ed8ff!important}.done{color:#55e0b0!important}
+#view:has(.ban) .nx{background:#091522!important;border:1px solid #5ed8ff25!important}
+#view:has(.ban) .nx b{color:#5ed8ff!important}
+/* Profile / stats */
+.pban{
+ min-height:390px!important;background:radial-gradient(circle at 50% 20%,#17445f 0%,#10263a 32%,#09121d 75%)!important
+}
+.pban .stars,.pban .mt,.pban .hut,.pban .rail{display:none!important}
+.ring{background:linear-gradient(145deg,#e9f7fc,#5ed8ff)!important;box-shadow:0 0 32px #5ed8ff33!important}
+.ring img,.ring span{background:#0c1723!important}
+.lvb{background:#0c1b28!important;color:#bdefff!important;border:1px solid #5ed8ff66!important}
+.pn{font:900 25px Inter,sans-serif!important;text-shadow:none!important;color:#f4f8fc!important}
+.pu{font:600 13px Inter,sans-serif!important;color:#6edcff!important}
+.pr{font:700 12px Inter,sans-serif!important;color:#7f95aa!important}
+.pst{background:#0c1723dd!important;border:1px solid #5ed8ff22!important}
+.pst b{font:800 19px Inter,sans-serif!important;color:#f3f8fc!important}
+.crew{background:linear-gradient(145deg,#122a3d,#0c1723)!important;border:1px solid #5ed8ff22!important}
+.cw2{font:850 21px Inter,sans-serif!important;color:#f2f8fc!important;text-shadow:none!important;-webkit-text-stroke:0!important}
+.dk{background:#10273a!important;border:1px solid #5ed8ff33!important}
+.ir{background:#ffffff08!important;border:1px solid #ffffff12!important;color:#d7e7f0!important}
+.lk{background:#08131e!important;border:1px solid #5ed8ff22!important}
+.cp{background:linear-gradient(145deg,#e9f5fb,#9cb9c7)!important;color:#09131c!important}
+/* Remove all legacy purple/gold/red visual residue */
+[style*="#3a2290"],[style*="#4a33b0"],[style*="#33208a"],[style*="#ff7ac8"],[style*="#ff315f"],[style*="#c084fc"]{filter:none!important}
+#toast{background:#0e1b28!important;border:1px solid #5ed8ff33!important;color:#e9f8ff!important;box-shadow:0 10px 28px #000a!important}
+@media(max-width:380px){
+ #view .pad,#view .pad0{padding:13px 11px 24px!important}
+ .tap-home{padding-left:13px!important;padding-right:13px!important}
+ .tap-stage{min-height:190px!important}
+ #nav button{font-size:9px!important}
+}
 </style>
 </head><body>
 <script>
