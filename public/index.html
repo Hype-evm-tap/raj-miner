@@ -1346,7 +1346,32 @@ html,body{background:#080a12!important;color:#fff!important}
 #view .tic.dark{background:linear-gradient(#5b5d79,#27283d)!important}
 @media(max-width:380px){#view .pad{padding:13px!important}#view h2{font-size:23px!important}#nav button span.vicon{width:40px!important;height:40px!important}#nav button span.vicon span{font-size:25px!important}}
 </style>
-</head><body>
+<style id="raj-ton-3d-clean-coin">
+/* TON floating coin: keep the coin itself, remove its button/tile background */
+#view .ton-float{
+ background:transparent!important;border:0!important;box-shadow:none!important;
+ width:58px!important;height:58px!important;border-radius:0!important;
+ padding:0!important;gap:0!important;filter:none!important;
+}
+#view .ton-float svg{
+ width:54px!important;height:54px!important;
+ filter:drop-shadow(0 2px 0 #08639e) drop-shadow(0 4px 0 #064a7a) drop-shadow(0 7px 5px #0009) drop-shadow(0 0 10px #22b8ff55)!important;
+}
+#view .ton-float b{display:none!important}
+#view .ton-float{animation:tonFloat 2.8s ease-in-out infinite!important}
+#view .tap-stage:before,#view .tap-stage:after{
+ content:none!important;display:none!important;background:none!important;filter:none!important;
+}
+#view .tap-coin,#view .tap-coin img{
+ background:transparent!important;border:0!important;outline:0!important;
+ box-shadow:none!important;filter:none!important;
+}
+#view .tap-coin{border-radius:0!important;overflow:visible!important}
+#view .tap-coin img{
+ border-radius:0!important;object-fit:contain!important;
+}
+#view .tap-stage{background:transparent!important;box-shadow:none!important}
+</style></head><body>
 <script>
 (function(){
  function recover(message){
