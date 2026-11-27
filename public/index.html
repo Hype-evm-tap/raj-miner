@@ -2,9 +2,9 @@
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Raj Miner</title>
-<meta name="theme-color" content="#100f0c"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
-<meta name="description" content="Raj Miner — premium gold coin mining experience">
-<link rel="icon" type="image/jpeg" href="/icon.jpg?v=aurelia-20261127">
+<meta name="theme-color" content="#07111f"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
+<meta name="description" content="Raj Miner — next-generation mining and rewards experience">
+<link rel="icon" type="image/jpeg" href="/icon.jpg?v=raj-ui-20261127-v2">
 <link rel="apple-touch-icon" href="/icon.jpg?v=aurelia-20261127">
 <style>
 :root{--bg:#1b0f45;--card:#2d1a6b;--card2:#3a2285;--ink:#fff;--mut:#e8c878;--gold:#ffc928;--gold2:#ff9d1c;--grn:#3ee08f;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
@@ -1200,6 +1200,71 @@ html,body,#app{background:var(--ui-bg)!important;color:var(--ui-text)!important}
  .ton-float svg{width:27px;height:27px}
 }
 @media(prefers-reduced-motion:reduce){.ton-float{animation:none!important}}
+
+/* RAJ MINER — COMPLETE VISUAL SYSTEM REBUILD */
+:root{color-scheme:dark;--bg:#07111f;--panel:#0d1b2b;--panel2:#10243a;--line:rgba(130,184,220,.15);--ink:#f2f8ff;--muted:#91a8bd;--blue:#229fe5;--cyan:#55d7e9;--green:#39d6ad;--shadow:0 18px 48px rgba(0,0,0,.32)}
+html,body{background:#07111f!important;color:var(--ink)!important;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif!important}
+body{background-image:radial-gradient(ellipse at 50% -12%,rgba(28,126,190,.19),transparent 43%),linear-gradient(180deg,#081524 0%,#060d18 100%)!important}
+#app{background:transparent!important;color:var(--ink)!important}
+#view{background:transparent!important;color:var(--ink)!important}
+#view *{text-shadow:none!important}
+#view h1,#view h2,#view h3,#view h4{color:#f1f7ff!important;letter-spacing:-.035em!important}
+#view p,#view small,.lbl,.muted{color:var(--muted)!important}
+#view .card,#view .ck,#view .tk,#view .vault,#view .ban,#view .nx,#view .crew,#view .pst,#view .lk,#view .dk,#view .invite,#view .dt,#view .tic,#view .level-card,#view .level-overview,#view .top-miner-row,#view .task,#view .tap-session,#view .tap-balance,#view .tap-brandline{
+ background:linear-gradient(155deg,rgba(17,39,60,.96),rgba(9,23,37,.98))!important;
+ border:1px solid var(--line)!important;border-radius:22px!important;box-shadow:var(--shadow)!important;color:var(--ink)!important
+}
+#view button.btn,#view button.mini,#view .cyan,#view .cp,#view .tap-collect,#view button[type=submit]{
+ background:linear-gradient(110deg,#31b9ed,#187fc9)!important;color:#041522!important;border:1px solid rgba(125,225,255,.5)!important;border-radius:14px!important;box-shadow:0 7px 20px rgba(20,147,210,.2)!important;font-weight:850!important
+}
+#view button:disabled{opacity:.45!important;filter:saturate(.5)!important}
+#view input,#view select,#view textarea{background:#081827!important;border:1px solid rgba(119,180,215,.2)!important;border-radius:13px!important;color:#f4faff!important}
+#view .chips2 span,#view .pill,#view .level-status,#view .miners-level-chip{background:#102b40!important;border:1px solid rgba(74,187,226,.2)!important;color:#a8d8ee!important;border-radius:999px!important}
+#nav{position:fixed!important;z-index:80!important;left:12px!important;right:12px!important;bottom:max(10px,env(safe-area-inset-bottom))!important;display:flex!important;align-items:stretch!important;justify-content:space-around!important;gap:4px!important;padding:9px 7px!important;border:1px solid rgba(117,183,220,.18)!important;border-radius:23px!important;background:rgba(7,19,32,.92)!important;backdrop-filter:blur(24px)!important;-webkit-backdrop-filter:blur(24px)!important;box-shadow:0 16px 42px #0009!important}
+#nav button{min-width:0!important;flex:1!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:5px!important;padding:7px 2px!important;border:0!important;border-radius:15px!important;background:transparent!important;color:#7893a9!important;font-size:9px!important;font-weight:750!important;letter-spacing:.025em!important;box-shadow:none!important}
+#nav button .raj-icon{width:22px!important;height:22px!important;display:block!important;stroke:currentColor!important;fill:none!important;stroke-width:1.9!important}
+#nav button.on{background:linear-gradient(145deg,rgba(28,150,211,.22),rgba(18,94,145,.1))!important;color:#64d7f1!important}
+#nav button.on .raj-icon{filter:drop-shadow(0 0 7px rgba(64,198,235,.35))}
+#view{padding-bottom:104px!important}
+.tap-home{min-height:100%!important;padding:18px 16px 112px!important;gap:15px!important;max-width:620px!important;margin:0 auto!important;color:var(--ink)!important}
+.tap-brandline{width:100%!important;min-height:68px!important;padding:11px 14px!important;display:flex!important;align-items:center!important;gap:11px!important}
+.tap-brandline>img{width:43px!important;height:43px!important;border-radius:14px!important;object-fit:cover!important;border:1px solid rgba(104,204,239,.25)!important;box-shadow:0 5px 15px #0006!important}
+.tap-brandline>div b{font-size:14px!important;letter-spacing:.09em!important;color:#f4faff!important}
+.tap-brandline>div small{font-size:9px!important;letter-spacing:.14em!important;color:#799bb5!important}
+.tap-live{margin-left:auto!important;color:#54ddb7!important;font-size:9px!important;letter-spacing:.13em!important}
+.tap-live i{background:#39d6ad!important;box-shadow:0 0 10px #39d6ad!important}
+.tap-balance{padding:20px 14px 17px!important;text-align:center!important;border-radius:24px!important}
+.tap-balance small{color:#83a7c1!important;font-size:10px!important;letter-spacing:.18em!important}
+.tap-balance strong{font-size:clamp(34px,9vw,48px)!important;color:#f5fbff!important;letter-spacing:-.055em!important}
+.tap-balance strong em{color:#54d5e9!important;font-size:13px!important}
+.tap-balance>span{color:#8da8bc!important}
+.tap-stage{height:min(42vh,330px)!important;min-height:220px!important;margin:0!important;overflow:visible!important}
+.tap-coin{width:min(52vw,210px)!important;height:min(52vw,210px)!important;filter:drop-shadow(0 18px 32px rgba(0,0,0,.55)) drop-shadow(0 0 26px rgba(35,167,223,.14))!important}
+.tap-coin img{object-fit:contain!important;border:0!important;background:transparent!important}
+.tap-hint{bottom:0!important;color:#6f91a9!important;letter-spacing:.24em!important;font-size:8px!important}
+.ton-float{left:calc(50% + min(34vw,132px))!important;top:46%!important;width:60px!important;height:60px!important;border-radius:50%!important;padding:5px!important;gap:2px!important;background:linear-gradient(145deg,#159de8,#0874bc)!important;border:2px solid rgba(206,243,255,.78)!important;box-shadow:0 9px 24px #0009,0 0 26px rgba(26,159,230,.3)!important}
+.ton-float svg{width:39px!important;height:39px!important;filter:drop-shadow(0 2px 5px #00528b)!important}
+.ton-float b{font-size:7px!important;line-height:8px!important;letter-spacing:.18em!important;color:white!important}
+.tap-session{width:100%!important;padding:16px!important;border-radius:21px!important}
+.tap-session-head>span{color:#8faec4!important;font-size:10px!important;letter-spacing:.12em!important}
+.tap-session-head>b{color:#f4fbff!important}
+.tap-session-head small{color:#5bd7e8!important}
+.tap-progress{height:8px!important;border-radius:99px!important;background:#06121e!important;overflow:hidden!important}
+.tap-progress i{background:linear-gradient(90deg,#31c5a5,#32b7e8)!important;border-radius:99px!important}
+.tap-session-foot{color:#809bb0!important}
+.tap-collect{width:100%!important;min-height:46px!important;margin-top:12px!important}
+#splash{background:radial-gradient(ellipse at 50% 42%,#123e5a 0,#081827 55%,#050b14 100%)!important}
+#splash .splash-logo{width:144px!important;height:144px!important;max-width:58vw!important;max-height:58vw!important;border:0!important;background:transparent!important;box-shadow:0 0 42px rgba(47,182,232,.18)!important}
+#splash .gold-layer,#splash h1,#splash p,#splash small{display:none!important}
+#feed,#lvl,#toast{background:#0d2538ee!important;border:1px solid rgba(89,202,229,.3)!important;color:#dff8ff!important;border-radius:14px!important}
+#view .ban,#view .dt,#view .tic{border-radius:18px!important}
+#view .dt.done{background:linear-gradient(145deg,#0d382f,#0b211f)!important;border-color:rgba(61,220,169,.28)!important}
+#view .avatar{background:linear-gradient(145deg,#31b9ed,#1269ad)!important;border:2px solid rgba(129,225,255,.7)!important}
+#view .stats b,#view .big,#view .pn,#view .hist em,#view .pr,#view .pu{color:#e9f8ff!important}
+#view .sol-wallet-float,#view #sol-wallet-btn{background:linear-gradient(145deg,#12344d,#0a1c2d)!important;border:1px solid rgba(84,193,232,.32)!important;border-radius:15px!important;box-shadow:0 8px 20px #0006!important;color:#7de0f2!important}
+.raj-icon{display:inline-block;vertical-align:middle;flex:none}
+@media(max-width:380px){.tap-home{padding-left:11px!important;padding-right:11px!important}.tap-stage{min-height:195px!important}.ton-float{width:53px!important;height:53px!important;left:calc(50% + 31vw)!important}.ton-float svg{width:34px!important;height:34px!important}#nav{left:7px!important;right:7px!important;bottom:max(7px,env(safe-area-inset-bottom))!important}}
+@media(prefers-reduced-motion:reduce){.ton-float{animation:none!important}}
 </style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lilita+One&display=swap"><script src="https://telegram.org/js/telegram-web-app.js"></script><script src="https://cdn.jsdelivr.net/npm/@tonconnect/ui@2.0.9/dist/tonconnect-ui.min.js"></script><script>
 /* Clear stale origin caches and unregister obsolete service workers. */
 (function(){
@@ -1542,13 +1607,13 @@ function f4(n){return n.toFixed(4)}
 // so keep this renderer local to prevent startup ReferenceError.
 function ICON(k,z){
  var p={
- tasks:'<rect x="4" y="3" width="16" height="18" rx="3"/><path d="M9 3.5h6M8 9h8M8 13h8M8 17h5"/><path d="m16 16 1.5 1.5L21 14"/>',
- miners:'<path d="M3 15a9 9 0 0 1 18 0v2H3z"/><path d="M12 6V3m-3 3 1-3h4l1 3M2 17h20v3H2z"/><path d="M12 10v2"/>',
- mine:'<path d="m3 19 9-15 9 15"/><path d="M7 13h10M12 4v-2"/><path d="m8 19 2-4m6 4-2-4"/>',
- wallet:'<rect x="3" y="6" width="18" height="15" rx="3"/><path d="M3 10h18M15 14h3"/><path d="M6 6V4h12v2"/>',
- profile:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+ tasks:'<rect x="4" y="3" width="16" height="18" rx="3"/><path d="M8 8h8M8 12h8M8 16h5"/><path d="m15 17 2 2 4-5"/>',
+ miners:'<path d="M3 15a9 9 0 0 1 18 0v2H3z"/><path d="M12 6V3m-3 3 1-3h4l1 3M2 17h20v3H2z"/>',
+ mine:'<circle cx="12" cy="12" r="9"/><path d="m12 6 2 5-2 7-2-7 2-5zM5 12h14"/>',
+ wallet:'<rect x="3" y="5" width="18" height="15" rx="3"/><path d="M3 9h18M15 14h3"/><path d="M7 5V3h10v2"/>',
+ profile:'<circle cx="12" cy="8" r="3.5"/><path d="M4 21a8 8 0 0 1 16 0"/>',
  coin:'<circle cx="12" cy="12" r="9"/><path d="M15.5 8.5c-.7-.8-1.8-1.2-3.3-1.2-1.7 0-2.8.8-2.8 2s1 1.8 2.8 2.2 2.8.8 2.8 2.1-1.2 2.2-3 2.2c-1.4 0-2.6-.5-3.4-1.4M12 5.5v13"/>',
- cal:'<rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M7 3v4m10-4v4M3 10h18M8 14h3m2 0h3"/>',
+ cal:'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4m8-4v4M3 10h18m-11 4h4m-4 3h2"/>',
  stack:'<path d="m12 3 9 5-9 5-9-5 9-5zM3 12l9 5 9-5M3 16l9 5 9-5"/>',
  gem:'<path d="m6 3 12 0 4 7-10 11L2 10 6 3zM2 10h20M6 3l6 18 6-18"/>',
  house:'<path d="m3 11 9-8 9 8v10H3zM9 21v-7h6v7"/>',
@@ -1566,8 +1631,8 @@ function ICON(k,z){
  calendar2:'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M16 3v4M8 3v4M3 10h18M8 14h3m-3 3h7"/>',
  check2:'<circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16.5 9"/>'
  };
- var size=z||28,body=p[k]||'<circle cx="12" cy="12" r="8"/>';
- return '<svg class="aurelia-icon aurelia-icon-'+k+'" aria-hidden="true" viewBox="0 0 24 24" width="'+size+'" height="'+size+'" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round">'+body+'</svg>';
+ var size=z||26,body=p[k]||'<circle cx="12" cy="12" r="8"/>';
+ return '<svg class="raj-icon raj-icon-'+k+'" aria-hidden="true" viewBox="0 0 24 24" width="'+size+'" height="'+size+'" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+body+'</svg>';
 }
 function nav(){$("nav").innerHTML=TABS.map(function(t){return '<button type="button" data-t="'+t[0]+'" class="'+(t[0]==tab?"on":"")+'">'+ICON(t[1])+t[2]+'</button>'}).join("");
  [].forEach.call($("nav").children,function(b){b.onclick=function(e){if(e){e.preventDefault();e.stopPropagation()}tab=b.dataset.t;nav();if(tab==="tasks"){document.getElementById("app").classList.remove("mining");try{tasks2()}catch(err){console.error("Tasks screen failed:",err);V.innerHTML='<div class="pad"><h2>Tasks could not load</h2><p class="lbl">'+esc(err&&err.message?err.message:"Unknown task error")+'</p><button class="btn" id="tasks-retry">Retry</button></div>';var rb=$("tasks-retry");if(rb)rb.onclick=function(){tasks2()};toast("Tasks error: "+(err&&err.message?err.message:"Please retry"))}}else{render()}}})}
